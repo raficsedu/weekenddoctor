@@ -155,4 +155,8 @@ class WdController extends Controller
             $m->to($user['email'], $user['name'])->subject('Your Reminder!');
         });
     }
+	
+	public function raad(){
+		echo 'Raad';
+	}
 }
