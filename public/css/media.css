@@ -1,0 +1,124 @@
+@media only screen and (max-width: 1050px) {
+.specialistArea .appointment a{padding:12px 16px}
+.topFooter p, .topFooter .helpTxt{font-size:20px;}
+.redFooter p, .redFooter a{float:none;width:100%;display:block;}
+.redFooter a{text-align:center;margin:25px 0 0 0;}
+.redFooter a.joinTodyIpad{margin:31px 0 0 0;}
+.bottomFooter .weekEnd h2{float:none;}
+.bottomFooter .weekEnd ul{float:none;display:block;margin:10px 0 0 0;}
+.footerMiddleBox .searchBlock .srch{width:120px;}
+.joinUsBody{padding:70px 20px;}
+.menuBlock ul li a{padding:15px 10px;}
+}
+@media only screen and (max-width: 992px) {
+.specialistArea .appointment a{padding:12px 5px}
+.topFooter p, .topFooter .helpTxt{font-size:16px;}
+.topFooter p img{width:25px;}
+.footerMiddleBox .searchBlock .srch{width:100%;}
+.footerMiddleBox .searchBlock .srchBtn{width:100%;margin:10px 0 0 0;}
+.specialistArea{margin:0 0  30px 0;}
+.signBody .ipnHaf{width:80%;}
+.signBody .signBtn{width:80%;}
+/*.mobSrchBox{display:inline-block;}*/
+.srch{display:none;} 
+.homeBody .title{font-size:25px;}
+.homeBody .subHeading{font-size:18px;}
+.choose, .txtBox, .findBtn{width:100%;}
+.appointmentSec .appointmentArea h1{font-size:16px;}
+.appointmentSec .appointmentArea{padding:0 10px 20px 10px}
+.workBanner .srhDoctBox{margin:20px 0 0 0;}
+.searchBannerBox .srhDoctBox{margin:40px 0 0 0;}
+.bannerLeftPic img{width:70%;}
+.bannerrightPic img{width:70%;float:right;}
+
+}
+@media only screen and (max-width: 800px) {
+.searchBannerBox .srhDoctBox{margin:20px 0 0 0;}
+.JoinNow{padding: 40px 0 0 4px;}
+.workBanner .srhDoctBox{margin:20px 0 0 0;}
+
+}
+@media only screen and (max-width: 768px) {
+.mobMenu{display:inline-block;}
+.navigation{display:none;}
+.workBanner .srhDoctBox h2{font-size:20px;}
+.workBanner .srchDoctorPic{margin:20px 0 0 0;}
+
+}
+@media only screen and (max-width: 767px) {
+.specialistArea .appointment a{padding:12px 35px;}
+.redFooter a.joinTodyIpad{margin:31px 0 31px 0;}
+.redFooter a{margin: 25px 0 31px 0;}
+.footerMiddleBox{margin:20px 0 0 0;}
+.footerMiddleBox{padding:0 15px;}
+.footerMiddleBox .searchBlock{float:none;width:100%;display:block;}
+.signBody .ipnHaf{width:80%;}
+.signBody .signBtn{width:80%;}
+.singBody {border-right:none !important;}
+.countryDoc h1{font-size:25px;}
+.menuIcon img{margin-left:10px;}
+.searchBlock .srchBtn{margin:0 10px 0 0;}
+.breadCrmList{margin:0 0 0 10px;}
+.specialistSec h1{padding:0 0 0 10px}
+.srchDoctor img{float:none;margin:0 auto;}
+.searchBannerBox .srhDoctBox{margin:20px 0 0 0;}
+.commonRow{padding:20px 0 20px 15px}
+.srchPageBody .doctName{margin:15px 0 0 0;}
+.srchPageBody .doctName h5{font-size:20px;}
+.srchPageBody .doctName p{font-size:16px;}
+.workBanner .srchDoctorPic img{margin:0 auto;display:block;text-align:center;float:none;}
+.searchBannerBox .srchDoctorPic img{margin:0 auto;display:block;text-align:center;float:none;}
+
+.bannerLeftPic{float:none;text-align:center;margin:30px 0 30px 0;display:block;}
+.bannerrightPic{float:none;text-align:center;display:block;}
+.bannerLeftPic img{width:70%;margin:0 auto;}
+.bannerrightPic img{width:70%;margin:0 auto;float:none;}
+
+}
+@media only screen and (max-width: 500px){
+.mobftr{width:100%;margin:0 0 20px 0;}
+.signBody .ipnHaf{width:100%;}
+.signBody .signBtn{width:100%;}
+.subListing h3{font-size:20px;}
+.countryDoc h1{font-size:20px;}
+.logoBlock{margin:0 0 0 10px;}
+.providerBtn{display:none;}
+.choose, .txtBox, .findBtn{width:100%;}
+.specialistSec h1{font-size:20px;}
+.appointmentSec .appointmentArea h1{font-size:20px;}
+.appointmentSec .appointmentArea{padding:0 15px 20px 15px}
+
+	
+}
+
+@media only screen and (max-width:350px){
+.mobSrchBox .srch2{width:140px;}
+}
+
+@media screen and (min-width:300px) and (max-width:700px){
+	.singRow .fisrt {width: 100%; float:none; margin:10px 0;}
+	.singRow .last {width: 100%; float:none; margin:10px 0;}
+	
+	
+	
+	.txtBox22 {
+    font-size: 14px; border: 1px solid #b4b4b4;
+    color: #595959;
+    background-color: #fff;
+    padding: 0 10px;
+    border-radius: 5px;
+    height: 40px; margin:10px 0;
+    width: 100%;
+}
+
+.rig-btn {
+    background: #e6e6e6 none repeat scroll 0 0;
+    color: #333333;
+    font-size: 14px;
+    margin: 5px 2px;
+    padding: 8px;
+    text-align: center;
+    width: 60px;
+}
+	
+}
