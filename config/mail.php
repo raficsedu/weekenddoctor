@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'vineet@getyoteam.com', 'name' => 'Evoneur'],
+    'from' => ['address' => 'michael@syntelex.com', 'name' => 'Weekend Doctor'],
 
     /*
     |--------------------------------------------------------------------------

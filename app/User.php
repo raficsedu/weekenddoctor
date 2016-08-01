@@ -44,4 +44,14 @@ class User extends Authenticatable
     public static $rulesForgot = [
         'email' => 'required|email|max:255'
     ];
+
+    //Get Patient Metas
+    public function patient_metas(){
+        return $this->hasMany('App\PatientMeta');
+    }
+
+    //Get Doctor Metas
+    public function doctor_metas(){
+        return $this->hasMany('App\DoctorMeta');
+    }
 }

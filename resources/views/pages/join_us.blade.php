@@ -8,7 +8,7 @@
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 clearfix">
                 <h4 style="color: red;text-align:left">@if(Session::has('message')){{Session::pull('message','default')}}@endif</h4>
                 <div class="singBody">
-                    <form id="signupForm" action="{{url('/join-us')}}" method="post">
+                    <form id="signupForm" action="{{url('/patient-registration')}}" method="post">
                         {{ csrf_field() }}
                         <input type="hidden" name="registration_type" value="1">
                         <div class="singRow">

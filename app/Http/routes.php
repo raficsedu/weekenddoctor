@@ -13,24 +13,39 @@
 
 Route::group(['middleware' => 'web'], function () {
 
+    //Common Route
     Route::auth();
-
     Route::get('/', ['uses' => 'WdController@index', 'as' => 'home']);
     Route::get('/home', ['uses' => 'WdController@index', 'as' => 'home']);
     Route::get('/dashboard', ['uses' => 'WdController@dashboard', 'as' => 'dashboard']);
-    Route::get('/user-login', ['uses' => 'WdController@user_login', 'as' => 'user_login']);
+
+    //Front End Route
     Route::get('/how-it-works', ['uses' => 'WdController@how_it_works', 'as' => 'how_it_works']);
-    Route::get('/join-us', ['uses' => 'WdController@join_us', 'as' => 'join_us']);
-    Route::post('/join-us', ['uses' => 'WdController@registration', 'as' => 'join_us']);
     Route::get('/list-your-practice', ['uses' => 'WdController@list_your_practice', 'as' => 'list_your_practice']);
     Route::get('/medical-group', ['uses' => 'WdController@medical_group', 'as' => 'medical_group']);
     Route::get('/authorization', ['uses' => 'WdController@authorization', 'as' => 'authorization']);
-    Route::get('/doctor-profile', ['uses' => 'WdController@doctor_profile', 'as' => 'doctor_profile']);
-    Route::get('/settings', ['uses' => 'WdController@settings', 'as' => 'settings']);
-    Route::get('/get-started', ['uses' => 'WdController@get_started', 'as' => 'get_started']);
     Route::get('/medical-search', ['uses' => 'WdController@medical_search', 'as' => 'medical_search']);
     Route::get('/book-appointment', ['uses' => 'WdController@book_appointment', 'as' => 'book_appointment']);
-    Route::post('/authenticate', ['uses' => 'WdController@authenticate', 'as' => 'authenticate']);
 
+
+    //Registration Route
+    Route::get('/join-us', ['uses' => 'RegistrationController@join_us', 'as' => 'join_us']);
+    Route::get('/get-started', ['uses' => 'RegistrationController@get_started', 'as' => 'get_started']);
+    Route::post('/patient-registration', ['uses' => 'RegistrationController@patient_registration', 'as' => 'patient_registration']);
+
+
+    //Login Route
+    Route::get('/user-login', ['uses' => 'LoginController@user_login', 'as' => 'user_login']);
+    Route::post('/authenticate', ['uses' => 'LoginController@authenticate', 'as' => 'authenticate']);
+
+    //Patient Route
+    Route::get('/settings', ['uses' => 'PatientController@settings', 'as' => 'settings']);
+
+    //Doctor Route
+    Route::get('/doctor-profile', ['uses' => 'WdController@doctor_profile', 'as' => 'doctor_profile']);
+
+    //Send Email Route
     Route::get('/send-email', ['uses' => 'WdController@send_email', 'as' => 'send_email']);
+
+    //Static Pages Route
 });

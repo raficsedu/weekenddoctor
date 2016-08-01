@@ -168,7 +168,7 @@
             </section>
         </div>
     </section>
-    <p class="copyRight">Copyright © weekenddocs.com 2016</p>
+    <p class="copyRight">Copyright © weekenddocs.com {{date('Y')}}</p>
 </footer>
     <script type="text/javascript" src="{{url('public/js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{url('public/js/bootstrap.min.js')}}"></script>
