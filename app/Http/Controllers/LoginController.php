@@ -32,11 +32,11 @@ class LoginController extends Controller
         $email = $request->email;
         $password = $request->password;
         $remember = $request->remember;
-        if (Auth::attempt(['email' => $email, 'password' => $password],$remember)) {
+        if (Auth::attempt(['email' => $email, 'password' => $password,'active' => 1],$remember)) {
             // Authentication passed...
             return redirect()->intended('/dashboard');
         }else{
-            Session::put('message', 'Your Email or Password is incorrect');
+            Session::put('message', 'Your Email or Password is incorrect Or Verify Your Email');
             return redirect()->intended('/user-login');
         }
     }

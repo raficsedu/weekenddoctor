@@ -1,0 +1,10 @@
+body{
+    border: 20px solid #ccc;
+}
+.email_title{
+    font-weight: bold;
+}
+.email_body{
+    font-size: 17px;
+    padding: 3%;
+}

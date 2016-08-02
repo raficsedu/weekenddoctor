@@ -44,8 +44,10 @@ Route::group(['middleware' => 'web'], function () {
     //Doctor Route
     Route::get('/doctor-profile', ['uses' => 'WdController@doctor_profile', 'as' => 'doctor_profile']);
 
-    //Send Email Route
+    //Email Confirmation
+    Route::get('/confirmation/{user_id}/{code}', ['uses' => 'EmailController@email_verify', 'as' => 'email_verify']);
     Route::get('/send-email', ['uses' => 'WdController@send_email', 'as' => 'send_email']);
 
     //Static Pages Route
+    Route::get('/test', ['uses' => 'WdController@test', 'as' => 'test']);
 });

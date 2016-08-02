@@ -67,17 +67,19 @@ class WdController extends Controller
     }
 
     public function send_email(){
-        $user['email'] = 'noshinnu@gmail.com';
-        $user['name'] = 'Arefin';
+        $data['email'] = 'raficsedu@gmail.com';
+        $data['name'] = 'Md Muntasir Rahman';
+        $data['user_id'] = 11;
+        $data['confirmation_code'] = 'sefigsei';
 
-        Mail::send('email.test', ['user' => $user], function ($m) use ($user) {
+        Mail::send(['html' => 'email.verify'], $data, function ($m) use ($data) {
             $m->from('raficsedu@gmail.com', 'Weekend Doctor');
 
-            $m->to($user['email'], $user['name'])->subject('Your Reminder!');
+            $m->to($data['email'], $data['name'])->subject('Please verify your email');
         });
     }
-	
-	public function raad(){
-		echo 'Raad';
-	}
+
+    public function test(){
+
+    }
 }
