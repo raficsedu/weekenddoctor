@@ -15,13 +15,15 @@
                      <div class="singRow clearfix">
                         <div class="box-in">
                             <label>First Name</label>
-                            <label for="first_name" class="error" class="clearfix"></label>
                             <input id="first_name" name="first_name" type="text" placeholder="First Name" class="txtBox2 month">
+                            </br></br>
+                            <label for="first_name" class="error" id="first_name-error"></label>
                         </div>
                         <div class="box-in">
                           <label>Last Name</label>
-                          <label for="last_name" class="error" class="clearfix"></label>
                           <input id="last_name" name="last_name" type="text" placeholder="Last Name" class="txtBox2 month">
+                           </br></br>
+                          <label for="last_name" class="error" class="clearfix"></label>
                       </div>
                       <div class="box-in">
                         <label>Your Specialty</label>
@@ -30,25 +32,28 @@
                           @foreach($specialties as $specialty)
                           <option value="{{$specialty->name}}">{{$specialty->name}}</option>
                           @endforeach
-                          
+                        
                       </select>
                   </div>
                   <div class="box-in1">
-                    <label>Your DirectPhone Number</label>
-                    <label for="phone" class="error" class="clearfix"></label>
+                    <label>Your Direct Phone Number</label>
                     <input id="phone" name="phone" type="text" placeholder="Your Direct Phone Number" class="txtBox2 month">
+                     </br></br>
+                    <label for="phone" class="error" class="clearfix"></label>
                 </div>
                 <div class="box-in1">
                     <label>Zip Code</label>
-                    <label for="zip" class="error" class="clearfix"></label>
                     <input id="zip" name="zip" type="text" placeholder="Zip Code" class="txtBox2 month">
+                     </br></br>
+                    <label for="zip" class="error" class="clearfix"></label>
                 </div>
                 <br>
                 <br>
                 <div class="box-in1">
                     <label>Your Email</label>
-                    <label for="email" id="confirm_email-error" class="error" class="clearfix"></label>
                     <input id="email" name="email" type="text" placeholder="Your Email" class="txtBox2 month">
+                     </br></br>
+                    <label for="email" id="confirm_email-error" class="error" class="clearfix"></label>
                 </div>
                 <br>
                 <br>

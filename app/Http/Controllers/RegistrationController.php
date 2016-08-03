@@ -67,6 +67,8 @@ class RegistrationController extends Controller
 
             //Sending Confirmation Email
             $data['email'] = $email;
+            $data['password'] = null;
+            $data['user_level'] = $user_level;
             $data['name'] = $first_name.' '.$last_name;
             $data['user_id'] = $user_id;
             $data['confirmation_code'] = $confirmation_code;
@@ -99,7 +101,7 @@ class RegistrationController extends Controller
             $email = $request->input('email');
             $first_name = $request->input('first_name');
             $last_name = $request->input('last_name');
-
+            $password = str_random(8);
             $fontEndKey =[  
                             "Specialty",
                             "Phone",
@@ -115,7 +117,7 @@ class RegistrationController extends Controller
                 ['first_name' => $first_name,
                 'last_name' => $last_name,
                 'email' => $email,
-                
+                'password' => \Hash::make($password),
                 'remember_token' => $request->input('_token'),
                 'verification_code' => $confirmation_code,
                 'active' => 0,
@@ -135,10 +137,12 @@ class RegistrationController extends Controller
            $data['name'] = $first_name.' '.$last_name;
            $data['user_id'] = $user_id;
            $data['confirmation_code'] = $confirmation_code;
+           $data['password'] = $password;
+           $data['user_level'] = $user_level;
+           
 
            Mail::send(['html' => 'email.verify'], $data, function ($m) use ($data) {
             $m->from('raficsedu@gmail.com', 'Weekend Doctor');
-
             $m->to($data['email'], $data['name'])->subject('Please verify your email');
         });
 

@@ -24,7 +24,7 @@ class EmailController extends Controller
     public function email_verify(Request $request){
         $user_id = $request->user_id;
         $confirmation_code = $request->confirmation_code;
-
+        $user_level =$request->user_level;
         $verify_user = User::where('id', '=',$user_id)
                         ->where('verification_code','=', $confirmation_code)
                         ->where('active','=', 0)
@@ -38,8 +38,15 @@ class EmailController extends Controller
             Session::put('message', 'Congratulation !!! Your account verified successfully , Login to continue');
             return redirect()->route('user_login');
         }else{
-            Session::put('message', 'Create a new account to get started');
+            if ($user_level == 1) {
+                Session::put('message', 'Create a new account to get started');
             return redirect()->route('join_us');
+            } else {
+                Session::put('message', 'Create a new account to get started');
+            return redirect()->route('get_started');
+            }
+            
+            
         }
     }
 }
