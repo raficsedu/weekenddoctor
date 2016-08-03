@@ -93,7 +93,7 @@
                 email: {
                     required: true,
                     email: true
-                },
+                }
             },
             messages: {
                 first_name: "Please provide your first name",

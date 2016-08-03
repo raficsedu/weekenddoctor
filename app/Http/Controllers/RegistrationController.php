@@ -93,7 +93,7 @@ class RegistrationController extends Controller
             if($existing_user > 0)
             {
                 Session::put('message', 'Account already exists');
-                return Redirect('/join-us');
+                return Redirect('/get-started');
             }
 
             $confirmation_code = str_random(10);
