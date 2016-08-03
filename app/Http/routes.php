@@ -32,6 +32,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/join-us', ['uses' => 'RegistrationController@join_us', 'as' => 'join_us']);
     Route::get('/get-started', ['uses' => 'RegistrationController@get_started', 'as' => 'get_started']);
     Route::post('/patient-registration', ['uses' => 'RegistrationController@patient_registration', 'as' => 'patient_registration']);
+    Route::post('/doctor-registration', ['uses' => 'RegistrationController@doctor_registration', 'as' => 'doctor_registration']);
 
 
     //Login Route
