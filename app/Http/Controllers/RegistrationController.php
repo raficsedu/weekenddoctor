@@ -30,7 +30,7 @@ class RegistrationController extends Controller
 
     public function get_started()
     {
-        $specialty = Specialtiy::Select('name')->get();
+        $specialty = Specialtiy::Select('id','name')->get();
        //dd($specialty);
         return view('pages.get_started',['specialties' =>$specialty ]);
     }

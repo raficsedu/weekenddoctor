@@ -30,7 +30,7 @@
                         <label for="specialty" class="error"  class="clearfix"></label>
                         <select id="specialty" name="specialty" class="countryCode txtBox2" type="text">
                           @foreach($specialties as $specialty)
-                          <option value="{{$specialty->name}}">{{$specialty->name}}</option>
+                          <option value="{{$specialty->id}}">{{$specialty->name}}</option>
                           @endforeach
                         
                       </select>
