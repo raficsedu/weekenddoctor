@@ -80,4 +80,8 @@ class RegistrationController extends Controller
         }
         return view('pages.join_us');
     }
+
+    public function doctor_registration(Request $request){
+        
+    }
 }
