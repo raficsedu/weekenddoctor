@@ -41,7 +41,7 @@ class LoginController extends Controller
                 return redirect()->intended('/dashboard');
             }
         }else{
-            Session::put('message', 'Your Email or Password is incorrect Or Verify Your Email');
+            Session::put('unsuccessful', 'Your Email or Password is incorrect Or Verify Your Email');
             return redirect()->intended('/user-login');
         }
     }
