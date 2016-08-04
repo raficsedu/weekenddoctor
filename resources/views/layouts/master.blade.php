@@ -29,7 +29,24 @@
                             </form>
                         </div>
                     </li>
-                    <li class="lock"><a href="#"><img src="{{url('public/images/lock.png')}}" alt=""/> join</a></li>
+
+                    @if(Auth::check())
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome Mr Patient &nbsp; <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Medical Team</a></li>
+                                <li><a href="#">Past Appointments</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li><a href="{{ url('/logout') }}" style="color:#e04848 !important;">Logout</a></li>
+                            </ul>
+                        </div>
+                    @else
+                        <li class="lock"><a href="{{url('/user-login')}}"><img src="{{url('public/images/lock.png')}}" alt=""/>Sign in/ Join</a></li>
+                    @endif
+
                     <li><a href="#"><img src="{{url('public/images/fb.png')}}" alt=""/></a></li>
                     <li><a href="#"><img src="{{url('public/images/in.png')}}" alt=""/></a></li>
                     <li><a href="#"><img src="{{url('public/images/gp.png')}}" alt=""/></a></li>
@@ -41,7 +58,7 @@
     <div class="headerMiddle clearfix">
         <div class="container">
             <section class="row"><a href="{{url('')}}" class="logoBlock"><img src="{{url('public/images/logo.png')}}" alt=""/></a>
-                <a href="">
+                <a href="{{url('/list-your-practice')}}">
                     <button class="providerBtn" style="background: rgb(33, 118, 166) none repeat scroll 0% 0%; border-radius: 3px;">List Your Practice</button>
                 </a>
             </section>

@@ -10,7 +10,7 @@
 
                     <p>From attracting new patients to reducing no-shows, Weekend Docs helps you be the best doctor you
                         can be.</p>
-                    <a href="#">List Your Practice</a>
+                    <a href="{{url('/get-started')}}">Get Started</a>
 
                 </div>
 
@@ -148,8 +148,7 @@
                                 </aside>
                             </div>
                         </article>
-                        <a href="#" style="background:#D75353 !important; padding:10px 20px !important;">List Your
-                            Practice </a>
+                        <a style="background:#D75353 !important; padding:10px 20px !important;" href="{{url('/get-started')}}">Get Started</a>
                     </div>
 
 
