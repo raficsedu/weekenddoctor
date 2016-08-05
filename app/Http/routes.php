@@ -41,6 +41,9 @@ Route::group(['middleware' => 'web'], function () {
 
     //Patient Route
     Route::get('/settings', ['uses' => 'PatientController@settings', 'as' => 'settings']);
+    Route::post('/patient-profile', ['uses' => 'PatientController@patientProfile', 'as' => 'patient_profile']);
+    Route::post('/password-change', ['uses' => 'PatientController@passwordChange', 'as' => 'password_change']);
+     Route::post('/nottification-settings', ['uses' => 'PatientController@nottificationSettings', 'as' => 'nottification_settings']);
 
     //Doctor Route
     Route::get('/doctor-profile', ['uses' => 'WdController@doctor_profile', 'as' => 'doctor_profile']);

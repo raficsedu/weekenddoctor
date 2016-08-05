@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PatientMeta extends Model
+class Insurances extends Model
 {   
+	protected $table="insurances";
     public function user(){
-    	return $this->belongsTo("App\User"); 
+        return $this->belongsTo("App\User"); 
     }
     public $timestamps = false;
 }
