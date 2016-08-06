@@ -31,7 +31,7 @@ class EmailController extends Controller
             ->where('active','=', 1)
             ->count();
 
-        if ($is_already_confirmed>0){
+        if ($is_already_confirmed > 0){
             Session::put('unsuccessful', 'You Have Already Confirmed Your Email , Please Login to Continue');
             return redirect()->route('user_login');
         }

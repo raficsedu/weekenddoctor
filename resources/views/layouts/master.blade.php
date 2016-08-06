@@ -34,7 +34,7 @@
 
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Welcome Mr Patient &nbsp; <span class="caret"></span>
+                        Welcome {{Auth::user()->first_name}} &nbsp; <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Medical Team</a></li>
