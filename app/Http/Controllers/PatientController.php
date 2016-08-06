@@ -82,7 +82,7 @@ class PatientController extends Controller {
        }
    }
    $insurances = Insurances::Select('id','name')->get();
-        return view('pages.settings',['insurances' =>$insurances ]);
+   return view('pages.settings',['insurances' =>$insurances ]);
 }
 public function passwordChange(Request $request){
 
@@ -150,6 +150,97 @@ public function nottificationSettings(Request $request){
       }
   }
   $insurances = Insurances::Select('id','name')->get();
-        return view('pages.settings',['insurances' =>$insurances ]);
+  return view('pages.settings',['insurances' =>$insurances ]);
+}
+public function insuranceSettings(Request $request){
+
+    if ($request->isMethod('post')) {
+
+        $currentUser = Auth::user();
+        $user_id = $currentUser->id;
+        $fontEndKey =[  
+        "Medical Insurance",
+        "Dental Insurance",
+        "Vision Insurance"
+        ];
+        $fontEndValue =[
+        $request->input('medical_insurance'),
+        $request->input('dental_insurance'),
+        $request->input('vision_insurance')
+        ];
+        for ($i=0; $i <sizeof($fontEndKey) ; $i++) { 
+            $existing_user_info = PatientMeta::where('user_id', $user_id)->where('meta_key',$fontEndKey[$i])->first();
+            if (is_null($existing_user_info)) {
+              $patient_info = new PatientMeta;
+              $patient_info->user_id =$user_id;
+              $patient_info->meta_key =$fontEndKey[$i];
+              $patient_info->meta_value =$fontEndValue[$i];
+              $patient_info->save();
+          } else {
+              $existing_user_info->user_id =$user_id;
+              $existing_user_info->meta_key =$fontEndKey[$i];
+              $existing_user_info->meta_value =$fontEndValue[$i];
+              $existing_user_info->save();
+          }
+      }
+  }
+  $insurances = Insurances::Select('id','name')->get();
+  return view('pages.settings',['insurances' =>$insurances ]);
+}
+public function demographicSettings(Request $request){
+  //  dd($request->all());
+
+ if ($request->isMethod('post')) {
+
+    $currentUser = Auth::user();
+    $user_id = $currentUser->id;
+    $fontEndKey =[  
+    "American Indian or Alaska Native",
+    "Asian",
+    "Black or African American",
+    "Native Hawaiian",
+    "Other Pacific Islander",
+    "White",
+    "Other",
+    "Decline to Answer",
+    "Hispanic or Latino ",
+    "Not Hispanic or Latino",
+    "Decline to Answer",
+    "preferred Language",
+    "zip Optional"
+    ];
+    $fontEndValue =[
+    $request->input('american_indian_or_alaska_native'),
+    $request->input('asian'),
+    $request->input('black_or_african_american'),
+    $request->input('native_hawaiian'),
+    $request->input('other_pacific_islander'),
+    $request->input('white'),
+    $request->input('other'),
+    $request->input('decline_to_answer'),
+    $request->input('hispanic_or_latino'),
+    $request->input('not_hispanic_or_latino'),
+    $request->input('decline_to_answe'),
+    $request->input('preferred_language'),
+    $request->input('zip_optional'),
+    ];
+    for ($i=0; $i <sizeof($fontEndKey) ; $i++) { 
+        $existing_user_info = PatientMeta::where('user_id', $user_id)->where('meta_key',$fontEndKey[$i])->first();
+        if (is_null($existing_user_info)) {
+          $patient_info = new PatientMeta;
+          $patient_info->user_id =$user_id;
+          $patient_info->meta_key =$fontEndKey[$i];
+          $patient_info->meta_value =$fontEndValue[$i];
+          $patient_info->save();
+      } else {
+          $existing_user_info->user_id =$user_id;
+          $existing_user_info->meta_key =$fontEndKey[$i];
+          $existing_user_info->meta_value =$fontEndValue[$i];
+          $existing_user_info->save();
+      }
+  }
+}
+$insurances = Insurances::Select('id','name')->get();
+return view('pages.settings',['insurances' =>$insurances ]);
 }
 }

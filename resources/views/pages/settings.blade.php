@@ -24,8 +24,8 @@
                             <div class="tab-content col-md-12">
                                 <div class="tab-pane active" id="a">
                                     <form id="profile" action="{{url('/patient-profile')}}" method="post">
-                                     {{ csrf_field() }}
-                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
+                                       {{ csrf_field() }}
+                                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                         <div class="singBody">
 
                                             <div class="singRow1">
@@ -76,13 +76,13 @@
                                                     </div>
                                                     <div class="row" style="padding-left:15px;">
                                                         <div class="col-md-3 fdiv" align="left">
-                                                         <input  name="birth_year" type="number" min="1900" max="{{date('Y')}}" placeholder="1989" class="txtBox tBox">
-                                                         <label id="birth_year" for="birth_year" class="error"></label> 
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                             <div class="line1"></div>
-                                             <div class="singRow">
+                                                           <input  name="birth_year" type="number" min="1900" max="{{date('Y')}}" placeholder="1989" class="txtBox tBox">
+                                                           <label id="birth_year" for="birth_year" class="error"></label> 
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                               <div class="line1"></div>
+                                               <div class="singRow">
                                                 <button class="signBtn" type="submit" style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</button>
                                                 <a class="signBtn" href="#"
                                                 style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a> 
@@ -95,8 +95,8 @@
                             </div>
                             <div class="tab-pane" id="b">
                                 <form id="pass_change" action="{{url('/password-change')}}" method="post">
-                                 {{ csrf_field() }}
-                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
+                                   {{ csrf_field() }}
+                                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                     <div class="singBody">
                                         <div class="singRow">
                                             <label>Enter your current password </label>
@@ -121,8 +121,8 @@
                         </div>
                         <div class="tab-pane" id="c">
                             <form id="nottification_settings" action="{{url('/nottification-settings')}}" method="post">
-                             {{ csrf_field() }}
-                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
+                               {{ csrf_field() }}
+                               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                 <div class="singRow">
                                     <label><strong>Emails</strong></label>
                                     <br>
@@ -156,100 +156,115 @@
                         </form>
                     </div>
                     <div class="tab-pane" id="d">
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
-                            <div class="singBody">
-                                <div class="singRow">
-                                    <label>Medical Insurance </label>
-                                    <select placeholder="Country code" class="countryCode txtBox1" type="text">
-                                        @foreach($insurances as $insu)
-                                        <option value="{{$insu->id}}">{{$insu->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="line1"></div>
-                                <div class="singRow">
-                                    <label>Dental Insurance</label>
-                                    <select placeholder="Country code" class="countryCode txtBox1" type="text">
-                                        <option>Select</option>
-                                    </select>
-                                </div>
-                                <div class="line1"></div>
-                                <div class="singRow">
-                                    <label>Vision Insurance</label>
-                                    <select placeholder="Country code" class="countryCode txtBox1" type="text">
-                                        <option>Select</option>
-                                    </select>
-                                </div>
-                                <div class="line1"></div>
-                                <div class="singRow"><a class="signBtn" href="#"
-                                    style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</a>
-                                    <a class="signBtn" href="#"
-                                    style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a>
+                        <form id="insurance_settings" action="{{url('/insurance-settings')}}" method="post">
+                            {{ csrf_field() }}
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
+                                <div class="singBody">
+                                    <div class="singRow">
+                                        <label>Medical Insurance </label>
+                                        <select name="medical_insurance" placeholder="Country code" class="countryCode txtBox1" type="text">
+                                            @foreach($insurances as $insu)
+                                            <option value="{{$insu->id}}">{{$insu->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="line1"></div>
+                                    <div class="singRow">
+                                        <label>Dental Insurance</label>
+                                        <select name="dental_insurance" placeholder="Country code" class="countryCode txtBox1" type="text">
+                                            <option>Select</option>
+                                        </select>
+                                    </div>
+                                    <div class="line1"></div>
+                                    <div class="singRow">
+                                        <label>Vision Insurance</label>
+                                        <select name="vision_insurance" placeholder="Country code" class="countryCode txtBox1" type="text">
+                                            <option>Select</option>
+                                        </select>
+                                    </div>
+                                    <div class="line1"></div>
+                                    <div class="singRow"><button class="signBtn" type="submit" style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</button>
+                                        <a class="signBtn" href="#"
+                                        style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a> 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="tab-pane" id="e">
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
-                            <div class="singRow">
-                                <label><strong>Race Select one or more</strong></label>
-                                <br>
-                                <input type="checkbox" class="chk">
-                                American Indian or Alaska Native<br>
-                                <br>
-                                <input type="checkbox" class="chk">
-                                Asian<br>
-                                <br>
-                                <input type="checkbox" class="chk">
-                                Black or African American<br>
-                                <br>
-                                <input type="checkbox" class="chk">
-                                Native Hawaiian<br>
-                                <br>
-                                <input type="checkbox" class="chk">
-                                Other Pacific Islander<br>
-                                <br>
-                                <input type="checkbox" class="chk">
-                                White<br>
-                                <br>
-                                <input type="checkbox" class="chk">
-                                Other<br>
-                                <br>
-                                <input type="checkbox" class="chk">
-                                Decline to Answer<br>
-                                <br>
-                            </div>
-                            <div class="line1"></div>
-                            <div class="singRow">
-                                <label><strong>Ethnicity</strong></label>
-                                <br>
-                                <input type="radio" class="chk">
-                                Hispanic or Latino <br>
-                                <br>
-                                <input type="radio" class="chk">
-                                Not Hispanic or Latino<br>
-                                <br>
-                                <input type="radio" class="chk">
-                                Decline to Answer<br>
-                                <br>
-                            </div>
-                            <div class="line1"></div>
-                            <div class="singRow">
-                                <label>Preferred Language</label>
-                                <select placeholder="Country code" class="countryCode txtBox1" type="text">
-                                    <option>English</option>
-                                </select>
-                            </div>
-                            <div class="line1"></div>
-                            <div class="singRow">
-                                <label>Zip (Optional) </label>
-                                <input type="text" class="pwd txtBox" placeholder="">
-                            </div>
-                            <div class="singRow"><a class="signBtn" href="#"
-                                style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</a>
-                                <a class="signBtn" href="#"
-                                style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a></div>
-                            </div>
+                        <form id="insurance_settings" action="{{url('/demographic-settings')}}" method="post">
+                            {{ csrf_field() }}
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
+                                <div class="singRow">
+                                    <label><strong>Race Select one or more</strong></label>
+                                    <br>
+                                    <input id="american_indian_or_alaska_native" type="checkbox" class="chk">
+                                    <input value="false" type="hidden" name="american_indian_or_alaska_native" class="american_indian_or_alaska_native">
+                                    American Indian or Alaska Native<br>
+                                    <br>
+                                    <input id="asian" type="checkbox" class="chk">
+                                    <input value="false" type="hidden" name="asian" class="asian">
+                                    Asian<br>
+                                    <br>
+                                    <input id="black_or_african_american" type="checkbox" class="chk">
+                                    <input value="false" type="hidden" name="black_or_african_american" class="black_or_african_american">
+                                    Black or African American<br>
+                                    <br>
+                                    <input id="native_hawaiian" type="checkbox" class="chk">
+                                    <input value="false" type="hidden" name="native_hawaiian" class="native_hawaiian">
+                                    Native Hawaiian<br>
+                                    <br>
+                                    <input id="other_pacific_islander" type="checkbox" class="chk">
+                                    <input value="false" type="hidden" name="other_pacific_islander" class="other_pacific_islander">
+                                    Other Pacific Islander<br>
+                                    <br>
+                                    <input id="white" type="checkbox" class="chk">
+                                    <input value="false" type="hidden" name="white" class="white">
+                                    White<br>
+                                    <br>
+                                    <input id="other" type="checkbox" class="chk">
+                                    <input value="false" type="hidden" name="other" class="other">
+                                    Other<br>
+                                    <br>
+                                    <input id="decline_to_answer" type="checkbox" class="chk">
+                                    <input value="false" type="hidden" name="decline_to_answer" class="decline_to_answer">
+                                    Decline to Answer<br>
+                                    <br>
+                                </div>
+                                <div class="line1"></div>
+                                <div class="singRow">
+                                    <label><strong>Ethnicity</strong></label>
+                                    <br>
+                                    <input id="hispanic_or_latino" type="radio" class="chk">
+                                    <input value="false" type="hidden" name="hispanic_or_latino" class="hispanic_or_latino">
+                                    Hispanic or Latino <br>
+                                    <br>
+                                    <input id="not_hispanic_or_latino" type="radio" class="chk">
+                                    <input value="false" type="hidden" name="not_hispanic_or_latino" class="not_hispanic_or_latino">
+                                    Not Hispanic or Latino<br>
+                                    <br>
+                                    <input id="decline_to_answe" type="radio" class="chk">
+                                    <input value="false" type="hidden" name="decline_to_answe" class="decline_to_answe">
+                                    Decline to Answer<br>
+                                    <br>
+                                </div>
+                                <div class="line1"></div>
+                                <div class="singRow">
+                                    <label>Preferred Language</label>
+                                    <select name="preferred_language"  placeholder="Country code" class="countryCode txtBox1" type="text">
+                                        <option>English</option>
+                                    </select>
+                                </div>
+                                <div class="line1"></div>
+                                <div class="singRow">
+                                    <label>Zip (Optional) </label>
+                                    <input name="zip_optional" type="text" class="pwd txtBox" placeholder="">
+                                </div>
+                                <div class="singRow"><button class="signBtn" type="submit" style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</button>
+                                    <a class="signBtn" href="#"
+                                    style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a> 
+                                </div>
+                            </form>
                         </div>
                         <div class="tab-pane" id="f">
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
@@ -336,32 +351,111 @@
     });
 
     $("#wellness_reminders").on("click",function(){
-     if($('#wellness_reminders').prop('checked')) {
-       $('.wellness_reminders').val("true");
-   } else {
-       $('.wellness_reminders').val("false");
-   }
-})
+       if($('#wellness_reminders').prop('checked')) {
+         $('.wellness_reminders').val("true");
+     } else {
+         $('.wellness_reminders').val("false");
+     }
+ })
     $("#appointment_reminders").on("click",function(){
-     if($('#appointment_reminders').prop('checked')) {
-       $('.appointment_reminders').val("true");
-   } else {
-       $('.appointment_reminders').val("false");
-   }
-})
+       if($('#appointment_reminders').prop('checked')) {
+         $('.appointment_reminders').val("true");
+     } else {
+         $('.appointment_reminders').val("false");
+     }
+ })
     $("#is_rescheduled_or_cancelled").on("click",function(){
-     if($('#is_rescheduled_or_cancelled').prop('checked')) {
-       $('.is_rescheduled_or_cancelled').val("true");
-   } else {
-       $('.is_rescheduled_or_cancelled').val("false");
-   }
-})
+       if($('#is_rescheduled_or_cancelled').prop('checked')) {
+         $('.is_rescheduled_or_cancelled').val("true");
+     } else {
+         $('.is_rescheduled_or_cancelled').val("false");
+     }
+ })
     $("#notify_wellness_reminders").on("click",function(){
-     if($('#notify_wellness_reminders').prop('checked')) {
-       $('.notify_wellness_reminders').val("true");
-   } else {
-       $('.notify_wellness_reminders').val("false");
-   }
-})
+       if($('#notify_wellness_reminders').prop('checked')) {
+         $('.notify_wellness_reminders').val("true");
+     } else {
+         $('.notify_wellness_reminders').val("false");
+     }
+ })
+
+    ////////////////////////////////////////////////
+    $("#american_indian_or_alaska_native").on("click",function(){
+       if($('#american_indian_or_alaska_native').prop('checked')) {
+         $('.american_indian_or_alaska_native').val("true");
+     } else {
+         $('.american_indian_or_alaska_native').val("false");
+     }
+ })
+    $("#asian").on("click",function(){
+       if($('#asian').prop('checked')) {
+         $('.asian').val("true");
+     } else {
+         $('.asian').val("false");
+     }
+ })
+    $("#black_or_african_american").on("click",function(){
+       if($('#black_or_african_american').prop('checked')) {
+         $('.black_or_african_american').val("true");
+     } else {
+         $('.black_or_african_american').val("false");
+     }
+ })
+    $("#native_hawaiian").on("click",function(){
+       if($('#native_hawaiian').prop('checked')) {
+         $('.native_hawaiian').val("true");
+     } else {
+         $('.native_hawaiian').val("false");
+     }
+ })
+    $("#other_pacific_islander").on("click",function(){
+       if($('#other_pacific_islander').prop('checked')) {
+         $('.other_pacific_islander').val("true");
+     } else {
+         $('.other_pacific_islander').val("false");
+     }
+ })
+    $("#white").on("click",function(){
+       if($('#white').prop('checked')) {
+         $('.white').val("true");
+     } else {
+         $('.white').val("false");
+     }
+ })
+    $("#other").on("click",function(){
+       if($('#other').prop('checked')) {
+         $('.other').val("true");
+     } else {
+         $('.other').val("false");
+     }
+ })
+    $("#decline_to_answer").on("click",function(){
+       if($('#decline_to_answer').prop('checked')) {
+         $('.decline_to_answer').val("true");
+     } else {
+         $('.decline_to_answer').val("false");
+     }
+ })
+    $("#hispanic_or_latino").on("click",function(){
+       if($('#hispanic_or_latino').prop('checked')) {
+         $('.hispanic_or_latino').val("true");
+     } else {
+         $('.hispanic_or_latino').val("false");
+     }
+ })
+    $("#not_hispanic_or_latino").on("click",function(){
+       if($('#not_hispanic_or_latino').prop('checked')) {
+         $('.not_hispanic_or_latino').val("true");
+     } else {
+         $('.not_hispanic_or_latino').val("false");
+     }
+ })
+    $("#decline_to_answe").on("click",function(){
+       if($('#decline_to_answe').prop('checked')) {
+         $('.decline_to_answe').val("true");
+     } else {
+         $('.decline_to_answe').val("false");
+     }
+ })
 </script>
 @endsection
