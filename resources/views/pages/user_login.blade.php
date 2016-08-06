@@ -6,7 +6,25 @@
         <section class="row">
             <h1>Sing In</h1>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 clearfix">
-                <h4 style="color: red;text-align:left">@if(Session::has('message')){{Session::pull('message','default')}}@endif</h4>
+                <div class="row">
+                    @if(Session::has('successful'))
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                <p>
+                                    <strong>{{Session::pull('successful','default')}}</strong>
+                                </p>
+                            </div>
+                        </div>
+                    @elseif(Session::has('unsuccessful'))
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">
+                                <p>
+                                    <strong>{{Session::pull('unsuccessful','default')}}</strong>
+                                </p>
+                            </div>
+                        </div>
+                    @endif
+                </div>
                 <div class="singBody clearfix" style="border-right:1px solid #c3c3c3;">
                     <form id="logInForm" role="form" method="POST" action="{{ url('/authenticate') }}">
                         {{ csrf_field() }}

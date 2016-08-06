@@ -24,7 +24,18 @@ class EmailController extends Controller
     public function email_verify(Request $request){
         $user_id = $request->user_id;
         $confirmation_code = $request->confirmation_code;
-        $user_level =$request->user_level;
+        $user_level = $request->user_level;
+
+        $is_already_confirmed = User::where('id', '=',$user_id)
+            ->where('verification_code','=', $confirmation_code)
+            ->where('active','=', 1)
+            ->count();
+
+        if ($is_already_confirmed>0){
+            Session::put('unsuccessful', 'You Have Already Confirmed Your Email , Please Login to Continue');
+            return redirect()->route('user_login');
+        }
+
         $verify_user = User::where('id', '=',$user_id)
                         ->where('verification_code','=', $confirmation_code)
                         ->where('active','=', 0)
@@ -35,18 +46,17 @@ class EmailController extends Controller
                 ->where('id', $user_id)
                 ->update(['active' => 1]);
 
-            Session::put('message', 'Congratulation !!! Your account verified successfully , Login to continue');
+            Session::put('successful', 'Congratulation !!! Your account verified successfully , Login to continue');
             return redirect()->route('user_login');
         }else{
             if ($user_level == 1) {
-                Session::put('message', 'Create a new account to get started');
-            return redirect()->route('join_us');
+                Session::put('unsuccessful', 'Create a new account to get started');
+                return redirect()->route('join_us');
             } else {
-                Session::put('message', 'Create a new account to get started');
-            return redirect()->route('get_started');
+                Session::put('unsuccessful', 'Create a new account to get started');
+                return redirect()->route('get_started');
             }
-            
-            
+
         }
     }
 }

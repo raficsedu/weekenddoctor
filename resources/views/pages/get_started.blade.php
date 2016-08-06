@@ -7,7 +7,25 @@
             <h1>Get Started with WeekendDocs</h1>
             <div class="line1"></div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" style="padding:0px;">
-                <h4 style="color: red;text-align:left">@if(Session::has('message')){{Session::pull('message','default')}}@endif</h4>
+                <div class="row">
+                    @if(Session::has('successful'))
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                <p>
+                                    <strong>{{Session::pull('successful','default')}}</strong>
+                                </p>
+                            </div>
+                        </div>
+                    @elseif(Session::has('unsuccessful'))
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">
+                                <p>
+                                    <strong>{{Session::pull('unsuccessful','default')}}</strong>
+                                </p>
+                            </div>
+                        </div>
+                    @endif
+                </div>
                 <div class="singBody">
                     <form id="signupForm" action="{{url('/doctor-registration')}}" method="post">
                      {{ csrf_field() }}

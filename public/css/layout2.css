@@ -582,7 +582,7 @@ ul.breadCrmList li a.breadCrmActive {
     color: #333;
     font-size: 15px;
     height: 50px;
-    padding: 3px 6px 0 15px;
+    padding: 0px 0px 0 0px;
     position: relative;
     width: 100%;
 }
@@ -610,6 +610,10 @@ ul.breadCrmList li a.breadCrmActive {
 .singRow .month {
     width: 25%;
     float: left;
+}
+.singRow .date {
+    width: 75%;
+    float: right;
 }
 
 .singRow .day {
