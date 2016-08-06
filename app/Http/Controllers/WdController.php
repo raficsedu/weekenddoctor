@@ -80,6 +80,7 @@ class WdController extends Controller
     }
 
     public function test(){
-
+        $info = get_system_info();
+        print_r($info);
     }
 }
