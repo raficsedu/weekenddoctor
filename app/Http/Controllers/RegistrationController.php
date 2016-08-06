@@ -30,9 +30,9 @@ class RegistrationController extends Controller
 
     public function get_started()
     {
-        $specialty = Specialtiy::Select('id','name')->get();
-       //dd($specialty);
-        return view('pages.get_started',['specialties' =>$specialty ]);
+        $specialty = Specialtiy::Select('id', 'name')->get();
+        //dd($specialty);
+        return view('pages.get_started', ['specialties' => $specialty]);
     }
 
     public function patient_registration(Request $request)
@@ -40,9 +40,8 @@ class RegistrationController extends Controller
         if ($request->isMethod('post')) {
 
             $existing_user = User::where('email', $request->email)->count();
-            if($existing_user > 0)
-            {
-                Session::put('message', 'Account already exists');
+            if ($existing_user > 0) {
+                Session::put('unsuccessful', 'Account already exists');
                 return Redirect('/join-us');
             }
 
@@ -55,44 +54,46 @@ class RegistrationController extends Controller
 
             $user_id = DB::table('users')->insertGetId(
                 ['first_name' => $first_name,
-                'last_name' => $last_name,
-                'email' => $email,
-                'password' => \Hash::make($password),
-                'remember_token' => $request->input('_token'),
-                'verification_code' => $confirmation_code,
-                'active' => 0,
-                'user_level' => $user_level,
-                'created_at' => date('Y-m-d H:i:s'),]
-                );
+                    'last_name' => $last_name,
+                    'email' => $email,
+                    'password' => \Hash::make($password),
+                    'remember_token' => $request->input('_token'),
+                    'verification_code' => $confirmation_code,
+                    'active' => 0,
+                    'user_level' => $user_level,
+                    'created_at' => date('Y-m-d H:i:s'),]
+            );
 
             //Sending Confirmation Email
             $data['email'] = $email;
             $data['password'] = null;
             $data['user_level'] = $user_level;
-            $data['name'] = $first_name.' '.$last_name;
+            $data['name'] = $first_name . ' ' . $last_name;
             $data['user_id'] = $user_id;
             $data['confirmation_code'] = $confirmation_code;
 
+            $data['s_info'] = get_system_info();
+
             Mail::send(['html' => 'email.verify'], $data, function ($m) use ($data) {
-                $m->from('raficsedu@gmail.com', 'Weekend Doctor');
+                $m->from($data['s_info']['email'], $data['s_info']['name']);
 
                 $m->to($data['email'], $data['name'])->subject('Please verify your email');
             });
 
-            Session::put('message', 'Thanks for signing up! Please check your email and verify');
+            Session::put('successful', 'Thanks for signing up! Please check your email and verify');
             return redirect()->route('join_us');
 
         }
         return view('pages.join_us');
     }
+
     public function doctor_registration(Request $request)
     {
         if ($request->isMethod('post')) {
 
             $existing_user = User::where('email', $request->email)->count();
-            if($existing_user > 0)
-            {
-                Session::put('message', 'Account already exists');
+            if ($existing_user > 0) {
+                Session::put('unsuccessful', 'Account already exists');
                 return Redirect('/get-started');
             }
 
@@ -102,56 +103,57 @@ class RegistrationController extends Controller
             $first_name = $request->input('first_name');
             $last_name = $request->input('last_name');
             $password = str_random(8);
-            $fontEndKey =[  
-                            "Specialty",
-                            "Phone",
-                            "Zip"
-                        ];
-            $fontEndValue =[
-                            $request->input('specialty'),
-                            $request->input('phone'),
-                            $request->input('zip')
-                            ];
+            $fontEndKey = [
+                "Specialty",
+                "Phone",
+                "Zip"
+            ];
+            $fontEndValue = [
+                $request->input('specialty'),
+                $request->input('phone'),
+                $request->input('zip')
+            ];
 
             $user_id = DB::table('users')->insertGetId(
                 ['first_name' => $first_name,
-                'last_name' => $last_name,
-                'email' => $email,
-                'password' => \Hash::make($password),
-                'remember_token' => $request->input('_token'),
-                'verification_code' => $confirmation_code,
-                'active' => 0,
-                'user_level' => $user_level,
-                'created_at' => date('Y-m-d H:i:s'),]
+                    'last_name' => $last_name,
+                    'email' => $email,
+                    'password' => \Hash::make($password),
+                    'remember_token' => $request->input('_token'),
+                    'verification_code' => $confirmation_code,
+                    'active' => 0,
+                    'user_level' => $user_level,
+                    'created_at' => date('Y-m-d H:i:s'),]
+            );
+
+            for ($i = 0; $i < sizeof($fontEndKey); $i++) {
+                DB::table('doctor_metas')->insertGetId(
+                    ['user_id' => $user_id,
+                        'meta_key' => $fontEndKey[$i],
+                        'meta_value' => $fontEndValue[$i],]
                 );
-           
-            for ($i=0; $i < sizeof($fontEndKey); $i++) { 
-               DB::table('doctor_metas')->insertGetId(
-                ['user_id' => $user_id,
-                'meta_key' => $fontEndKey[$i],
-                'meta_value' => $fontEndValue[$i],]
-                );
-           }
-          //Sending Confirmation Email
-           $data['email'] = $email;
-           $data['name'] = $first_name.' '.$last_name;
-           $data['user_id'] = $user_id;
-           $data['confirmation_code'] = $confirmation_code;
-           $data['password'] = $password;
-           $data['user_level'] = $user_level;
-           
+            }
+            //Sending Confirmation Email
+            $data['email'] = $email;
+            $data['name'] = $first_name . ' ' . $last_name;
+            $data['user_id'] = $user_id;
+            $data['confirmation_code'] = $confirmation_code;
+            $data['password'] = $password;
+            $data['user_level'] = $user_level;
 
-           Mail::send(['html' => 'email.verify'], $data, function ($m) use ($data) {
-            $m->from('raficsedu@gmail.com', 'Weekend Doctor');
-            $m->to($data['email'], $data['name'])->subject('Please verify your email');
-        });
+            $data['s_info'] = get_system_info();
 
-           Session::put('message', 'Thanks for signing up! Please check your email and verify');
-           return redirect()->route('get_started');
+            Mail::send(['html' => 'email.verify'], $data, function ($m) use ($data) {
+                $m->from($data['s_info']['email'], $data['s_info']['name']);
+                $m->to($data['email'], $data['name'])->subject('Please verify your email');
+            });
 
-       }
-       return view('pages.get_started');
+            Session::put('successful', 'Thanks for signing up! Please check your email and verify');
+            return redirect()->route('get_started');
+
+        }
+        return view('pages.get_started');
 
 
-   }
+    }
 }
