@@ -268,7 +268,6 @@ class PatientController extends Controller
             $user_acc->save();
             //Sending Confirmation Email
             $data['email'] = $user_acc->email;
-            $data['password'] = null;
             $data['user_level'] =  $user_acc->user_level;
             $data['name'] =  $user_acc->first_name . ' ' .  $user_acc->last_name;
             $data['user_id'] = $user_id;
@@ -276,7 +275,7 @@ class PatientController extends Controller
 
             $data['s_info'] = get_system_info();
 
-            Mail::send(['html' => 'email.verify'], $data, function ($m) use ($data) {
+            Mail::send(['html' => 'email.deactive'], $data, function ($m) use ($data) {
                 $m->from($data['s_info']['email'], $data['s_info']['name']);
 
                 $m->to($data['email'], $data['name'])->subject('Please verify your email');

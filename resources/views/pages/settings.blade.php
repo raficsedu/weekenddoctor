@@ -198,10 +198,8 @@
                                 <div class="singRow ">
                                     <label><strong>Race Select one or more</strong></label>
                                     <br>
-                                    <div class="clip-check check-purple">
-                                        <label for="american_indian_or_alaska_native">American Indian or Alaska Native</label>
+                                        
                                         <input name="american_indian_or_alaska_native" id="american_indian_or_alaska_native" type="checkbox" >
-                                    </div>
                                     <input value="false" type="hidden" name="american_indian_or_alaska_native" class="american_indian_or_alaska_native">
                                     American Indian or Alaska Native<br>
                                     <br>
@@ -294,7 +292,7 @@
 </div>
 </section>
 @endsection
-<style type="text/css">
+<style type="text/css" href="styles.css">
     .tBox {
         width: 100% !important;
     }
@@ -302,7 +300,8 @@
         padding-left: 0px !important;
         padding-right: 0px !important;
     }
-    .clip-check {
+
+    /*.clip-check {
       margin-bottom: 10px;
       margin-top: 10px;
       padding-left: 0;
@@ -418,7 +417,7 @@
 
   .clip-check.check-purple input[type="checkbox"]:checked + label:before {
       border-color: #804C75;
-  }
+  }*/
 </style>
 @section('footer_custom_script')
 <script>
