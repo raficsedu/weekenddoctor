@@ -46,6 +46,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/nottification-settings', ['uses' => 'PatientController@nottificationSettings', 'as' => 'nottification_settings']);
     Route::post('/demographic-settings', ['uses' => 'PatientController@demographicSettings', 'as' => 'demographic_settings']);
     Route::post('/insurance-settings', ['uses' => 'PatientController@insuranceSettings', 'as' => 'insurance_settings']);
+    Route::get('/deactive-account', ['uses' => 'PatientController@deactiveAccount', 'as' => 'deactive_account']);
 
     //Doctor Route
     Route::get('/doctor-profile', ['uses' => 'WdController@doctor_profile', 'as' => 'doctor_profile']);

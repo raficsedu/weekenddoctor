@@ -24,8 +24,8 @@
                             <div class="tab-content col-md-12">
                                 <div class="tab-pane active" id="a">
                                     <form id="profile" action="{{url('/patient-profile')}}" method="post">
-                                       {{ csrf_field() }}
-                                       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
+                                     {{ csrf_field() }}
+                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                         <div class="singBody">
 
                                             <div class="singRow1">
@@ -76,17 +76,17 @@
                                                     </div>
                                                     <div class="row" style="padding-left:15px;">
                                                         <div class="col-md-3 fdiv" align="left">
-                                                           <input  name="birth_year" type="number" min="1900" max="{{date('Y')}}" placeholder="1989" class="txtBox tBox">
-                                                           <label id="birth_year" for="birth_year" class="error"></label> 
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="line1"></div>
-                                               <div class="singRow">
+                                                         <input  name="birth_year" type="number" min="1900" max="{{date('Y')}}" placeholder="1989" class="txtBox tBox">
+                                                         <label id="birth_year" for="birth_year" class="error"></label> 
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             <div class="line1"></div>
+                                             <div class="singRow">
                                                 <button class="signBtn" type="submit" style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</button>
                                                 <a class="signBtn" href="#"
                                                 style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a> 
-                                                <a class="signBtn" href="#"
+                                                <a class="signBtn" href="deactive-account"
                                                 style="background:none; color:#D75353; float:right; font-size:16px;">Dactivate Account</a>
                                             </div>
                                         </div>
@@ -95,8 +95,8 @@
                             </div>
                             <div class="tab-pane" id="b">
                                 <form id="pass_change" action="{{url('/password-change')}}" method="post">
-                                   {{ csrf_field() }}
-                                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
+                                 {{ csrf_field() }}
+                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                     <div class="singBody">
                                         <div class="singRow">
                                             <label>Enter your current password </label>
@@ -121,8 +121,8 @@
                         </div>
                         <div class="tab-pane" id="c">
                             <form id="nottification_settings" action="{{url('/nottification-settings')}}" method="post">
-                               {{ csrf_field() }}
-                               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
+                             {{ csrf_field() }}
+                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                 <div class="singRow">
                                     <label><strong>Emails</strong></label>
                                     <br>
@@ -195,10 +195,13 @@
                         <form id="insurance_settings" action="{{url('/demographic-settings')}}" method="post">
                             {{ csrf_field() }}
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
-                                <div class="singRow">
+                                <div class="singRow ">
                                     <label><strong>Race Select one or more</strong></label>
                                     <br>
-                                    <input id="american_indian_or_alaska_native" type="checkbox" class="chk">
+                                    <div class="clip-check check-purple">
+                                        <label for="american_indian_or_alaska_native">American Indian or Alaska Native</label>
+                                        <input name="american_indian_or_alaska_native" id="american_indian_or_alaska_native" type="checkbox" >
+                                    </div>
                                     <input value="false" type="hidden" name="american_indian_or_alaska_native" class="american_indian_or_alaska_native">
                                     American Indian or Alaska Native<br>
                                     <br>
@@ -264,28 +267,29 @@
                                     <a class="signBtn" href="#"
                                     style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a> 
                                 </div>
-                            </form>
-                        </div>
-                        <div class="tab-pane" id="f">
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
-                                <div class="singRow">
-                                    <label><strong>HIPAA Authorization Settings</strong></label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="f">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
+                            <div class="singRow">
+                                <label><strong>HIPAA Authorization Settings</strong></label>
 
-                                    <p>Ankit Sethiya (Me) – Authorized <a href="#" style="color:#C00; float:right;">Revoke</a></p>
-                                </div>
-                                <div class="singRow"><a class="signBtn" href="#"
-                                    style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</a>
-                                </div>
+                                <p>Ankit Sethiya (Me) – Authorized <a href="#" style="color:#C00; float:right;">Revoke</a></p>
+                            </div>
+                            <div class="singRow"><a class="signBtn" href="#"
+                                style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /tabs -->
             </div>
+            <!-- /tabs -->
         </div>
-        <!-- /row -->
     </div>
-    <hr>
+    <!-- /row -->
+</div>
+<hr>
 </section>
 </div>
 </section>
@@ -298,6 +302,123 @@
         padding-left: 0px !important;
         padding-right: 0px !important;
     }
+    .clip-check {
+      margin-bottom: 10px;
+      margin-top: 10px;
+      padding-left: 0;
+  }
+  .clip-check label {
+      cursor: pointer;
+      display: inline-block;
+      font-size: 13px;
+      margin-right: 15px;
+      padding-left: 30px !important;
+      position: relative;
+      line-height: 23px;
+      transition: border 0.2s linear 0s, color 0.2s linear 0s;
+      white-space: nowrap;
+  }
+  .clip-check label:before {
+      background-color: #ffffff;
+      border: 1px solid #c8c7cc;
+      content: "";
+      display: inline-block;
+      height: 20px;
+      left: 0;
+      margin-right: 10px;
+      position: absolute;
+      width: 20px;
+      border-radius: 0;
+      top: 1px;
+      transition: border 0.2s linear 0s, color 0.2s linear 0s;
+  }
+  .clip-check label:after {
+      display: inline-block;
+      font-size: 11px;
+      height: 19px;
+      left: 4px;
+      position: absolute;
+      top: -1px;
+      transition: border 0.2s linear 0s, color 0.2s linear 0s;
+      width: 19px;
+  }
+  .clip-check input[type="checkbox"] {
+      display: none;
+  }
+  .clip-check input[type="checkbox"]:checked + label:before {
+      border-width: 10px;
+  }
+  .clip-check input[type="checkbox"]:checked + label:after {
+      color: #fff;
+      content: "\f00c";
+      font-family: "FontAwesome";
+  }
+  .clip-check input[type="checkbox"][disabled] + label {
+      opacity: 0.65;
+  }
+  .clip-check input[type="checkbox"][disabled] + label:before {
+      background-color: #F8F8F8;
+  }
+  .clip-check.check-md label {
+      margin-right: 15px;
+      padding-left: 35px !important;
+      line-height: 28px;
+  }
+  .clip-check.check-md label:before {
+      height: 25px;
+      width: 25px;
+  }
+  .clip-check.check-md label:after {
+      font-size: 14px;
+      height: 24px;
+      left: 5px;
+      width: 24px;
+  }
+  .clip-check.check-md input[type="checkbox"]:checked + label:before {
+      border-width: 12px;
+  }
+  .clip-check.check-lg label {
+      margin-right: 15px;
+      padding-left: 40px !important;
+      line-height: 33px;
+  }
+  .clip-check.check-lg label:before {
+      height: 30px;
+      width: 30px;
+  }
+  .clip-check.check-lg label:after {
+      font-size: 17px;
+      height: 29px;
+      left: 6px;
+      width: 29px;
+  }
+  .clip-check.check-lg input[type="checkbox"]:checked + label:before {
+      border-width: 15px;
+  }
+
+  .clip-check.check-success input[type="checkbox"]:checked + label:before {
+      border-color: #5cb85c;
+  }
+
+  .clip-check.check-primary input[type="checkbox"]:checked + label:before {
+      border-color: #007AFF;
+  }
+
+  .clip-check.check-warning input[type="checkbox"]:checked + label:before {
+      border-color: #eea236;
+  }
+
+  .clip-check.check-danger input[type="checkbox"]:checked + label:before {
+      border-color: #d43f3a;
+  }
+
+  .clip-check.check-info input[type="checkbox"]:checked + label:before {
+      border-color: #46b8da;
+  }
+
+  .clip-check.check-purple input[type="checkbox"]:checked + label:before {
+      border-color: #804C75;
+  }
 </style>
 @section('footer_custom_script')
 <script>
@@ -351,111 +472,111 @@
     });
 
     $("#wellness_reminders").on("click",function(){
-       if($('#wellness_reminders').prop('checked')) {
-         $('.wellness_reminders').val("true");
-     } else {
-         $('.wellness_reminders').val("false");
-     }
- })
+     if($('#wellness_reminders').prop('checked')) {
+       $('.wellness_reminders').val("true");
+   } else {
+       $('.wellness_reminders').val("false");
+   }
+})
     $("#appointment_reminders").on("click",function(){
-       if($('#appointment_reminders').prop('checked')) {
-         $('.appointment_reminders').val("true");
-     } else {
-         $('.appointment_reminders').val("false");
-     }
- })
+     if($('#appointment_reminders').prop('checked')) {
+       $('.appointment_reminders').val("true");
+   } else {
+       $('.appointment_reminders').val("false");
+   }
+})
     $("#is_rescheduled_or_cancelled").on("click",function(){
-       if($('#is_rescheduled_or_cancelled').prop('checked')) {
-         $('.is_rescheduled_or_cancelled').val("true");
-     } else {
-         $('.is_rescheduled_or_cancelled').val("false");
-     }
- })
+     if($('#is_rescheduled_or_cancelled').prop('checked')) {
+       $('.is_rescheduled_or_cancelled').val("true");
+   } else {
+       $('.is_rescheduled_or_cancelled').val("false");
+   }
+})
     $("#notify_wellness_reminders").on("click",function(){
-       if($('#notify_wellness_reminders').prop('checked')) {
-         $('.notify_wellness_reminders').val("true");
-     } else {
-         $('.notify_wellness_reminders').val("false");
-     }
- })
+     if($('#notify_wellness_reminders').prop('checked')) {
+       $('.notify_wellness_reminders').val("true");
+   } else {
+       $('.notify_wellness_reminders').val("false");
+   }
+})
 
     ////////////////////////////////////////////////
     $("#american_indian_or_alaska_native").on("click",function(){
-       if($('#american_indian_or_alaska_native').prop('checked')) {
-         $('.american_indian_or_alaska_native').val("true");
-     } else {
-         $('.american_indian_or_alaska_native').val("false");
-     }
- })
+     if($('#american_indian_or_alaska_native').prop('checked')) {
+       $('.american_indian_or_alaska_native').val("true");
+   } else {
+       $('.american_indian_or_alaska_native').val("false");
+   }
+})
     $("#asian").on("click",function(){
-       if($('#asian').prop('checked')) {
-         $('.asian').val("true");
-     } else {
-         $('.asian').val("false");
-     }
- })
+     if($('#asian').prop('checked')) {
+       $('.asian').val("true");
+   } else {
+       $('.asian').val("false");
+   }
+})
     $("#black_or_african_american").on("click",function(){
-       if($('#black_or_african_american').prop('checked')) {
-         $('.black_or_african_american').val("true");
-     } else {
-         $('.black_or_african_american').val("false");
-     }
- })
+     if($('#black_or_african_american').prop('checked')) {
+       $('.black_or_african_american').val("true");
+   } else {
+       $('.black_or_african_american').val("false");
+   }
+})
     $("#native_hawaiian").on("click",function(){
-       if($('#native_hawaiian').prop('checked')) {
-         $('.native_hawaiian').val("true");
-     } else {
-         $('.native_hawaiian').val("false");
-     }
- })
+     if($('#native_hawaiian').prop('checked')) {
+       $('.native_hawaiian').val("true");
+   } else {
+       $('.native_hawaiian').val("false");
+   }
+})
     $("#other_pacific_islander").on("click",function(){
-       if($('#other_pacific_islander').prop('checked')) {
-         $('.other_pacific_islander').val("true");
-     } else {
-         $('.other_pacific_islander').val("false");
-     }
- })
+     if($('#other_pacific_islander').prop('checked')) {
+       $('.other_pacific_islander').val("true");
+   } else {
+       $('.other_pacific_islander').val("false");
+   }
+})
     $("#white").on("click",function(){
-       if($('#white').prop('checked')) {
-         $('.white').val("true");
-     } else {
-         $('.white').val("false");
-     }
- })
+     if($('#white').prop('checked')) {
+       $('.white').val("true");
+   } else {
+       $('.white').val("false");
+   }
+})
     $("#other").on("click",function(){
-       if($('#other').prop('checked')) {
-         $('.other').val("true");
-     } else {
-         $('.other').val("false");
-     }
- })
+     if($('#other').prop('checked')) {
+       $('.other').val("true");
+   } else {
+       $('.other').val("false");
+   }
+})
     $("#decline_to_answer").on("click",function(){
-       if($('#decline_to_answer').prop('checked')) {
-         $('.decline_to_answer').val("true");
-     } else {
-         $('.decline_to_answer').val("false");
-     }
- })
+     if($('#decline_to_answer').prop('checked')) {
+       $('.decline_to_answer').val("true");
+   } else {
+       $('.decline_to_answer').val("false");
+   }
+})
     $("#hispanic_or_latino").on("click",function(){
-       if($('#hispanic_or_latino').prop('checked')) {
-         $('.hispanic_or_latino').val("true");
-     } else {
-         $('.hispanic_or_latino').val("false");
-     }
- })
+     if($('#hispanic_or_latino').prop('checked')) {
+       $('.hispanic_or_latino').val("true");
+   } else {
+       $('.hispanic_or_latino').val("false");
+   }
+})
     $("#not_hispanic_or_latino").on("click",function(){
-       if($('#not_hispanic_or_latino').prop('checked')) {
-         $('.not_hispanic_or_latino').val("true");
-     } else {
-         $('.not_hispanic_or_latino').val("false");
-     }
- })
+     if($('#not_hispanic_or_latino').prop('checked')) {
+       $('.not_hispanic_or_latino').val("true");
+   } else {
+       $('.not_hispanic_or_latino').val("false");
+   }
+})
     $("#decline_to_answe").on("click",function(){
-       if($('#decline_to_answe').prop('checked')) {
-         $('.decline_to_answe').val("true");
-     } else {
-         $('.decline_to_answe').val("false");
-     }
- })
+     if($('#decline_to_answe').prop('checked')) {
+       $('.decline_to_answe').val("true");
+   } else {
+       $('.decline_to_answe').val("false");
+   }
+})
 </script>
 @endsection

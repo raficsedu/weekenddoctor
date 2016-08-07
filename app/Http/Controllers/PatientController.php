@@ -254,4 +254,40 @@ class PatientController extends Controller
         $insurances = Insurances::Select('id', 'name')->get();
         return view('pages.settings', ['insurances' => $insurances]);
     }
+     public function deactiveAccount(Request $request)
+    {
+     if ($request->isMethod('get')) {
+         $currentUser = Auth::user();
+         $user_id = $currentUser->id;
+         $user = User::where('id',$user_id)->where('active',1)->count();
+         if ($user > 0) {
+            $confirmation_code = str_random(10);
+            $user_acc = User::where('id',$user_id)->where('active',1)->first();
+            $user_acc ->verification_code = $confirmation_code;
+            $user_acc ->active = 0;
+            $user_acc->save();
+            //Sending Confirmation Email
+            $data['email'] = $user_acc->email;
+            $data['password'] = null;
+            $data['user_level'] =  $user_acc->user_level;
+            $data['name'] =  $user_acc->first_name . ' ' .  $user_acc->last_name;
+            $data['user_id'] = $user_id;
+            $data['confirmation_code'] = $confirmation_code;
+
+            $data['s_info'] = get_system_info();
+
+            Mail::send(['html' => 'email.verify'], $data, function ($m) use ($data) {
+                $m->from($data['s_info']['email'], $data['s_info']['name']);
+
+                $m->to($data['email'], $data['name'])->subject('Please verify your email');
+            });
+
+            Session::put('successful', 'Thanks for deactive account! Please check your email and active again');
+            return redirect()->route('join_us');
+         }
+
+     }
+
+    }
+
 }
