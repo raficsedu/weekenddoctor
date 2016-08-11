@@ -31,15 +31,20 @@
                     </li>
 
                     @if(Auth::check())
-
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Welcome {{Auth::user()->first_name}} &nbsp; <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Medical Team</a></li>
-                                <li><a href="#">Past Appointments</a></li>
-                                <li><a href="#">Settings</a></li>
+                                @if(Auth::user()->user_level==2)
+                                    <li><a href="{{url('/doctor/appointments')}}">Appointments</a></li>
+                                    <li><a href="{{url('/doctor/schedule')}}">My Schedule</a></li>
+                                    <li><a href="{{url('/doctor/settings')}}">Settings</a></li>
+                                @else
+                                    <li><a href="#">Medical Team</a></li>
+                                    <li><a href="#">Past Appointments</a></li>
+                                    <li><a href="#">Settings</a></li>
+                                @endif
                                 <li><a href="{{ url('/logout') }}" style="color:#e04848 !important;">Logout</a></li>
                             </ul>
                         </div>

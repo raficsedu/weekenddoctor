@@ -307,7 +307,8 @@ ul.breadCrmList li a.breadCrmActive {
 
 .specialistArea {
     border: 1px solid #bdbdbd;
-    padding: 0 12px; background:#ffffff;
+    padding: 0 12px;
+    background: #ffffff;
 }
 
 .specialistArea .specialistPic {
@@ -587,6 +588,17 @@ ul.breadCrmList li a.breadCrmActive {
     width: 100%;
 }
 
+.txtArea {
+    border: 1px solid #b4b4b4;
+    border-radius: 3px;
+    color: #333;
+    font-size: 15px;
+    height: 100px;
+    padding: 0px 0px 0 0px;
+    position: relative;
+    width: 67%;
+}
+
 .singRow label {
     font-size: 16px;
     color: #;
@@ -611,6 +623,7 @@ ul.breadCrmList li a.breadCrmActive {
     width: 25%;
     float: left;
 }
+
 .singRow .date {
     width: 75%;
     float: right;
@@ -636,7 +649,8 @@ ul.breadCrmList li a.breadCrmActive {
     color: #fff;
     float: left;
     font-size: 24px;
-    padding: 19px 50px; border:none;
+    padding: 19px 50px;
+    border: none;
     text-align: center;
 }
 
@@ -915,7 +929,7 @@ ul.breadCrmList li a.breadCrmActive {
 }
 
 .itWork article {
-    padding: 150px 0 ;
+    padding: 150px 0;
 }
 
 .itWork article:nth-child(even) {
@@ -974,20 +988,26 @@ ul.breadCrmList li a.breadCrmActive {
 
 .itWork ul.workLlist {
 }
+
 /***********************List *******************************/
 /*	===== submit listing page code Start Here  =====	*/
 .list {
-	 margin:0 auto; text-align:center;  background: url("../images/bg.jpg") no-repeat scroll left top;
+    margin: 0 auto;
+    text-align: center;
+    background: url("../images/bg.jpg") no-repeat scroll left top;
 }
 
 .list article {
-    padding: 180px 0 ; overflow:hidden;
+    padding: 180px 0;
+    overflow: hidden;
 }
 
 .list h1 {
     color: #282828;
-    font-size: 50px; font-weight:bold;
-    margin: 0 0 25px 0; text-align:center;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0 0 25px 0;
+    text-align: center;
 }
 
 .list p {
@@ -995,25 +1015,37 @@ ul.breadCrmList li a.breadCrmActive {
     font-size: 18px;
     margin: 0 0 30px 0;
     line-height: 22px;
-    text-align: justify; text-align:center;
+    text-align: justify;
+    text-align: center;
 }
-.list a{ padding:10px 20px; color:#ffffff; background:#2A8CC4; text-align:center; margin:0 auto;}
 
+.list a {
+    padding: 10px 20px;
+    color: #ffffff;
+    background: #2A8CC4;
+    text-align: center;
+    margin: 0 auto;
+}
 
 /*********************List Close**************************/
 
 .list1 {
-	 margin:0 auto; text-align:center;  background: url("../images/bg-2.jpg") no-repeat scroll left top;
-}
-.list1 article {
-    padding: 180px 0 ; overflow:hidden;
+    margin: 0 auto;
+    text-align: center;
+    background: url("../images/bg-2.jpg") no-repeat scroll left top;
 }
 
+.list1 article {
+    padding: 180px 0;
+    overflow: hidden;
+}
 
 .list1 h1 {
     color: #ffffff;
-    font-size: 50px; font-weight:bold;
-    margin: 0 0 25px 0; text-align:center;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0 0 25px 0;
+    text-align: center;
 }
 
 .list1 p {
@@ -1021,47 +1053,71 @@ ul.breadCrmList li a.breadCrmActive {
     font-size: 18px;
     margin: 0 0 30px 0;
     line-height: 22px;
-    text-align: justify; text-align:center;
+    text-align: justify;
+    text-align: center;
 }
-.list1 a{ padding:10px 20px; color:#ffffff; background:#2A8CC4; text-align:center; margin:0 auto;}
+
+.list1 a {
+    padding: 10px 20px;
+    color: #ffffff;
+    background: #2A8CC4;
+    text-align: center;
+    margin: 0 auto;
+}
+
 /*****************************/
 
 .list2 {
-	 margin:0 auto; text-align:center;  background:#2A8CC4;
+    margin: 0 auto;
+    text-align: center;
+    background: #2A8CC4;
 }
+
 .list2 article {
-    padding: 50px 0 ; overflow:hidden;
+    padding: 50px 0;
+    overflow: hidden;
 }
 
 .list2 article {
-overflow:hidden;
+    overflow: hidden;
 }
-
 
 .list2 h1 {
     color: #ffffff;
-    font-size: 40px; font-weight:bold; text-align:center; padding:30px 0;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px 0;
 }
 
-
-.list2 a{  background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
+.list2 a {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
     color: #ffffff;
     margin: 0 auto;
     padding: 10px 0;
-    text-align: center;}
-	
-	/**************************************/
-	
-	.list3 {
-	 margin:0 auto; text-align:center;  background:#D75353;padding: 100px 0 ;
+    text-align: center;
 }
+
+/**************************************/
+
+.list3 {
+    margin: 0 auto;
+    text-align: center;
+    background: #D75353;
+    padding: 100px 0;
+}
+
 .list3 article {
-    padding: 100px 0 ; overflow:hidden;
+    padding: 100px 0;
+    overflow: hidden;
 }
 
 .list3 h1 {
     color: #ffffff;
-    font-size: 40px; font-weight:bold; text-align:center; padding:30px 0;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px 0;
 }
 
 .list3 p {
@@ -1069,44 +1125,77 @@ overflow:hidden;
     font-size: 18px;
     margin: 0 0 30px 0;
     line-height: 22px;
-    text-align: justify; text-align:center;
+    text-align: justify;
+    text-align: center;
 }
-.list3 a{  background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
+
+.list3 a {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
     color: #ffffff;
     margin: 0 auto;
     padding: 10px 0;
-    text-align: center;}
-	
-	
-.list3	.list_cer{ padding:20px; text-align:center; text-align:center; margin:0 auto;}
- .list3	.list_cer .circle {border-radius:50px; border:2px solid #ffffff; width:80px; height:80px; text-align:center; margin:0 auto;} 
-.list3	.list_cer .circle i { color:#ffffff; font-size:36px; line-height:80px;} 
-
-.list3 .list_cer h3{
-    color: #ffffff;
-    font-size: 24px; font-weight:bold; text-align:center; margin:10px 0;
+    text-align: center;
 }
+
+.list3 .list_cer {
+    padding: 20px;
+    text-align: center;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.list3 .list_cer .circle {
+    border-radius: 50px;
+    border: 2px solid #ffffff;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.list3 .list_cer .circle i {
+    color: #ffffff;
+    font-size: 36px;
+    line-height: 80px;
+}
+
+.list3 .list_cer h3 {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0;
+}
+
 .list3 .list_cer p {
     color: #ffffff;
     font-size: 18px;
     margin: 0 0 30px 0;
     line-height: 22px;
-    text-align: justify; text-align:center;
+    text-align: justify;
+    text-align: center;
 }
+
 /****************************************4*******/
 
-
 .list4 {
-	 margin:0 auto; text-align:center;  background:#E1E1E4;padding: 100px 0 ;
-}
-.list4 article {
-    padding: 100px 0 ; overflow:hidden;
+    margin: 0 auto;
+    text-align: center;
+    background: #E1E1E4;
+    padding: 100px 0;
 }
 
+.list4 article {
+    padding: 100px 0;
+    overflow: hidden;
+}
 
 .list4 h1 {
     color: #282828;
-    font-size: 40px; font-weight:bold; text-align:center; padding:30px 0;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px 0;
 }
 
 .list4 p {
@@ -1114,53 +1203,84 @@ overflow:hidden;
     font-size: 18px;
     margin: 0 0 30px 0;
     line-height: 22px;
-    text-align: justify; text-align:center;
+    text-align: justify;
+    text-align: center;
 }
-.list4 a{  background: #2A8CC4;
+
+.list4 a {
+    background: #2A8CC4;
     color: #ffffff;
     margin: 0 auto;
     padding: 10px 20px;
-    text-align: center;}
-	
-	
-.list4	.list_cer{ padding:20px; text-align:center; text-align:center; margin:0 auto;}
- .list4	.list_cer .circle {border-radius:50%; width:130px; height:130px; text-align:center; margin:0 auto;} 
-.list4	.list_cer .circle img {border-radius:50%; width:130px; height:130px; text-align:center; margin:0 auto;} 
+    text-align: center;
+}
 
+.list4 .list_cer {
+    padding: 20px;
+    text-align: center;
+    text-align: center;
+    margin: 0 auto;
+}
 
+.list4 .list_cer .circle {
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+    text-align: center;
+    margin: 0 auto;
+}
 
+.list4 .list_cer .circle img {
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+    text-align: center;
+    margin: 0 auto;
+}
 
 /***********************West Park**************************/
 
 .west {
- background:#f5f5f5;padding: 50px 0 ;
-}
-.west article {
-    padding: 50px 0 ; overflow:hidden;
+    background: #f5f5f5;
+    padding: 50px 0;
 }
 
+.west article {
+    padding: 50px 0;
+    overflow: hidden;
+}
 
 .west h1 {
     color: #282828;
-    font-size: 35px; font-weight:bold; text-align:left; padding:30px 0;
+    font-size: 35px;
+    font-weight: bold;
+    text-align: left;
+    padding: 30px 0;
 }
 
 .west h5 {
     color: #333333;
-    font-size: 18px;text-align:left; padding:20px 0;
+    font-size: 18px;
+    text-align: left;
+    padding: 20px 0;
 }
 
 .west p {
     color: #575757;
     font-size: 14px;
     margin: 0 0 10px 0;
-    line-height: 20px; text-align:left;
+    line-height: 20px;
+    text-align: left;
 }
-.west a{  background: #2A8CC4;
+
+.west a {
+    background: #2A8CC4;
     color: #ffffff;
     margin: 0 auto;
-    padding: 10px 20px; margin:10px 0;}
-	
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+
 /***********************close West Park**************************/
 
 /*	===== home page code Start Here  =====	*/
@@ -1212,7 +1332,7 @@ h3 {
     border-radius: 5px;
     height: 40px;
     border: none;
-    width:67%;
+    width: 67%;
 }
 
 .txtBox {
@@ -1225,9 +1345,9 @@ h3 {
     width: 67%;
 }
 
-
 .txtBox11 {
-    font-size: 14px; border: 1px solid #b4b4b4;
+    font-size: 14px;
+    border: 1px solid #b4b4b4;
     color: #595959;
     background-color: #fff;
     padding: 0 10px;
@@ -1235,16 +1355,19 @@ h3 {
     height: 40px;
     width: 80%;
 }
+
 .txtBox22 {
-    font-size: 14px; border: 1px solid #b4b4b4;
+    font-size: 14px;
+    border: 1px solid #b4b4b4;
     color: #595959;
     background-color: #fff;
     padding: 0 10px;
-    border-radius: 3px; float:right; margin:0 5px;
+    border-radius: 3px;
+    float: right;
+    margin: 0 5px;
     height: 40px;
     width: 40%;
 }
-
 
 .findBtn {
 }
@@ -1265,7 +1388,8 @@ h3 {
 
 .findBtn {
     background-color: #2a8cc4;
-    border-radius: 3px; border:none;
+    border-radius: 3px;
+    border: none;
     color: #fff;
     float: left;
     font-size: 24px;
@@ -1588,19 +1712,20 @@ h3 {
     text-align: right;
     float: right;
 }
+
 .google-map-wrapper {
     position: relative !important;
     max-width: 100% !important;
 }
 
 /*******************New***************************/
-.box-in{
+.box-in {
     float: left;
     margin: 0 25px 35px 0;
     width: 28%;
 }
 
-.box-in1{
+.box-in1 {
     float: left;
     margin: 0 25px 35px 0;
     width: 45%;
@@ -1781,11 +1906,13 @@ h3 {
     padding: 0 10px;
     width: 80% !important;
 }
-label.error{
+
+label.error {
     font-size: 15px !important;
     margin-top: 10px !important;
     color: red;
 }
+
 /************************Settings&********************/
 .tabs-below > .nav-tabs,
 .tabs-right > .nav-tabs,
@@ -1891,12 +2018,253 @@ label.error{
     border-color: #ddd #ddd #ddd transparent;
     *border-left-color: #ffffff;
 }
-.singRow1 {margin: 0px 0 20px;}
+
+.singRow1 {
+    margin: 0px 0 20px;
+}
 
 /*******************New CSS*************************/
-.btn_new{ padding:8px; color:#575757; background:#dddddd; border-radius:3px; border:none;}
-.btn_new.active{ padding:8px; color:#ffffff; background:#298DC6; border-radius:3px; border:none;}
+.btn_new {
+    padding: 8px;
+    color: #575757;
+    background: #dddddd;
+    border-radius: 3px;
+    border: none;
+}
 
-.line11{ width:80%; height:1px; background:#dddddd; margin:0px 0 10px 0;}
-.blue{ color:#2176A6; font-size:18px;}
-.blue p{ color:#575757; font-size:14px;}
+.btn_new.active {
+    padding: 8px;
+    color: #ffffff;
+    background: #298DC6;
+    border-radius: 3px;
+    border: none;
+}
+
+.line11 {
+    width: 80%;
+    height: 1px;
+    background: #dddddd;
+    margin: 0px 0 10px 0;
+}
+
+.blue {
+    color: #2176A6;
+    font-size: 18px;
+}
+
+.blue p {
+    color: #575757;
+    font-size: 14px;
+}
+
+/*New custom CSS*/
+.dropdown-menu li{
+    width: 100%;
+    float: left;
+}
+.row-centered {
+    text-align:center;
+    list-style: none;
+    margin-top: 2%;
+}
+.tab_title{
+    font-size: 25px;
+    color: grey;
+}
+.padding{
+    padding-right: 5%;
+}
+.tab_first{
+    border-right: 1px solid;
+    margin-left: 15%;
+}
+.tab_last{
+    border-left: 1px solid;
+}
+.tab_active{
+    color: #428bca !important;
+}
+
+/*Doctor Schedule*/
+.repeater{
+    width: 90%;
+    float: left;
+}
+.remove_field {
+    width: 10%;
+    float: left;
+    padding: 10px;
+}
+
+.day {
+    background: #f5f5f5;
+    border-radius: 8px;
+    margin: 0 20px 5px;
+    padding: 10px;
+}
+.day .dayName {
+    font-weight: bold;
+    display: inline-block;
+    background: #00C0EF;
+    border-radius: 8px;
+    padding: 5px;
+    min-width: 100px;
+    text-align: center;
+}
+#category-label {
+    display: none;
+}
+.patEdit label {
+    margin-right: 5px;
+
+}
+
+.dayMessage {
+    display: none;
+    transition: 0.5s;
+    color: #00a65a;
+}
+input[type="checkbox"].payment_options {
+    margin-left: 10px;
+}
+
+
+.calender-top {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(214, 240, 253, 1) 100%);
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: auto auto;
+    border-bottom-color: #fff;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: #c9e7f7;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: #c9e7f7;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: #c3e4f7;
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+.calender-top td {
+    border-top-color: #c3e4f7;
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+.arrow-left {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("../images/tra-bor.png");
+    background-origin: padding-box;
+    background-position: right center;
+    background-repeat: repeat-y;
+    background-size: auto auto;
+    border-left-color: #cde8f8;
+    border-left-style: solid;
+    border-left-width: 1px;
+    float: left;
+    height: 45px;
+    padding-top: 15px;
+}
+.arrow-right {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("../images/tra-bor.png");
+    background-origin: padding-box;
+    background-position: left center;
+    background-repeat: repeat-y;
+    background-size: auto auto;
+    border-right-color: #cde8f8;
+    border-right-style: solid;
+    border-right-width: 1px;
+    float: right;
+    height: 45px;
+    padding-top: 15px;
+}
+.arrow-left a, .arrow-right a {
+    color: #096fa8;
+    font-size: 14px;
+    padding-bottom: 0;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 0;
+}
+.mont-date-sep {
+    float: left;
+    padding-top: 5px;
+}
+.calender-day {
+    color: #0168a3;
+    font-family: "museo_slab500";
+    font-size: 15px;
+    padding-top: 4px;
+    text-indent: 10px;
+}
+.calender-date {
+    color: #00324f;
+    font-family: "museo_slab500";
+    font-size: 12px;
+    text-indent: 10px;
+}
+.appoint-body td {
+    padding-bottom: 18px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 18px;
+    text-align: center;
+    width: 14%;
+}
+.appoint-body td:nth-child(2n+1) {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: #f6fbfe;
+    background-image: none;
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: auto auto;
+}
+.appoint-body td:nth-child(2n) {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: #e7f3fa;
+    background-image: none;
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: auto auto;
+}
+.slots {
+    color: #3c3c3c;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 33px;
+}
+.slots:hover {
+    color: #f5801d;
+}
+
+#bookApp {
+    float: right;
+}
+.del_slots{
+    width: 100%;
+    float: left;
+}
+a {
+    outline: 0 !important;
+}
+.time_margin{
+    margin-top: 5%;
+}
+.time_margin > .change_slots{
+    margin-left: 12%;
+}
