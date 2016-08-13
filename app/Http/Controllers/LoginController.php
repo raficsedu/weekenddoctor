@@ -36,9 +36,9 @@ class LoginController extends Controller
             // Authentication passed...
             $user = Auth::user();
             if($user->user_level==1){
-                return redirect()->intended('/settings');
+                return redirect()->intended('/patient');
             }else{
-                return redirect()->intended('/dashboard');
+                return redirect()->intended('/doctor/appointments');
             }
         }else{
             Session::put('unsuccessful', 'Your Email or Password is incorrect Or Verify Your Email');

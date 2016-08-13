@@ -36,7 +36,7 @@ class PatientController extends Controller
     public function settings()
     {
         $insurances = Insurances::Select('id', 'name')->get();
-        return view('pages.settings', ['insurances' => $insurances]);
+        return view('pages.patient_settings', ['insurances' => $insurances]);
     }
 
     public function patientProfile(Request $request)
