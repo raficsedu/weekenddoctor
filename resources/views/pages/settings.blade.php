@@ -29,6 +29,7 @@
                                         <div class="singBody">
 
                                             <div class="singRow1">
+
                                                 <label>Name</label>
                                                 <br>
                                                 <p style="color:#575757; margin-top:10px;">Ankit Sethiya - Please call us at (855) 962-3621 to
@@ -292,7 +293,7 @@
 </div>
 </section>
 @endsection
-<style type="text/css" href="styles.css">
+<style type="text/css" >
     .tBox {
         width: 100% !important;
     }
@@ -301,123 +302,7 @@
         padding-right: 0px !important;
     }
 
-    /*.clip-check {
-      margin-bottom: 10px;
-      margin-top: 10px;
-      padding-left: 0;
-  }
-  .clip-check label {
-      cursor: pointer;
-      display: inline-block;
-      font-size: 13px;
-      margin-right: 15px;
-      padding-left: 30px !important;
-      position: relative;
-      line-height: 23px;
-      transition: border 0.2s linear 0s, color 0.2s linear 0s;
-      white-space: nowrap;
-  }
-  .clip-check label:before {
-      background-color: #ffffff;
-      border: 1px solid #c8c7cc;
-      content: "";
-      display: inline-block;
-      height: 20px;
-      left: 0;
-      margin-right: 10px;
-      position: absolute;
-      width: 20px;
-      border-radius: 0;
-      top: 1px;
-      transition: border 0.2s linear 0s, color 0.2s linear 0s;
-  }
-  .clip-check label:after {
-      display: inline-block;
-      font-size: 11px;
-      height: 19px;
-      left: 4px;
-      position: absolute;
-      top: -1px;
-      transition: border 0.2s linear 0s, color 0.2s linear 0s;
-      width: 19px;
-  }
-  .clip-check input[type="checkbox"] {
-      display: none;
-  }
-  .clip-check input[type="checkbox"]:checked + label:before {
-      border-width: 10px;
-  }
-  .clip-check input[type="checkbox"]:checked + label:after {
-      color: #fff;
-      content: "\f00c";
-      font-family: "FontAwesome";
-  }
-  .clip-check input[type="checkbox"][disabled] + label {
-      opacity: 0.65;
-  }
-  .clip-check input[type="checkbox"][disabled] + label:before {
-      background-color: #F8F8F8;
-  }
-  .clip-check.check-md label {
-      margin-right: 15px;
-      padding-left: 35px !important;
-      line-height: 28px;
-  }
-  .clip-check.check-md label:before {
-      height: 25px;
-      width: 25px;
-  }
-  .clip-check.check-md label:after {
-      font-size: 14px;
-      height: 24px;
-      left: 5px;
-      width: 24px;
-  }
-  .clip-check.check-md input[type="checkbox"]:checked + label:before {
-      border-width: 12px;
-  }
-  .clip-check.check-lg label {
-      margin-right: 15px;
-      padding-left: 40px !important;
-      line-height: 33px;
-  }
-  .clip-check.check-lg label:before {
-      height: 30px;
-      width: 30px;
-  }
-  .clip-check.check-lg label:after {
-      font-size: 17px;
-      height: 29px;
-      left: 6px;
-      width: 29px;
-  }
-  .clip-check.check-lg input[type="checkbox"]:checked + label:before {
-      border-width: 15px;
-  }
 
-  .clip-check.check-success input[type="checkbox"]:checked + label:before {
-      border-color: #5cb85c;
-  }
-
-  .clip-check.check-primary input[type="checkbox"]:checked + label:before {
-      border-color: #007AFF;
-  }
-
-  .clip-check.check-warning input[type="checkbox"]:checked + label:before {
-      border-color: #eea236;
-  }
-
-  .clip-check.check-danger input[type="checkbox"]:checked + label:before {
-      border-color: #d43f3a;
-  }
-
-  .clip-check.check-info input[type="checkbox"]:checked + label:before {
-      border-color: #46b8da;
-  }
-
-  .clip-check.check-purple input[type="checkbox"]:checked + label:before {
-      border-color: #804C75;
-  }*/
 </style>
 @section('footer_custom_script')
 <script>
