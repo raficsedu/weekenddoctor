@@ -21,7 +21,7 @@
     <div class="col-md-9">
         <div class="tab-content col-md-12">
             <div class="tab-pane active" id="a">
-                <form id="profile" action="{{url('/patient-profile')}}" method="post">
+                <form id="profile" action="{{url('/doctor/profile')}}" method="post">
                     {{ csrf_field() }}
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                         <div class="singBody">
@@ -44,8 +44,9 @@
                             <div class="singRow">
                                 <label>Speciality</label>
                                 <select name="" id="" placeholder="Speciality" class="countryCode txtBox1">
-                                    <option>Speciality 1</option>
-                                    <option>Speciality 2</option>
+                                   @foreach($specialties as $specialty)
+                                     <option value="{{$specialty->id}}">{{$specialty->name}}</option>
+                                  @endforeach
                                 </select>
                             </div>
                             <div class="line1"></div>
@@ -77,24 +78,11 @@
                             <div class="singRow">
                                 <label>Accepted Insurances</label>
                                 <div class="row">
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
-                                    <div class="col-md-3"><input name="" id="" class="chk" type="checkbox"> Insurance 1</div>
+                                    @foreach($insurances as $insurance)
+                                        <div class="col-md-4">
+                                            <input name="" id="{{$insurance->id}}" class="chk" type="checkbox"> {{$insurance->name}}
+                                        </div>
+                                     @endforeach
                                 </div>
                             </div>
                             <div class="singRow">
@@ -125,42 +113,42 @@
                 </form>
             </div>
             <div class="tab-pane" id="c">
-                <form id="nottification_settings" action="{{url('/nottification-settings')}}" method="post">
+                <form id="" action="{{url('/doctor/office/info')}}" method="post">
                     {{ csrf_field() }}
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                         <div class="singRow">
                             <label>Office Address</label>
-                            <input name="" id="" class="pwd txtBox" placeholder="Office Address" type="text">
+                            <input name="Doctor_Office_Address" id="" class="pwd txtBox" placeholder="Office Address" type="text">
                         </div>
 
                         <div class="singRow">
                             <label>Office Area</label>
-                            <input name="" id="" class="pwd txtBox" placeholder="Office Area" type="text">
+                            <input name="Doctor_Office_Area" id="" class="pwd txtBox" placeholder="Office Area" type="text">
                         </div>
 
                         <div class="singRow">
                             <label>Office City</label>
-                            <input name="" id="" class="pwd txtBox" placeholder="Office City" type="text">
+                            <input name="Doctor_Office_City" id="" class="pwd txtBox" placeholder="Office City" type="text">
                         </div>
 
                         <div class="singRow">
                             <label>Office State</label>
-                            <input name="" id="" class="pwd txtBox" placeholder="Office State" type="text">
+                            <input name="Doctor_Office_State" id="" class="pwd txtBox" placeholder="Office State" type="text">
                         </div>
 
                         <div class="singRow">
                             <label>Office ZIP code</label>
-                            <input name="" id="" class="pwd txtBox" placeholder="Office ZIP code" type="text">
+                            <input name="Doctor_Office_ZIP_code" id="" class="pwd txtBox" placeholder="Office ZIP code" type="text">
                         </div>
 
                         <div class="singRow">
                             <label>Public telephone</label>
-                            <input name="" id="" class="pwd txtBox" placeholder="Public telephone" type="text">
+                            <input name="Doctor_Public_telephone" id="" class="pwd txtBox" placeholder="Public telephone" type="text">
                         </div>
 
                         <div class="singRow">
                             <label>Mobile telephone</label>
-                            <input name="" id="" class="pwd txtBox" placeholder="Mobile telephone" type="text">
+                            <input name="Doctor_Mobile_telephone" id="" class="pwd txtBox" placeholder="Mobile telephone" type="text">
                         </div>
 
                         <div class="line1"></div>

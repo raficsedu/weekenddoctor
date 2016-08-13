@@ -53,7 +53,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/doctor/appointments', ['uses' => 'DoctorController@appointments', 'as' => 'doctor_appointments']);
     Route::get('/doctor/schedule', ['uses' => 'DoctorController@schedule', 'as' => 'doctor_schedule']);
     Route::get('/doctor/settings', ['uses' => 'DoctorController@settings', 'as' => 'doctor_settings']);
-
+    Route::post('/doctor/profile', ['uses' => 'DoctorController@doctorProfile', 'as' => 'doctor_profile']);
+    Route::post('/password-change', ['uses' => 'DoctorController@passwordChange', 'as' => 'password_change']);
+    Route::get('/doctor/deactive-account', ['uses' => 'DoctorController@deactiveAccount', 'as' => 'deactive_account']);
+     Route::post('/doctor/office/info', ['uses' => 'DoctorController@doctorOfficeInfo', 'as' => 'doctor_office_info']);
+    
     //Email Confirmation
     Route::get('/confirmation/{user_id}/{code}', ['uses' => 'EmailController@email_verify', 'as' => 'email_verify']);
     Route::get('/send-email', ['uses' => 'WdController@send_email', 'as' => 'send_email']);
