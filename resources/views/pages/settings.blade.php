@@ -1,9 +1,12 @@
-@extends('layouts.patient')
+@extends('layouts.master')
 
 @section('content')
 <section class="bodySec joinUsBody clearfix" style="background:none; padding:20px;">
     <div class="container">
         <section class="row">
+            <h1>Settings</h1>
+
+            <div class="line1"></div>
             <div class="container">
 
                 <div class="row">
