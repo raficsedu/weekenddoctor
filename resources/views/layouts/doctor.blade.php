@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{url('public/css/media.css')}}" media="all"/>
     <link href="{{url('public/css/polyglot-language-switcher.css')}}" type="text/css" rel="stylesheet">
     <link href="{{url('public/css/screen.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{url('public/css/datepicker-themes/smoothness/jquery-ui.css')}}" type="text/css" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -41,9 +42,9 @@
                             <li><a href="{{url('/doctor/schedule')}}">My Schedule</a></li>
                             <li><a href="{{url('/doctor/settings')}}">Settings</a></li>
                             @else
-                            <li><a href="#">Medical Team</a></li>
-                            <li><a href="#">Past Appointments</a></li>
-                            <li><a href="#">Settings</a></li>
+                            <li><a href="{{url('/patient/medicalteam')}}">Medical Team</a></li>
+                            <li><a href="{{url('/patient/appointments')}}">Past Appointments</a></li>
+                            <li><a href="{{url('/patient/settings')}}">Settings</a></li>
                             @endif
                             <li><a href="{{ url('/logout') }}" style="color:#e04848 !important;">Logout</a></li>
                         </ul>
@@ -213,6 +214,7 @@
     <script src="{{url('public/js/jquery.polyglot.language.switcher.js')}}" type="text/javascript"></script>
     <script type="text/javascript" src="{{url('public/js/script.js')}}"></script>
     <script type="text/javascript" src="{{url('public/js/jquery.validate.js')}}"></script>
+    <script type="text/javascript" src="{{url('public/js/jquery-ui.js')}}"></script>
 @yield('footer_custom_script')
 </body>
 </html>

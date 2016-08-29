@@ -33,10 +33,22 @@ class PatientController extends Controller
         }
     }
 
-    public function settings()
+    public function patient_settings()
     {
         $insurances = Insurances::Select('id', 'name')->get();
         return view('pages.patient_settings', ['insurances' => $insurances]);
+    }
+
+    public function patient_medicalteam()
+    {
+        $insurances = Insurances::Select('id', 'name')->get();
+        return view('pages.patient_medicalteam', ['insurances' => $insurances]);
+    }
+
+    public function patient_appointments()
+    {
+        $insurances = Insurances::Select('id', 'name')->get();
+        return view('pages.patient_appointments', ['insurances' => $insurances]);
     }
 
     public function patientProfile(Request $request)
@@ -121,7 +133,7 @@ class PatientController extends Controller
         return view('pages.settings');
     }
 
-    public function nottificationSettings(Request $request)
+    public function notificationSettings(Request $request)
     {
         //dd("aaaaaaaaaaaa");
         if ($request->isMethod('post')) {

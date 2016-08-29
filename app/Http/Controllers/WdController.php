@@ -85,9 +85,16 @@ class WdController extends Controller
         $data['email'] = 'raficsedu@gmail.com';
         $data['name'] = 'Md Muntasir Rahman';
         $data['user_id'] = 11;
-        $data['password'] = '';
+        $data['password'] = 'sefufiube';
         $data['user_level'] = 1;
         $data['confirmation_code'] = 'sefigsei';
-        return view('email.verify',$data);
+        $data['s_info'] = get_system_info();
+
+        Mail::send(['html' => 'email.test'], $data, function ($m) use ($data) {
+            $m->from($data['s_info']['email'], $data['s_info']['name']);
+            $m->to($data['email'], $data['name'])->subject('Please verify your email');
+        });
+
+//        return view('email.test',$data);
     }
 }

@@ -41,9 +41,9 @@
                             <li><a href="{{url('/doctor/schedule')}}">My Schedule</a></li>
                             <li><a href="{{url('/doctor/settings')}}">Settings</a></li>
                             @else
-                            <li><a href="#">Medical Team</a></li>
-                            <li><a href="#">Past Appointments</a></li>
-                            <li><a href="#">Settings</a></li>
+                            <li><a href="{{url('/patient/medicalteam')}}">Medical Team</a></li>
+                            <li><a href="{{url('/patient/appointments')}}">Past Appointments</a></li>
+                            <li><a href="{{url('/patient/settings')}}">Settings</a></li>
                             @endif
                             <li><a href="{{ url('/logout') }}" style="color:#e04848 !important;">Logout</a></li>
                         </ul>
@@ -60,17 +60,26 @@
             </section>
         </div>
     </div>
+    <?php
+    $tab1 = $tab2 = $tab3 = '';
+    if(Route::currentRouteName()=='patient_medicalteam')
+        $tab1 = ' tab_active';
+    else if (Route::currentRouteName()=='patient_appointments')
+        $tab2 = ' tab_active';
+    else if (Route::currentRouteName()=='patient_settings')
+        $tab3 = ' tab_active';
+    ?>
     <div class="headerMiddle clearfix">
         <div class="container">
             <div class="row row-centered">
                 <div class="col-md-3 tab_first">
-                    <li><a href="" class="tab_title"><i class="fa fa-users padding"></i>Medical Team</a></li>
+                    <li><a href="{{url('/patient/medicalteam')}}" class="tab_title{{$tab1}}"><i class="fa fa-users padding"></i>Medical Team</a></li>
                 </div>
                 <div class="col-md-3">
-                    <li><a href="" class="tab_title"><i class="fa fa-book padding"></i>Past Appointments</a></li>
+                    <li><a href="{{url('/patient/appointments')}}" class="tab_title{{$tab2}}"><i class="fa fa-book padding"></i>Past Appointments</a></li>
                 </div>
                 <div class="col-md-2 tab_last">
-                    <li><a href="" class="tab_title tab_active"><i class="fa fa-asterisk padding"></i>Settings</a></li>
+                    <li><a href="{{url('/patient/settings')}}" class="tab_title{{$tab3}}"><i class="fa fa-asterisk padding"></i>Settings</a></li>
                 </div>
             </div>
             <hr>

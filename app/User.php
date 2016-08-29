@@ -54,4 +54,9 @@ class User extends Authenticatable
     public function doctor_metas(){
         return $this->hasMany('App\DoctorMeta');
     }
+	
+	//Get Doctor Schedules
+    public function doctor_schedules(){
+        return $this->hasMany('App\DoctorSchedule');
+    }
 }

@@ -57,21 +57,6 @@
         </section>
     </div>
 </article>
-<article class="teamSec clearfix"  style="padding:150px 0; background:#f5f5f5;">
-    <div class="container">
-        <section class="row">
-            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 clearfix" >
-                <div class="teamInfo">
-                    <h1 class="title">Psst. Want a job?</h1>
-                    <h2 class="subHeading">Weekend Docs has won workplace awards from Crain's NYC, Modern Healthcare, and Fortune.</h2>
-                    <a href="#" style="padding:10px; background:#2A8CC4; color:#ffffff;">Check our careers page</a> </div>
-            </div>
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 clearfix">
-                <div class=""><img src="{{url('public/images/job.png')}}" alt=""/></div>
-            </div>
-        </section>
-    </div>
-</article>
 <article class="teamSec mobAppSec clearfix">
     <div class="container">
         <section class="row">
@@ -256,5 +241,20 @@
         </section>
     </div>
 </section>
+<article class="teamSec clearfix"  style="padding:150px 0; background:#f5f5f5;">
+    <div class="container">
+        <section class="row">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 clearfix" >
+                <div class="teamInfo">
+                    <h1 class="title">Psst. Want a job?</h1>
+                    <h2 class="subHeading">Weekend Docs has won workplace awards from Crain's NYC, Modern Healthcare, and Fortune.</h2>
+                    <a href="#" style="padding:10px; background:#2A8CC4; color:#ffffff;">Check our careers page</a> </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 clearfix">
+                <div class=""><img src="{{url('public/images/job.png')}}" alt=""/></div>
+            </div>
+        </section>
+    </div>
+</article>
 </section>
 @endsection

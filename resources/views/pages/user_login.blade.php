@@ -52,7 +52,7 @@
                             <span class="fPwd">Remember Me</span>
                         </div>
                         <div class="singRow">
-                            <button type="submit" name="submit" class="signBtn">Sing In</button>
+                            <button type="submit" name="submit" class="signBtn">Sign In</button>
                         </div>
 
                     </form>

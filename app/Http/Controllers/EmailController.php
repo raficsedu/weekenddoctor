@@ -32,8 +32,12 @@ class EmailController extends Controller
             ->count();
 
         if ($is_already_confirmed > 0){
-            Session::put('unsuccessful', 'You Have Already Confirmed Your Email , Please Login to Continue');
-            return redirect()->route('user_login');
+            Auth::loginUsingId($user_id);
+            if($user_level==1){
+                return redirect()->route('patient_medicalteam');
+            }else{
+                return redirect()->route('doctor_appointments');
+            }
         }
 
         $verify_user = User::where('id', '=',$user_id)
@@ -46,8 +50,13 @@ class EmailController extends Controller
                 ->where('id', $user_id)
                 ->update(['active' => 1]);
 
-            Session::put('successful', 'Congratulation !!! Your account verified successfully , Login to continue');
-            return redirect()->route('user_login');
+            Session::put('successful', 'Congratulation !!! Your account verified successfully');
+            Auth::loginUsingId($user_id);
+            if($user_level==1){
+                return redirect()->route('patient_medicalteam');
+            }else{
+                return redirect()->route('doctor_appointments');
+            }
         }else{
             if ($user_level == 1) {
                 Session::put('unsuccessful', 'Create a new account to get started');
@@ -56,7 +65,6 @@ class EmailController extends Controller
                 Session::put('unsuccessful', 'Create a new account to get started');
                 return redirect()->route('get_started');
             }
-
         }
     }
 }

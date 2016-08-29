@@ -68,19 +68,20 @@ class RegistrationController extends Controller
             $data['email'] = $email;
             $data['password'] = null;
             $data['user_level'] = $user_level;
-            $data['name'] = $first_name . ' ' . $last_name;
+            $data['name'] = $name = $first_name . ' ' . $last_name;
             $data['user_id'] = $user_id;
             $data['confirmation_code'] = $confirmation_code;
 
             $data['s_info'] = get_system_info();
 
-            Mail::send(['html' => 'email.verify'], $data, function ($m) use ($data) {
+            Mail::send(['html' => 'email.patient_verify'], $data, function ($m) use ($data) {
                 $m->from($data['s_info']['email'], $data['s_info']['name']);
 
                 $m->to($data['email'], $data['name'])->subject('Please verify your email');
             });
 
-            Session::put('successful', 'Thanks for signing up! Please check your email and verify');
+            $message = "<p>Thank You for signing up! Please check your email and verify your account.</p>";
+            Session::put('successful',$message );
             return redirect()->route('join_us');
 
         }
@@ -143,12 +144,13 @@ class RegistrationController extends Controller
 
             $data['s_info'] = get_system_info();
 
-            Mail::send(['html' => 'email.verify'], $data, function ($m) use ($data) {
+            Mail::send(['html' => 'email.doctor_verify'], $data, function ($m) use ($data) {
                 $m->from($data['s_info']['email'], $data['s_info']['name']);
                 $m->to($data['email'], $data['name'])->subject('Please verify your email');
             });
 
-            Session::put('successful', 'Thanks for signing up! Please check your email and verify');
+            $message = "<p>Thank you for your information,  ($name)!</p><br /><p>Please check your email to verify your account</p>";
+            Session::put('successful',$message );
             return redirect()->route('get_started');
 
         }
