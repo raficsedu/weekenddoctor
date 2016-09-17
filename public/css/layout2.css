@@ -573,6 +573,17 @@ ul.breadCrmList li a.breadCrmActive {
     font-weight: bold;
 }
 
+.joinUsBody1 {
+    background-color: #F6F6F6;
+}
+
+.joinUsBody1 h1 {
+    font-size: 40px;
+    color: #515151;
+    margin: 0 0 40px 0;
+    font-weight: bold;
+}
+
 .singRow {
     margin: 25px 0 20px;
 }
@@ -2097,11 +2108,19 @@ label.error {
 }
 
 .day {
-    background: #f5f5f5;
     border-radius: 8px;
     margin: 0 20px 5px;
     padding: 10px;
 }
+
+.bday {
+    margin: 0 20px 5px;
+}
+
+.month{
+    border-radius: 8px;
+}
+
 .day .dayName {
     font-weight: bold;
     display: inline-block;
@@ -2271,3 +2290,36 @@ a {
 .box-header{
     margin-bottom: 2%;
 }
+.off_time_div{
+    display: none;
+}
+.pro_thumb{
+    width: 80px;
+    height: 98px;
+    float: right;
+    margin-top: -14%;
+    padding: 2%;
+}
+
+/******************New pge**************************/
+.top-select{ padding:5px; margin:20px 0;}
+.txtBox_new {
+    background-color: #fff;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    color: #595959;
+    font-size: 16px;
+    height: 45px;
+    padding: 0 10px;
+}
+.wel-box{ padding:20px ; border:1px solid #dddddd; border-radius:3px; background:#ffffff; overflow:hidden; clear:both; margin-bottom:40px;}
+.wel-box h2{ color:#333333; font-size:26px; margin-bottom:10px; font-weight:bold;}
+.wel-box p{ color:#333333; font-size:14px; font-weight:bold;}
+
+.wel-box_1{ border:1px solid #dddddd; padding:20px; overflow:hidden; margin-bottom:20px;}
+.wel-box_1 p{color: #666; font-size:16px;}
+.wel-box_1 .circle1{ width:100px; height:100px; border-radius:50%; background:#ffffff; float:left; margin:20px 0; border:8px solid #298DC8; color:#333333; font-size:20px; text-align:center; line-height:78px; }
+.wel-box_1 ul{ float:right; margin:20px 0;}
+.wel-box_1 h4{font-weight:bold; border-bottom:1px solid #dddddd; padding:0px 0 20px 0;}
+.wel-box_1 li{ line-height:30px;}
+.wel-box_1 li span{ color:#45C967; text-decoration:line-through;}

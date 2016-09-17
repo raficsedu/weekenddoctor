@@ -17,7 +17,7 @@ use Session;
 use App\DoctorMeta;
 use App\Insurances;
 use App\DoctorSchedule;
-use App\Specialtiy;
+use App\Speciality;
 
 use Validator;
 use App\Http\Controllers\Controller;
@@ -45,15 +45,18 @@ class DoctorController extends Controller
 
     public function schedule(){
         $user_id = Auth::user()->id;
-        $insurances = Insurances::Select('id', 'name')->get();
-        $schedules = get_doctor_schedules($user_id);
-        return view('pages.doctor_schedule', ['insurances' => $insurances,'schedules' => $schedules]);
+        $data['insurances'] = Insurances::Select('id', 'name')->get();
+        $data['schedules'] = get_doctor_schedules($user_id);
+        $data['off_days'] = get_doctor_off_days($user_id);
+
+        return view('pages.doctor_schedule', $data);
     }
 
     public function settings(){
-        $specialty = Specialtiy::Select('id', 'name')->get();
-        $insurances = Insurances::Select('id', 'name')->get();
-        return view('pages.doctor_settings', ['insurances' => $insurances,'specialties' => $specialty]);
+        $data['specialties'] = Speciality::Select('id', 'name')->get();
+        $data['insurances'] = Insurances::Select('id', 'name')->get();
+        $data['metas'] = get_doctor_meta(Auth::user()->id);
+        return view('pages.doctor_settings', $data);
     }
 
     public function get_time_slot(Request $request){
@@ -107,33 +110,33 @@ class DoctorController extends Controller
         if ($request->isMethod('post')) {
             $currentUser = Auth::user();
             $user_id = $currentUser->id;
+            $current_set_password = $currentUser->password;
 
             $current_password = $request->input('current_password');
-            // dd(\Hash::make($current_password));
-            // dd(\Hash::make($currentUser->password));
             $password = $request->input('password');
             $confirm_password = $request->input('confirm_password');
-            if ($password == $confirm_password) {
-                $existing_user_pass = User::where('id', $user_id)->first();
-                if (!is_null($existing_user_pass)) {
-                    if (\Hash::check($current_password, $currentUser->password)) {
-                        $existing_user_pass->password = \Hash::make($password);
-                        $existing_user_pass->updated_at = date('Y-m-d H:i:s');
-                        $existing_user_pass->save();
-                    } else {
-                        return "Password Doesn't Match";
-                    }
+
+            //Checking for the current Password Match
+            if(Hash::check($current_password, $current_set_password)){
+                // The passwords match...
+                if ($password == $confirm_password) {
+                    $existing_user_pass = User::where('id', $user_id)->first();
+                    $existing_user_pass->password = \Hash::make($password);
+                    $existing_user_pass->updated_at = date('Y-m-d H:i:s');
+                    $existing_user_pass->save();
+
+                    Session::put('successful', 'Your Password Successfully Changed');
+                    return redirect()->route('doctor_settings');
                 } else {
-                    return "Invalid User !!";
+                    Session::put('unsuccessful', 'Your Password and Confirm Password Didn\'t Match');
+                    return redirect()->route('doctor_settings');
                 }
-            } else {
-                return "Password Doesn't Match";
+            }else{
+                Session::put('unsuccessful', 'Your Current Password Didn\'t Match');
+                return redirect()->route('doctor_settings');
             }
 
         }
-        $specialty = Specialtiy::Select('id', 'name')->get();
-        $insurances = Insurances::Select('id', 'name')->get();
-        return view('pages.doctor_settings', ['insurances' => $insurances,'specialties' => $specialty]);
     }
 
     public function deactiveAccount(Request $request)
@@ -180,22 +183,22 @@ class DoctorController extends Controller
             $user_id = $currentUser->id;
             
             $fontEndKey = [
-                "Doctor_Office_Address",
-                "Doctor_Office_Area",
-                "Doctor_Office_City",
-                "Doctor_Office_State",
-                "Doctor_Office_ZIP_code",
-                "Doctor_Public_telephone",
-                "Doctor_Mobile_telephone"
+                "doctor_office_address",
+                "doctor_office_area",
+                "doctor_office_city",
+                "doctor_office_state",
+                "doctor_office_zip_code",
+                "doctor_public_telephone",
+                "doctor_mobile_telephone"
             ];
             $fontEndValue = [
-                $request->input('Doctor_Office_Address'),
-                $request->input('Doctor_Office_Area'),
-                $request->input('Doctor_Office_City'),
-                $request->input('Doctor_Office_State'),
-                $request->input('Doctor_Office_ZIP_code'),
-                $request->input('Doctor_Public_telephone'),
-                $request->input('Doctor_Mobile_telephone')
+                $request->input('doctor_office_address'),
+                $request->input('doctor_office_area'),
+                $request->input('doctor_office_city'),
+                $request->input('doctor_office_state'),
+                $request->input('doctor_office_zip_code'),
+                $request->input('doctor_public_telephone'),
+                $request->input('doctor_mobile_telephone')
             ];
             for ($i = 0; $i < sizeof($fontEndKey); $i++) {
                 $existing_user_info = DoctorMeta::where('user_id', $user_id)->where('meta_key', $fontEndKey[$i])->first();
@@ -215,8 +218,111 @@ class DoctorController extends Controller
                 }
             }
         }
-        $specialty = Specialtiy::Select('id', 'name')->get();
-        $insurances = Insurances::Select('id', 'name')->get();
-        return view('pages.doctor_settings', ['insurances' => $insurances,'specialties' => $specialty]);
+
+        Session::put('successful', 'Your Office Information Successfully Saved');
+        return redirect()->route('doctor_settings');
+    }
+
+    public function insert_off_day(Request $request){
+        $temp = explode('-',$request->date);
+        $data['us_date'] = $request->date;
+        $temp2 = $temp[2].'-'.$temp[0].'-'.$temp[1];
+        $date = new DateTime($temp2);
+        $data['date'] = $date->format('l jS \of F Y');
+        $user_id = Auth::user()->id;
+        $total_off_days = DB::table('doctor_off_days')->where('user_id',$user_id )->count();
+        $data['i'] = $total_off_days + 8;
+
+        return view('ajax_view.doctor_off_time', $data);
+    }
+
+    public function save_off_days(Request $request){
+        $user_id = Auth::user()->id;
+
+        $i = $request->form_item_no;
+        $date = $this->getDBdateformat($request->us_date);
+
+        $full_day = ($request->{"ischecked$i"}=='whole') ? 1 : 0;
+        $start_time = $request->{"stime$i"};
+        $end_time = $request->{"etime$i"};
+        $interval_time = $request->{"time$i"};
+        $time_slots = serialize($request->{"displayCheck$i"});
+        $created_at = date('Y-m-d H:i:s');
+
+        //Clear Previous data
+        $res = DB::table('doctor_off_days')->where('user_id', '=', $user_id)->where('date', '=', $date)->first();
+
+        if($res){
+            //Updating Into DB
+            DB::table('doctor_off_days')
+                ->where('id', $res->id)
+                ->update(['full_day' => $full_day,'start_time' => $start_time, 'end_time' => $end_time, 'interval_time' => $interval_time, 'time_slots' => $time_slots, 'updated_at' => $created_at]);
+        }else{
+            //Insert Into DB
+            DB::table('doctor_off_days')->insert(
+                ['user_id' => $user_id, 'date' => $date,'full_day' => $full_day,'start_time' => $start_time, 'end_time' => $end_time, 'interval_time' => $interval_time, 'time_slots' => $time_slots, 'created_at' => $created_at]
+            );
+        }
+
+        return 1;
+    }
+
+    public function delete_off_days(Request $request){
+        $user_id = Auth::user()->id;
+        $date = $this->getDBdateformat($request->us_date);
+
+        //Clear deleted data
+        DB::table('doctor_off_days')->where('user_id', '=', $user_id)->where('date', '=', $date)->delete();
+
+        return 1;
+    }
+
+    public function getDBdateformat($date=''){
+        $temp = explode('-',$date);
+        $date = $temp[2].'-'.$temp[0].'-'.$temp[1];
+        return $date;
+    }
+
+    public function save_doctor_settings(Request $request){
+        //Handling Profile Picture
+        if($request->profile_image!=''){
+            $file_extension = pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION);
+            $img_name = time().".".$file_extension;
+            $request->file('profile_image')->move('public/uploads/doctor', $img_name);
+        }else{
+            $img_name = $request->current_profile_image;
+        }
+
+        //Handling Insurances
+        $insurances = $request->insurance;
+        $insurance = '';
+        if(sizeof($insurances)>0){
+            foreach($insurances as $i){
+                $insurance .= $i.',';
+            }
+        }
+
+        //Making array of Metas
+        $metas = array(
+            'profile_image' => $img_name,
+            'doctor_title' => $request->doctor_title,
+            'speciality' => $request->speciality,
+            'education' => $request->education,
+            'hospital_affiliation' => $request->hospital_affiliation,
+            'language_spoken' => $request->language_spoken,
+            'award_and_publications' => $request->award_and_publications,
+            'professional_membership' => $request->professional_membership,
+            'insurance' => $insurance,
+            'professional_statement' => $request->professional_statement,
+            'board_certification' => $request->board_certification
+        );
+
+        //Inserting into DB
+        foreach($metas as $key => $meta){
+            update_meta('doctor_metas',Auth::user()->id,$key,$meta);
+        }
+
+        Session::put('successful', 'Your Settings Successfully Saved');
+        return redirect()->route('doctor_settings');
     }
 }

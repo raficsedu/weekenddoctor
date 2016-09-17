@@ -4,6 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
+use App\User;
+use Mail;
+use Auth;
+use Session;
+
+use App\DoctorMeta;
+use App\Insurances;
+use App\DoctorSchedule;
+use App\Speciality;
+
+use Validator;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+
+use DateTime;
 
 class HomeController extends Controller
 {
@@ -24,6 +43,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home',$data);
     }
 }

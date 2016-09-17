@@ -123,78 +123,94 @@
                             <div class="tab-pane" id="b">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
 <!--                                    Time Off-->
-                                    <form name="offSlot" action="{{url('/save-doctor-offday')}}" method="post">
-                                        {{ csrf_field() }}
-                                        <section class="content">
-                                            <div class="row">
+                                    <section class="content">
+                                        <div class="row">
 
-                                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    <div class="box box-primary">
-                                                        <div class="box-header">
-                                                            <h3 class="box-title">Off Days</h3>
-                                                        </div>
-                                                        <div class="line1"></div>
-                                                        <div class="box-body">
-                                                            @for ($i = 10; $i <= 11; $i++)
-                                                            <div class="day">
-                                                                <div class="row">
-                                                                    <div class="col-md-4">
-                                                                        <div class="dayName">{{date('l jS \of F Y')}}</div>
-                                                                        <label for="ischecked{{$i}}">
-                                                                            <input name="ischecked{{$i}}" id="ischecked{{$i}}" value="{{$i}}" tabindex="1" class="form" type="radio" @if(array_key_exists($i,$schedules)){{"checked"}}@else{{""}}@endif> Whole Day <br>
-                                                                            <input name="ischecked{{$i}}" id="ischecked{{$i}}" value="{{$i}}" tabindex="1" class="form" type="radio" @if(array_key_exists($i,$schedules)){{"checked"}}@else{{""}}@endif> Select Time
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div>from
-                                                                            <select name="stime{{$i}}" id="stime{{$i}}" class="select change_slots" rel="{{$i}}" tabindex="2">
-                                                                                @foreach(get_time_slots('00:00','23:30','30',1) as $single)
-                                                                                <option value="{{$single}}" @if(array_key_exists($i,$schedules) && $schedules[$i]->start_time==$single){{"selected"}}@elseif(!array_key_exists($i,$schedules) && $single=='9:00'){{"selected"}}@endif>{{$single}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="time_margin">
-                                                                            to
-                                                                            <select name="etime{{$i}}" id="etime{{$i}}" class="select change_slots" rel="{{$i}}" tabindex="3">
-                                                                                @foreach(get_time_slots('00:00','23:30','30',1) as $single)
-                                                                                <option value="{{$single}}" @if(array_key_exists($i,$schedules) && $schedules[$i]->end_time==$single){{"selected"}}@elseif(!array_key_exists($i,$schedules) && $single=='17:00'){{"selected"}}@endif>{{$single}}</option>
-                                                                                @endforeach
-                                                                            </select></div>								</div>
-                                                                    <div class="col-md-3">
-                                                                        timeslot duration
-                                                                        <select name="time{{$i}}" id="time{{$i}}" class="select change_slots" rel="{{$i}}" tabindex="4">
-                                                                            @foreach($intervals as $single)
-                                                                            <option value="{{$single}}" @if(array_key_exists($i,$schedules) && $schedules[$i]->interval_time==$single){{"selected"}}@elseif(!array_key_exists($i,$schedules) && $single=='30'){{"selected"}}@endif>{{$single}} Minutes</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                        <a href="javascript:void(0)" rel="{{$i}}" rev="hide" class="del_slots">add breakes</a>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <span id="del{{$i}}">
-                                                                            <div id="checkboxDiv{{$i}}" class="slot-div">
-                                                                                @if(array_key_exists($i,$schedules))
-                                                                                @foreach(unserialize($schedules[$i]->time_slots) as $single)
-                                                                                <input name="displayCheck{{$i}}[]" checked="checked" value="{{$single}}" type="checkbox">{{$single}}<br>
-                                                                                @endforeach
-                                                                                @else
-                                                                                @foreach(get_time_slots('09:00','17:00','30',2) as $single)
-                                                                                <input name="displayCheck{{$i}}[]" checked="checked" value="{{$single}}" type="checkbox">{{$single}}<br>
-                                                                                @endforeach
-                                                                                @endif
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header">
+                                                        <h3 class="box-title">Off Days</h3>
+                                                    </div>
+                                                    <div class="line1"></div>
+                                                    <div class="box-body">
+                                                        {{--*/ $i=7 /*--}}
+                                                        <div id="off_day_container">
+                                                            @foreach($off_days as $row)
+                                                                {{--*/ $i++ /*--}}
+                                                                <form id="off_day_form{{$i}}" name="off_day_form{{$i}}" method="get" enctype="multipart/form-data">
+                                                                    {{ csrf_field() }}
+                                                                    <input type="hidden" name="form_item_no" value="{{$i}}">
+                                                                    <input id="us_date{{$i}}" class="rawusdate" type="hidden" name="us_date" value="{{getUSdateformat($row->date)}}">
+                                                                    <div id="day{{$i}}" class="day">
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <div class="dayName">{{(new DateTime($row->date))->format('l jS \of F Y')}}</div>
+                                                                                <div class="col-md-12" style="margin-top: 10%;">
+                                                                                    <input name="ischecked{{$i}}" id="whole{{$i}}" value="whole" tabindex="{{$i}}" class="form off_day_time" type="radio" @if($row->full_day==1){{"checked"}}@endif>
+                                                                                    <label for="whole{{$i}}">Whole Day</label>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <input name="ischecked{{$i}}" id="partial{{$i}}" value="partial" tabindex="{{$i}}" class="form off_day_time" type="radio" @if($row->full_day==0){{"checked"}}@endif>
+                                                                                    <label for="partial{{$i}}">Select Time</label>
+                                                                                </div>
+                                                                                <div class="col-md-12" style="margin-top: 10%;">
+                                                                                    <div class="col-md-4 pull-left">
+                                                                                        <button id="delete{{$i}}" type="button" class="btn btn-danger delete_off_day" sl="{{$i}}">Delete</button>
+                                                                                    </div>
+                                                                                    <div class="col-md-4 pull-right">
+                                                                                        <button id="insert{{$i}}" type="button" class="btn btn-success save_off_day" sl="{{$i}}">Save</button>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                        </span>
-                                                                        <span class="message"></span>
+                                                                            <div id="off_time_div{{$i}}" class="@if($row->full_day==1){{'off_time_div'}}@endif">
+                                                                                <div class="col-md-3">
+                                                                                    <div>from
+                                                                                        <select name="stime{{$i}}" id="stime{{$i}}" class="select change_slots" rel="{{$i}}" tabindex="2">
+                                                                                            @foreach(get_time_slots('00:00','23:30','30',1) as $single)
+                                                                                                <option value="{{$single}}" @if($row->start_time==$single){{"selected"}}@endif>{{$single}}</option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div class="time_margin">
+                                                                                        to
+                                                                                        <select name="etime{{$i}}" id="etime{{$i}}" class="select change_slots" rel="{{$i}}" tabindex="3">
+                                                                                            @foreach(get_time_slots('00:00','23:30','30',1) as $single)
+                                                                                                <option value="{{$single}}" @if($row->end_time==$single){{"selected"}}@endif>{{$single}}</option>
+                                                                                            @endforeach
+                                                                                        </select></div>								</div>
+                                                                                <div class="col-md-3">
+                                                                                    timeslot duration
+                                                                                    <select name="time{{$i}}" id="time{{$i}}" class="select change_slots" rel="{{$i}}" tabindex="4">
+                                                                                        @foreach($intervals as $single)
+                                                                                            <option value="{{$single}}" @if($row->interval_time == $single){{"selected"}}@endif>{{$single}} Minutes</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                    <a href="javascript:void(0)" rel="{{$i}}" rev="hide" class="del_slots">add breakes</a>
+                                                                                </div>
+                                                                                <div class="col-sm-2">
+                                                                                    <span id="del{{$i}}" style="display:none">
+                                                                                        <div id="checkboxDiv{{$i}}" class="slot-div">
+                                                                                            @foreach(unserialize($row->time_slots) as $single)
+                                                                                                <input name="displayCheck{{$i}}[]" checked="checked" value="{{$single}}" type="checkbox">{{$single}}<br>
+                                                                                            @endforeach
+                                                                                        </div>
+                                                                                    </span>
+                                                                                    <span class="message"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                            @endfor
+                                                                </form>
+                                                            @endforeach
+                                                        </div>
+                                                        <div class="col-md-12" style="margin-top: 5%;">
                                                             <input id="datepicker" type="button" class="btn btn-primary" value="Add Off Day">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </section>
-                                    </form>
+                                        </div>
+                                    </section>
                                 </div>
                             </div>
                             </div>
@@ -217,8 +233,41 @@ $(function ($) {
     $( "#datepicker" ).datepicker({
         dateFormat: "mm-dd-yy",
         onSelect: function (date) {
+            var date = $(this).val();
             $('#datepicker').val('Add Off Day');
-
+            var flag = false;
+            var type = 1;
+            $('.save_off_day').each(function(){
+                if($(this).hasClass('unsaved')){
+                    flag = true;
+                    type = 1;
+                }
+            });
+            $('.rawusdate').each(function(){
+                if($(this).val()==date){
+                    flag = true;
+                    type = 2;
+                }
+            });
+            if(flag){
+                if(type==1){
+                    $.notify("Please first save your last added item", "error");
+                }else if(type==2){
+                    $.notify("Duplicate Date Found", "error");
+                }
+            }else{
+                //Calling Ajax
+                $.ajax({
+                    url: "{{url('/insert-doctor-off-day')}}",
+                    type: 'GET',
+                    data: { date:date },
+                    success: function(response)
+                    {
+                        $('#off_day_container').append(response);
+                        $('#datepicker').addClass('unsaved');
+                    }
+                });
+            }
         }
     });
     // validate signup form on keyup and submit
@@ -288,107 +337,102 @@ $(function ($) {
 //    });
 });
 
-$('.del_slots').click(function(){
-    var num = $(this).attr('rel');
-    if($(this).attr('rev')=='hide'){
-        $('#del'+num).fadeIn(500);
-        $(this).attr('rev','show');
-        $(this).html('save timeslots');
-    }else{
-        var id = $('#id'+num).val();
-        // var slots = $('#display_slots'+num).val();
+    $(document).on("click", ".del_slots", function () {
+        var num = $(this).attr('rel');
+        if($(this).attr('rev')=='hide'){
+            $('#del'+num).fadeIn(500);
+            $(this).attr('rev','show');
+            $(this).html('save timeslots');
+        }else{
+            var id = $('#id'+num).val();
+            // var slots = $('#display_slots'+num).val();
+            var stime = $('#stime'+num).val();
+            var etime = $('#etime'+num).val();
+            var intval = $('#time'+num).val();
+
+
+            var slots = '';
+            $("input[name='displayCheck"+num+"[]']").each(function() {
+                if(this.checked==true)slots = slots+$(this).val()+',';
+            });
+            /*$.post('/user/timeslot/save-display-slots',
+             {id: id, slots:slots,intval:intval,stime:stime,etime:etime },
+
+             function(data){
+
+             //alert(data);return false;
+             }, false);
+             */
+            $('#del'+num).fadeOut(500);
+            $(this).attr('rev','hide');
+            $(this).html('add breakes');
+            $(this).closest(".time-slot").find(".message").html("Click save changes below to save your breaks");
+        }
+    });
+
+
+    // change time interval
+    $(document).on("change", ".change_slots", function () {
+        var num = $(this).attr('rel');
         var stime = $('#stime'+num).val();
         var etime = $('#etime'+num).val();
         var intval = $('#time'+num).val();
-
-
-        var slots = '';
-        $("input[name='displayCheck"+num+"[]']").each(function() {
-            if(this.checked==true)slots = slots+$(this).val()+',';
+        //Generating Time slot
+        $.ajax({
+            url: "{{url('/get-time-slot')}}",
+            data: { stime:stime,etime:etime,intval:intval,num:num },
+            type: 'GET',
+            success: function(response)
+            {
+                $('#checkboxDiv'+num).html(response);
+            }
         });
-        /*$.post('/user/timeslot/save-display-slots',
-         {id: id, slots:slots,intval:intval,stime:stime,etime:etime },
-
-         function(data){
-
-         //alert(data);return false;
-         }, false);
-         */
-        $('#del'+num).fadeOut(500);
-        $(this).attr('rev','hide');
-        $(this).html('add breakes');
-        $(this).closest(".time-slot").find(".message").html("Click save changes below to save your breaks");
-    }
-});
+    });
 
 
-// change time interval
-$('.change_slots').change(function(){
-    var num = $(this).attr('rel');
-    var stime = $('#stime'+num).val();
-    var etime = $('#etime'+num).val();
-    var intval = $('#time'+num).val();
-    //Generating Time slot
-    $.ajax({
-        url: "{{url('/get-time-slot')}}",
-        data: { stime:stime,etime:etime,intval:intval,num:num },
-        type: 'GET',
-        success: function(response)
-        {
-            $('#checkboxDiv'+num).html(response);
+
+    $(document).on("click", ".off_day_time", function () {
+        var s = $(this).val();
+        var index = $(this).attr('tabindex');
+        if(s=="whole"){
+            $('#off_time_div'+index).hide();
+        }else if(s=="partial"){
+            $('#off_time_div'+index).show();
         }
     });
-});
-
-//function get_time_slot(stime,etime,intval){
-//    $.ajax({
-//        url: "{{url('/get-time-slot')}}",
-//        data: { stime:stime,etime:etime,intval:intval },
-//        type: 'GET',
-//        success: function(response)
-//        {
-//            return response;
-//        }
-//    });
-//}
-
-//function loadTimeslots(num) {
-//    var stime = $('#stime'+num).val();
-//    var etime = $('#etime'+num).val();
-//    var intval = $('#time'+num).val();
-//    var url = 'http://demo.appointment-script.com/user/timeslot/get-doctor-slots';
-//
-//    var days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
-//    var selectedDay = days[num-1];
-//    $.post(url,
-//        {stime:stime,etime:etime,intval:intval,num:num, day:selectedDay},
-//
-//        function(data){
-//
-//            //alert(data);return false;
-//            var decoded = $.json.decode(data);
-////        $('#display_slots'+decoded['num']).val(decoded['slots']);//1
-//            $('#checkboxDiv'+decoded['num']).html(decoded['slots']);//1
-//
-//
-//        }, false);
-//}
-////foreach day, prepare the timeslots
-//for(var i=1;i<=7;i++){
-//    loadTimeslots(i);
-//}
 
 
-function setDeleteTimeslots(num, type){
-    var stime = $('#stime'+num).val();
-    var etime = $('#etime'+num).val();
-    var intval = $('#time'+num).val();
-    if(type==1){
-        var url = 'http://demo.appointment-script.com/user/timeslot/get-deleted-slots';
-    }else if(type==2){
-        var url = 'http://demo.appointment-script.com/user/timeslot/make-slots';
-    }
+    $(document).on("click", ".save_off_day", function () {
+        var sl = $(this).attr('sl');
+        $(this).removeClass('unsaved');
+        var data = $('#off_day_form'+sl).serialize();
 
-}
+        $.ajax({
+            url: "{{url('/save-off-days')}}",
+            method: "GET",
+            data: data,
+            success: function(response)
+            {
+                $.notify("Your Off Day Successfully Added", "success");
+            }
+        });
+    });
+
+    $(document).on("click", ".delete_off_day", function () {
+        var sl = $(this).attr('sl');
+        $('#day'+sl).remove();
+        var data = $('#off_day_form'+sl).serialize();
+
+        $.ajax({
+            url: "{{url('/delete-off-days')}}",
+            method: "GET",
+            data: data,
+            success: function(response)
+            {
+                $.notify("Your Off Day Successfully Deleted", "success");
+                $('#datepicker').removeClass('unsaved');
+            }
+        });
+    });
 </script>
 @endsection

@@ -8,7 +8,7 @@ use App\Http\Requests;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use App\Specialtiy;
+use App\Speciality;
 use App\DoctorMeta;
 use App\User;
 use Mail;
@@ -30,7 +30,7 @@ class RegistrationController extends Controller
 
     public function get_started()
     {
-        $specialty = Specialtiy::Select('id', 'name')->get();
+        $specialty = Speciality::Select('id', 'name')->get();
         //dd($specialty);
         return view('pages.get_started', ['specialties' => $specialty]);
     }
@@ -48,7 +48,7 @@ class RegistrationController extends Controller
             $confirmation_code = str_random(10);
             $user_level = intval($request->input('registration_type'));
             $email = $request->input('email');
-            $first_name = $request->input('first_name');
+            $first_name = ucfirst($request->input('first_name'));
             $last_name = $request->input('last_name');
             $password = $request->input('password');
 
@@ -80,7 +80,7 @@ class RegistrationController extends Controller
                 $m->to($data['email'], $data['name'])->subject('Please verify your email');
             });
 
-            $message = "<p>Thank You for signing up! Please check your email and verify your account.</p>";
+            $message = "Thank You for signing up! Please check your email and verify your account.";
             Session::put('successful',$message );
             return redirect()->route('join_us');
 
@@ -101,13 +101,13 @@ class RegistrationController extends Controller
             $confirmation_code = str_random(10);
             $user_level = intval($request->input('registration_type'));
             $email = $request->input('email');
-            $first_name = $request->input('first_name');
+            $first_name = ucfirst($request->input('first_name'));
             $last_name = $request->input('last_name');
             $password = str_random(8);
             $fontEndKey = [
-                "Specialty",
-                "Phone",
-                "Zip"
+                "speciality",
+                "phone",
+                "zip"
             ];
             $fontEndValue = [
                 $request->input('specialty'),
@@ -136,7 +136,7 @@ class RegistrationController extends Controller
             }
             //Sending Confirmation Email
             $data['email'] = $email;
-            $data['name'] = $first_name . ' ' . $last_name;
+            $data['name'] = $name = $first_name . ' ' . $last_name;
             $data['user_id'] = $user_id;
             $data['confirmation_code'] = $confirmation_code;
             $data['password'] = $password;
@@ -149,7 +149,7 @@ class RegistrationController extends Controller
                 $m->to($data['email'], $data['name'])->subject('Please verify your email');
             });
 
-            $message = "<p>Thank you for your information,  ($name)!</p><br /><p>Please check your email to verify your account</p>";
+            $message = "Thank you for your information,  ($name)! Please check your email to verify your account";
             Session::put('successful',$message );
             return redirect()->route('get_started');
 

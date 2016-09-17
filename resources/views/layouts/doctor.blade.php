@@ -215,6 +215,7 @@
     <script type="text/javascript" src="{{url('public/js/script.js')}}"></script>
     <script type="text/javascript" src="{{url('public/js/jquery.validate.js')}}"></script>
     <script type="text/javascript" src="{{url('public/js/jquery-ui.js')}}"></script>
+    <script src="{{url('public/js/notify.js')}}"></script>
 @yield('footer_custom_script')
 </body>
 </html>

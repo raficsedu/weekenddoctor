@@ -5,34 +5,39 @@
     <div class="container">
         <section class="row">
             <div class="findDoctr">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 clearfix">
-                    <div class="findDoctrSec">
-                        <h2>Find a doctor you love.Get the <br/>
-                            care you need.</h2>
-                        <div class="findRow clearfix">
-                            <label>Get Started</label>
-                            <select class="choose">
-                                <option>Choose a Specialty</option>
-                                <option>Doctor 1</option>
-                                <option>Doctor 2</option>
-                            </select>
+                <form action="{{url('/medical-search')}}" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 clearfix">
+                        <div class="findDoctrSec">
+                            <h2>Find a doctor you love.Get the <br/>
+                                care you need.</h2>
+                            <div class="findRow clearfix">
+                                <label>Get Started</label>
+                                <select name="speciality" class="choose">
+                                    <option value="">Choose a Speciality</option>
+                                    @foreach($specialities as $single)
+                                        <option value="{{$single->id}}">{{$single->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="findRow clearfix">
+                                <label>Type City / Zip</label>
+                                <input type="text" name="city_zip" class="txtBox" placeholder="Enter Zip Code" required="">
+                            </div>
+                            <div class="findRow clearfix">
+                                <label>Who Accept</label>
+                                <select name="insurance" class="choose">
+                                    <option value="">Choose an Insurance</option>
+                                    @foreach($insurances as $single)
+                                        <option value="{{$single->id}}">{{$single->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="findRow clearfix"> <button class="findBtn" type="submit">Find a Doctor</button> </div>
                         </div>
-                        <div class="findRow clearfix">
-                            <label>Get Started</label>
-                            <input type="text" class="txtBox" placeholder="Enter Zip Code">
-                        </div>
-                        <div class="findRow clearfix">
-                            <label>who participate</label>
-                            <select class="choose">
-                                <option>Choose a Specialty</option>
-                                <option>Doctor 1</option>
-                                <option>Doctor 2</option>
-                            </select>
-                        </div>
-                        <div class="findRow clearfix"> <a class="findBtn" href="#">Find a Doctor</a> </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 srchDoctor clearfix"> <img src="{{url('public/images/doct_srch.png')}}" alt=""/> </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 srchDoctor clearfix"> <img src="{{url('public/images/doct_srch.png')}}" alt=""/> </div>
+                </form>
             </div>
         </section>
     </div>
@@ -90,43 +95,50 @@
     <div class="container">
         <section class="row">
             <div class="findBox">
-                <h1 class=" text-center">find doctor</h1>
-                <aside class="col-lg-4 col-md-4 col-sm-4 col-xs-12 clearfix">
-                    <div class="findDoctorBlock">
-                        <h5><img src="{{url('public/images/city.png')}}" alt=""/> city</h5>
-                        <div class="findRow clearfix">
-                            <select class="choose">
-                                <option>Select City</option>
-                                <option>Choose a Specialty</option>
-                                <option>Doctor 2</option>
-                            </select>
+                <form action="{{url('/medical-search')}}" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <h1 class=" text-center">find doctor</h1>
+                    <aside class="col-lg-4 col-md-4 col-sm-4 col-xs-12 clearfix">
+                        <div class="findDoctorBlock">
+                            <h5><img src="{{url('public/images/city.png')}}" alt=""/> city</h5>
+                            <div class="findRow clearfix">
+                                <!--                            <select class="choose">-->
+                                <!--                                <option>Select City</option>-->
+                                <!--                                <option>Choose a Specialty</option>-->
+                                <!--                                <option>Doctor 2</option>-->
+                                <!--                            </select>-->
+                                <input type="text" name="city_zip" class="choose" placeholder="Enter Zip Code" required="">
+                            </div>
                         </div>
-                    </div>
-                </aside>
-                <aside class="col-lg-4 col-md-4 col-sm-4 col-xs-12 clearfix">
-                    <div class="findDoctorBlock">
-                        <h5><img src="{{url('public/images/specility.png')}}" alt=""/> Specialty</h5>
-                        <div class="findRow clearfix">
-                            <select class="choose">
-                                <option>Select Specialty</option>
-                                <option>Choose a Specialty</option>
-                                <option>Doctor 2</option>
-                            </select>
+                    </aside>
+                    <aside class="col-lg-4 col-md-4 col-sm-4 col-xs-12 clearfix">
+                        <div class="findDoctorBlock">
+                            <h5><img src="{{url('public/images/specility.png')}}" alt=""/> Speciality</h5>
+                            <div class="findRow clearfix">
+                                <select name="speciality" class="choose">
+                                    <option value="">Choose a Speciality</option>
+                                    @foreach($specialities as $single)
+                                    <option value="{{$single->id}}">{{$single->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </aside>
-                <aside class="col-lg-4 col-md-4 col-sm-4 col-xs-12 clearfix">
-                    <div class="findDoctorBlock">
-                        <h5><img src="{{url('public/images/insurance.png')}}" alt=""/> Insurance</h5>
-                        <div class="findRow clearfix">
-                            <select class="choose">
-                                <option>Select Insurance</option>
-                                <option>Choose a Specialty</option>
-                                <option>Doctor 2</option>
-                            </select>
+                    </aside>
+                    <aside class="col-lg-4 col-md-4 col-sm-4 col-xs-12 clearfix">
+                        <div class="findDoctorBlock">
+                            <h5><img src="{{url('public/images/insurance.png')}}" alt=""/> Insurance</h5>
+                            <div class="findRow clearfix">
+                                <select name="insurance" class="choose">
+                                    <option value="">Choose an Insurance</option>
+                                    @foreach($insurances as $single)
+                                    <option value="{{$single->id}}">{{$single->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </aside>
+                    </aside>
+                    <div class="choose" style="margin: 0px 27%;"> <button class="findBtn" type="submit">Find a Doctor</button> </div>
+                </form>
             </div>
         </section>
     </div>

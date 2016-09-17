@@ -32,136 +32,119 @@
 <section class="row">
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" style="padding:0;">
+    <?php $i = 0;?>
+    @foreach($doctors as $doctor)
+        <?php
+            $metas = get_doctor_meta($doctor->id);
+            if(isset($metas['profile_image'])){
+                $img_url = url('public/uploads/doctor/'.$metas['profile_image']);
+            }else{
+                $img_url = url('public/images/doctor05.png');
+            }
+            $insurancess = explode(',',$metas['insurance']);
+        ?>
+        @if($speciality!='' && $insurance!='')
+            @if($metas['speciality']==$speciality && in_array($insurance,$insurancess))
+                <?php $i++;?>
+                <div class="box-doc col-lg-4 col-md-4 col-sm-4">
+                    <h3>Book a {{$metas['doctor_title']}}</h3>
 
-    <div class="box-doc col-lg-4 col-md-4 col-sm-4">
-        <h3>Book a Primary Care Physician</h3>
+                    <hr class="line">
+                    <img src="{{$img_url}}" alt="img" style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
 
-        <hr class="line">
-        <img src="{{url('public/images/doctor01.png')}}" alt="img" style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
+                    <h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2>
+                    <br>
 
-        <h2>Dr. Muntasir Rahman</h2>
-        <br>
+                    <ul class="staring">
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
 
-        <ul class="staring">
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                    </ul>
+                    <br><br>
+                    <p>{{str_limit($metas['professional_statement'], 20)}}</p>
+                </div>
+            @endif
+        @elseif($speciality!='')
+            @if($metas['speciality']==$speciality)
+                <?php $i++;?>
+                <div class="box-doc col-lg-4 col-md-4 col-sm-4">
+                    <h3>Book a {{$metas['doctor_title']}}</h3>
 
-        </ul>
-        <br><br>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting the 1500s, </p>
-    </div>
+                    <hr class="line">
+                    <img src="{{$img_url}}" alt="img" style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
 
+                    <h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2>
+                    <br>
 
-    <div class="box-doc col-lg-4 col-md-4 col-sm-4">
-        <h3>Book a Primary Care Physician</h3>
+                    <ul class="staring">
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
 
-        <hr class="line">
-        <img src="{{url('public/images/doctor01.png')}}" alt="img" style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
+                    </ul>
+                    <br><br>
+                    <p>{{str_limit($metas['professional_statement'], 20)}}</p>
+                </div>
+            @endif
+        @elseif($insurance!='')
+            @if(in_array($insurance,$insurancess))
+                <?php $i++;?>
+                <div class="box-doc col-lg-4 col-md-4 col-sm-4">
+                    <h3>Book a {{$metas['doctor_title']}}</h3>
 
-        <h2>Dr. Muntasir Rahman</h2>
-        <br>
+                    <hr class="line">
+                    <img src="{{$img_url}}" alt="img" style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
 
-        <ul class="staring">
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                    <h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2>
+                    <br>
 
-        </ul>
-        <br><br>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting the 1500s, </p>
-    </div>
+                    <ul class="staring">
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                        <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
 
-    <div class="box-doc col-lg-4 col-md-4 col-sm-4">
-        <h3>Book a Primary Care Physician</h3>
+                    </ul>
+                    <br><br>
+                    <p>{{str_limit($metas['professional_statement'], 20)}}</p>
+                </div>
+            @endif
+        @else
+            <?php $i++;?>
+            <div class="box-doc col-lg-4 col-md-4 col-sm-4">
+                <h3>Book a {{$metas['doctor_title']}}</h3>
 
-        <hr class="line">
-        <img src="{{url('public/images/doctor01.png')}}" alt="img" style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
+                <hr class="line">
+                <img src="{{$img_url}}" alt="img" style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
 
-        <h2>Dr. Muntasir Rahman</h2>
-        <br>
+                <h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2>
+                <br>
 
-        <ul class="staring">
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                <ul class="staring">
+                    <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                    <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                    <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                    <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
+                    <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
 
-        </ul>
-        <br><br>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting the 1500s, </p>
-    </div>
+                </ul>
+                <br><br>
+                <p>{{str_limit($metas['professional_statement'], 20)}}</p>
+            </div>
+        @endif
+    @endforeach
 
-    <div class="box-doc col-lg-4 col-md-4 col-sm-4">
-        <h3>Book a Primary Care Physician</h3>
-
-        <hr class="line">
-        <img src="{{url('public/images/doctor01.png')}}" alt="img" style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
-
-        <h2>Dr. Muntasir Rahman</h2>
-        <br>
-
-        <ul class="staring">
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-
-        </ul>
-        <br><br>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting the 1500s, </p>
-    </div>
-
-
-    <div class="box-doc col-lg-4 col-md-4 col-sm-4">
-        <h3>Book a Primary Care Physician</h3>
-
-        <hr class="line">
-        <img src="{{url('public/images/doctor01.png')}}" alt="img" style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
-
-        <h2>Dr. Muntasir Rahman</h2>
-        <br>
-
-        <ul class="staring">
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-
-        </ul>
-        <br><br>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting the 1500s, </p>
-    </div>
-
-    <div class="box-doc col-lg-4 col-md-4 col-sm-4">
-        <h3>Book a Primary Care Physician</h3>
-
-        <hr class="line">
-        <img src="{{url('public/images/doctor01.png')}}" alt="img" style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
-
-        <h2>Dr. Muntasir Rahman</h2>
-        <br>
-
-        <ul class="staring">
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-            <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt="" src="{{url('public/images/yellow_star.png')}}" width="24" height="24"></a></li>
-
-        </ul>
-        <br><br>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting the 1500s, </p>
-    </div>
-
-
+    @if($i==0)
+        <div class="alert alert-warning" role="alert">
+            <strong>Sorry !</strong> There is no doctor found your match .
+        </div>
+    @endif
 </div>
 
 

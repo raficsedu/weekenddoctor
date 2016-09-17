@@ -1,8 +1,38 @@
 @extends('layouts.patient')
-
+<?php
+if(isset($metas['date_of_birth'])){
+    $temp = explode('/',$metas['date_of_birth']);
+    $birth_month = $temp[0];
+    $birth_date = $temp[1];
+    $birth_year = $temp[2];
+}else{
+    $birth_month = '';
+    $birth_date = '';
+    $birth_year = '';
+}
+?>
 @section('content')
 <section class="bodySec joinUsBody clearfix" style="background:none; padding:20px;">
     <div class="container">
+        <div class="row">
+            @if(Session::has('successful'))
+            <div class="col-md-12">
+                <div class="alert alert-success">
+                    <p>
+                        <strong>{{Session::pull('successful','default')}}</strong>
+                    </p>
+                </div>
+            </div>
+            @elseif(Session::has('unsuccessful'))
+            <div class="col-md-12">
+                <div class="alert alert-danger">
+                    <p>
+                        <strong>{{Session::pull('unsuccessful','default')}}</strong>
+                    </p>
+                </div>
+            </div>
+            @endif
+        </div>
         <section class="row">
             <div class="container">
 
@@ -15,7 +45,7 @@
                                 <li><a href="#b" data-toggle="tab">Password</a></li>
                                 <li><a href="#c" data-toggle="tab">Notifications Settings</a></li>
                                 <li><a href="#d" data-toggle="tab">Insurance</a></li>
-                                <li><a href="#e" data-toggle="tab">Demographic Info</a></li>
+<!--                                <li><a href="#e" data-toggle="tab">Demographic Info</a></li>-->
                                 <li><a href="#f" data-toggle="tab">Authorizations</a></li>
                             </ul>
                             <div class="tab-content col-md-12">
@@ -29,34 +59,34 @@
 
                                                 <label>Name</label>
                                                 <br>
-                                                <p style="color:#575757; margin-top:10px;">Ankit Sethiya - Please call us at (855) 962-3621 to
+                                                <p style="color:#575757; margin-top:10px;">{{Auth::user()->first_name.' '.Auth::user()->last_name}} - Please call us at (855) 962-3621 to
                                                     change your name.</p>
                                                 </div>
                                                 <div class="line1"></div>
                                                 <div class="singRow">
                                                     <label>Email</label>
-                                                    <input type="text" class="pwd txtBox" placeholder="ankit.003.sethiya@gmail.com" name="email" id="email">
+                                                    <input type="text" class="pwd txtBox" name="email" id="email" value="{{Auth::user()->email}}" disabled>
                                                 </div>
                                                 <div class="line1"></div>
                                                 <div class="singRow clearfix">
-                                                    <input name="cell" id="cell" type="text" placeholder="Cell" class="txtBox month">
-                                                    <input name="home" id="home" type="text" placeholder="Home" class="txtBox date">
-                                                    <input name="work" id="work" type="text" placeholder="Work" class="txtBox year">
+                                                    <input name="cell_no" id="cell_no" type="text" placeholder="Cell" class="txtBox month" value="@if(isset($metas['cell_no'])){{$metas['cell_no']}}@endif">
+                                                    <input name="home_phone_no" id="home_phone_no" type="text" placeholder="Home" class="txtBox day" value="@if(isset($metas['home_phone_no'])){{$metas['home_phone_no']}}@endif">
+                                                    <input name="work_phone_no" id="work_phone_no" type="text" placeholder="Work" class="txtBox day" value="@if(isset($metas['work_phone_no'])){{$metas['work_phone_no']}}@endif">
                                                 </div>
                                                 <div class="line1"></div>
                                                 <div class="singRow">
                                                     <label>Preferred Number </label>
                                                     <select name="preferred_number" id="preferred_number" placeholder="Country code" class="countryCode txtBox1" type="text">
-                                                        <option>Cell</option>
-                                                        <option>Home</option>
+                                                        <option value="cell" @if(isset($metas['preferred_number']) && $metas['preferred_number']=='cell'){{"selected"}}@endif>Cell</option>
+                                                        <option value="home" @if(isset($metas['preferred_number']) && $metas['preferred_number']=='home'){{"selected"}}@endif>Home</option>
                                                     </select>
                                                 </div>
                                                 <div class="line1"></div>
                                                 <div class="singRow">
                                                     <label>Sex</label>
-                                                    <select name="gender" id="gender" placeholder="Country code" class="countryCode txtBox1" type="text">
-                                                        <option>Male</option>
-                                                        <option>Female</option>
+                                                    <select name="gender" id="gender" placeholder="Your Gender" class="countryCode txtBox1" type="text">
+                                                        <option value="male" @if(isset($metas['gender']) && $metas['gender']=='male'){{"selected"}}@endif>Male</option>
+                                                        <option value="female" @if(isset($metas['gender']) && $metas['gender']=='female'){{"selected"}}@endif>Female</option>
                                                     </select>
                                                 </div>
                                                 <div class="line1"></div>
@@ -64,26 +94,24 @@
                                                     <label>Date of Birth</label>
                                                     <div class="row" style="padding-left:15px;">
                                                         <div class="col-md-3 fDiv" align="left">
-                                                            <input name="birth_month"  type="number" min="1" max="12" placeholder="03" class=" txtBox tBox">
-                                                            <label id="birth_month" for="birth_month" class="error"></label> 
+                                                            <input name="birth_month"  type="number" min="1" max="12" placeholder="03" class=" txtBox tBox" value="{{$birth_month}}">
+                                                            <label id="birth_month" for="birth_month" class="error"></label>
                                                         </div>
-                                                        <div class="col-md-9 fDiv" align="left">
-                                                            <input name="birth_date"  type="number" min="1" max="31" placeholder="05" class="txtBox tBox">
-                                                            <label id="birth_date" for="birth_date" class="error"></label> 
+                                                        <div class="col-md-3 fDiv bday" align="left">
+                                                            <input name="birth_date"  type="number" min="1" max="31" placeholder="05" class="txtBox tBox" value="{{$birth_date}}">
+                                                            <label id="birth_date" for="birth_date" class="error"></label>
+                                                        </div>
+                                                        <div class="col-md-3 fdiv bday" align="left">
+                                                            <input  name="birth_year" type="number" min="1900" max="{{date('Y')}}" placeholder="1989" class="txtBox tBox" value="{{$birth_year}}">
+                                                            <label id="birth_year" for="birth_year" class="error"></label>
                                                         </div>
                                                     </div>
-                                                    <div class="row" style="padding-left:15px;">
-                                                        <div class="col-md-3 fdiv" align="left">
-                                                         <input  name="birth_year" type="number" min="1900" max="{{date('Y')}}" placeholder="1989" class="txtBox tBox">
-                                                         <label id="birth_year" for="birth_year" class="error"></label> 
-                                                     </div>
-                                                 </div>
                                              </div>
                                              <div class="line1"></div>
                                              <div class="singRow">
                                                 <button class="signBtn" type="submit" style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</button>
                                                 <a class="signBtn" href="#"
-                                                style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a> 
+                                                style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a>
                                                 <a class="signBtn" href="deactive-account"
                                                 style="background:none; color:#D75353; float:right; font-size:16px;">Dactivate Account</a>
                                             </div>
@@ -92,7 +120,7 @@
                                 </form>
                             </div>
                             <div class="tab-pane" id="b">
-                                <form id="pass_change" action="{{url('/password-change')}}" method="post">
+                                <form id="pass_change" action="{{url('/patient-password-change')}}" method="post">
                                  {{ csrf_field() }}
                                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                     <div class="singBody">
@@ -111,7 +139,7 @@
                                         <div class="line1"></div>
                                         <div class="singRow"><button class="signBtn" type="submit" style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</button>
                                             <a class="signBtn" href="#"
-                                            style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a> 
+                                            style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +176,7 @@
                                 <div class="line1"></div>
                                 <div class="singRow"><button class="signBtn" type="submit" style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</button>
                                     <a class="signBtn" href="#"
-                                    style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a> 
+                                    style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a>
                                 </div>
                             </div>
                         </form>
@@ -162,7 +190,7 @@
                                         <label>Medical Insurance </label>
                                         <select name="medical_insurance" placeholder="Country code" class="countryCode txtBox1" type="text">
                                             @foreach($insurances as $insu)
-                                            <option value="{{$insu->id}}">{{$insu->name}}</option>
+                                                <option value="{{$insu->id}}" @if(isset($metas['medical_insurance']) && $metas['medical_insurance']==$insu->id){{"selected"}}@endif>{{$insu->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -170,20 +198,24 @@
                                     <div class="singRow">
                                         <label>Dental Insurance</label>
                                         <select name="dental_insurance" placeholder="Country code" class="countryCode txtBox1" type="text">
-                                            <option>Select</option>
+                                            @foreach($insurances as $insu)
+                                                <option value="{{$insu->id}}" @if(isset($metas['dental_insurance']) && $metas['dental_insurance']==$insu->id){{"selected"}}@endif>{{$insu->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="line1"></div>
                                     <div class="singRow">
                                         <label>Vision Insurance</label>
                                         <select name="vision_insurance" placeholder="Country code" class="countryCode txtBox1" type="text">
-                                            <option>Select</option>
+                                            @foreach($insurances as $insu)
+                                                <option value="{{$insu->id}}" @if(isset($metas['vision_insurance']) && $metas['vision_insurance']==$insu->id){{"selected"}}@endif>{{$insu->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="line1"></div>
                                     <div class="singRow"><button class="signBtn" type="submit" style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</button>
                                         <a class="signBtn" href="#"
-                                        style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a> 
+                                        style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +228,7 @@
                                 <div class="singRow ">
                                     <label><strong>Race Select one or more</strong></label>
                                     <br>
-                                        
+
                                         <input name="american_indian_or_alaska_native" id="american_indian_or_alaska_native" type="checkbox" >
                                     <input value="false" type="hidden" name="american_indian_or_alaska_native" class="american_indian_or_alaska_native">
                                     American Indian or Alaska Native<br>
@@ -261,7 +293,7 @@
                                 </div>
                                 <div class="singRow"><button class="signBtn" type="submit" style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</button>
                                     <a class="signBtn" href="#"
-                                    style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a> 
+                                    style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a>
                                 </div>
                             </div>
                         </form>
@@ -271,7 +303,7 @@
                             <div class="singRow">
                                 <label><strong>HIPAA Authorization Settings</strong></label>
 
-                                <p>Ankit Sethiya (Me) – Authorized <a href="#" style="color:#C00; float:right;">Revoke</a></p>
+                                <p>{{Auth::user()->first_name.' '.Auth::user()->last_name}} – Authorized <a href="#" style="color:#C00; float:right;">Revoke</a></p>
                             </div>
                             <div class="singRow"><a class="signBtn" href="#"
                                 style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</a>
@@ -315,7 +347,7 @@
                     required: true
                 },
                 gender: {
-                    required: true,                   
+                    required: true,
                 },
                 birth_month: {
                     required: true
@@ -329,7 +361,7 @@
             },
             messages: {
                 email: "Please enter a valid email address",
-                
+
                 preferred_number: {
                     required: "Please provide preferred number",
                 },

@@ -22,6 +22,17 @@ function get_doctor_schedules($user_id=''){
     return $data;
 }
 
+function get_doctor_off_days($user_id=''){
+    $data = array();
+    $schedules = DB::table('doctor_off_days')->where('user_id', '=' , $user_id)->get();
+    if(sizeof($schedules)>0){
+        foreach($schedules as $k => $s){
+            $data[$s->date] = $s;
+        }
+    }
+    return $data;
+}
+
 function get_time_slots($stime='',$etime='',$intval='',$format=''){
 
     $datetime1 = new DateTime($stime);
@@ -45,4 +56,67 @@ function get_time_slots($stime='',$etime='',$intval='',$format=''){
         return $format_am_pm;
     }
 }
+
+function getDBdateformat($date=''){
+    $temp = explode('-',$date);
+    $date = $temp[2].'-'.$temp[0].'-'.$temp[1];
+    return $date;
+}
+
+function getUSdateformat($date=''){
+    $temp = explode('-',$date);
+    $date = $temp[1].'-'.$temp[2].'-'.$temp[0];
+    return $date;
+}
+
+function get_doctor_meta($doctor_id=''){
+    $metas = DB::table('doctor_metas')
+            ->where('user_id', '=', $doctor_id)
+            ->get();
+
+    $data = array();
+
+    foreach($metas as $meta){
+        $data[$meta->meta_key] = $meta->meta_value;
+    }
+
+    return $data;
+}
+
+function get_patient_meta($patient_id=''){
+    $metas = DB::table('patient_metas')
+        ->where('user_id', '=', $patient_id)
+        ->get();
+
+    $data = array();
+
+    foreach($metas as $meta){
+        $data[$meta->meta_key] = $meta->meta_value;
+    }
+
+    return $data;
+}
+
+function update_meta($type='',$user_id='',$meta_key='',$meta_value=''){
+    $metas = DB::table($type)
+        ->where('user_id', '=', $user_id)
+        ->where('meta_key', '=', $meta_key)
+        ->get();
+
+    if($metas){
+        //Updating
+        DB::table($type)
+            ->where('user_id', '=', $user_id)
+            ->where('meta_key', '=', $meta_key)
+            ->update(['meta_value' => $meta_value]);
+    }else{
+        //Inserting
+        DB::table($type)->insert(
+            ['user_id' => $user_id, 'meta_key' => $meta_key, 'meta_value' => $meta_value]
+        );
+    }
+
+    return 1;
+}
+
 ?>

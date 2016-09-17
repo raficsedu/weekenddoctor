@@ -19,12 +19,58 @@
                                 <div class="tab-content col-md-12">
                                     <div class="tab-pane active" id="a">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
-                                            Content for the Current Appointment
+                                            <h3>Appointments for this week</h3>
+                                            <hr>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Doctor</th>
+                                                    <th>Address</th>
+                                                    <th>Date</th>
+                                                    <th>Details</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark Bob</td>
+                                                    <td>this is a demo address</td>
+                                                    <td>22 October 2:15 pm</td>
+                                                    <td>Details</td>
+                                                    <td>Check</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="b">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
-                                            Content for the Previous Appointment
+                                            <h3>Previous Appointments</h3>
+                                            <hr>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Doctor</th>
+                                                    <th>Address</th>
+                                                    <th>Date</th>
+                                                    <th>Details</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark Bob</td>
+                                                    <td>this is a demo address</td>
+                                                    <td>22 October 2:15 pm</td>
+                                                    <td>Details</td>
+                                                    <td>Check</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>

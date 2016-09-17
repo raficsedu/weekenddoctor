@@ -24,6 +24,14 @@ class LoginController extends Controller
 
     public function user_login()
     {
+        if (Auth::check()) {
+            $user_level = Auth::user()->user_level;
+            if($user_level==1){
+                return redirect()->route('patient_medicalteam');
+            }else{
+                return redirect()->route('doctor_appointments');
+            }
+        }
         return view('pages.user_login');
     }
 

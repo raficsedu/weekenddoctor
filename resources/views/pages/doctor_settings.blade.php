@@ -5,7 +5,25 @@
 <div class="container">
 <section class="row">
 <div class="container">
-
+<div class="row">
+    @if(Session::has('successful'))
+    <div class="col-md-12">
+        <div class="alert alert-success">
+            <p>
+                <strong>{{Session::pull('successful','default')}}</strong>
+            </p>
+        </div>
+    </div>
+    @elseif(Session::has('unsuccessful'))
+    <div class="col-md-12">
+        <div class="alert alert-danger">
+            <p>
+                <strong>{{Session::pull('unsuccessful','default')}}</strong>
+            </p>
+        </div>
+    </div>
+    @endif
+</div>
 <div class="row">
 <div class="col-md-12 col-lg-12" style="padding:20px;">
 <!-- tabs left -->
@@ -21,7 +39,21 @@
     <div class="col-md-9">
         <div class="tab-content col-md-12">
             <div class="tab-pane active" id="a">
-                <form id="profile" action="{{url('/doctor/profile')}}" method="post">
+                <?php
+                if(isset($metas['profile_image'])){
+                    $pro_img_url = url('public/uploads/doctor/'.$metas['profile_image']);
+                    $pro_img = $metas['profile_image'];
+                }else{
+                    $pro_img_url = url('public/images/doctor05.png');
+                    $pro_img = '';
+                }
+                if(isset($metas['insurance'])){
+                    $insurancess = explode(',',$metas['insurance']);
+                }else{
+                    $insurancess = array();
+                }
+                ?>
+                <form id="profile" action="{{url('save-doctor-settings')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                         <div class="singBody">
@@ -33,46 +65,47 @@
                             <div class="line1"></div>
                             <div class="singRow">
                                 <label>Profile Image</label>
-                                <input name="MAX_FILE_SIZE" value="31457280" id="MAX_FILE_SIZE" type="hidden">
-                                <input name="" id="" class="form" type="file">
+                                <input name="profile_image" id="profile_image" class="form" type="file">
+                                <input name="current_profile_image" type="hidden" value="{{$pro_img}}">
+                                <img class="pro_thumb" src="{{$pro_img_url}}">
                             </div>
                             <div class="line1"></div>
                             <div class="singRow">
                                 <label>Title (eg Phd, Dr)</label>
-                                <input type="text" class="pwd txtBox" placeholder="Title (eg Phd, Dr)" name="" id="">
+                                <input type="text" class="pwd txtBox" placeholder="Title (eg Phd, Dr)" name="doctor_title" id="doctor_title" value="@if(isset($metas['doctor_title'])){{$metas['doctor_title']}}@endif">
                             </div>
                             <div class="singRow">
                                 <label>Speciality</label>
-                                <select name="" id="" placeholder="Speciality" class="countryCode txtBox1">
+                                <select name="speciality" id="speciality" placeholder="Speciality" class="countryCode txtBox1">
                                    @foreach($specialties as $specialty)
-                                     <option value="{{$specialty->id}}">{{$specialty->name}}</option>
+                                     <option value="{{$specialty->id}}" @if($metas['speciality']==$specialty->id){{"selected"}}@endif>{{$specialty->name}}</option>
                                   @endforeach
                                 </select>
                             </div>
                             <div class="line1"></div>
                             <div class="singRow">
                                 <label>Education</label>
-                                <textarea name="" id="" class="txtArea"></textarea>
+                                <textarea name="education" id="education" class="txtArea">@if(isset($metas['education'])){{$metas['education']}}@endif</textarea>
                             </div>
                             <div class="singRow">
                                 <label>Hospital Affiliations</label>
-                                <input type="text" class="pwd txtBox" placeholder="Hospital Affiliations" name="" id="">
+                                <input type="text" class="pwd txtBox" placeholder="Hospital Affiliations" name="hospital_affiliation" id="hospital_affiliation" value="@if(isset($metas['hospital_affiliation'])){{$metas['hospital_affiliation']}}@endif">
                             </div>
                             <div class="singRow">
                                 <label>Languages Spoken</label>
-                                <input type="text" class="pwd txtBox" placeholder="Languages Spoken" name="" id="">
+                                <input type="text" class="pwd txtBox" placeholder="Languages Spoken" name="language_spoken" id="language_spoken" value="@if(isset($metas['language_spoken'])){{$metas['language_spoken']}}@endif">
                             </div>
                             <div class="singRow">
                                 <label>Board Certifications</label>
-                                <textarea name="" id="" class="txtArea"></textarea>
+                                <textarea name="board_certification" id="board_certification" class="txtArea">@if(isset($metas['board_certification'])){{$metas['board_certification']}}@endif</textarea>
                             </div>
                             <div class="singRow">
                                 <label>Awards and Publications</label>
-                                <input type="text" class="pwd txtBox" placeholder="Awards and Publications" name="" id="">
+                                <input type="text" class="pwd txtBox" placeholder="Awards and Publications" name="award_and_publications" id="award_and_publications" value="@if(isset($metas['award_and_publications'])){{$metas['award_and_publications']}}@endif">
                             </div>
                             <div class="singRow">
                                 <label>Professional Memberships</label>
-                                <input type="text" class="pwd txtBox" placeholder="Professional Memberships" name="" id="">
+                                <input type="text" class="pwd txtBox" placeholder="Professional Memberships" name="professional_membership" id="professional_membership" value="@if(isset($metas['professional_membership'])){{$metas['professional_membership']}}@endif">
                             </div>
                             <div class="line1"></div>
                             <div class="singRow">
@@ -80,14 +113,14 @@
                                 <div class="row">
                                     @foreach($insurances as $insurance)
                                         <div class="col-md-4">
-                                            <input name="" id="{{$insurance->id}}" class="chk" type="checkbox"> {{$insurance->name}}
+                                            <input name="insurance[]" value="{{$insurance->id}}" class="chk" type="checkbox" @if(in_array($insurance->id, $insurancess)){{"checked"}}@endif> {{$insurance->name}}
                                         </div>
                                      @endforeach
                                 </div>
                             </div>
                             <div class="singRow">
                                 <label>Professional Statement</label>
-                                <textarea name="" id="" class="txtArea"></textarea>
+                                <textarea name="professional_statement" id="professional_statement" class="txtArea">@if(isset($metas['professional_statement'])){{$metas['professional_statement']}}@endif</textarea>
                             </div>
                             <div class="line1"></div>
                             <div class="singRow">
@@ -118,37 +151,37 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                         <div class="singRow">
                             <label>Office Address</label>
-                            <input name="Doctor_Office_Address" id="" class="pwd txtBox" placeholder="Office Address" type="text">
+                            <input name="doctor_office_address" id="" class="pwd txtBox" placeholder="Office Address" type="text" value="@if(isset($metas['doctor_office_address'])){{$metas['doctor_office_address']}}@endif">
                         </div>
 
                         <div class="singRow">
                             <label>Office Area</label>
-                            <input name="Doctor_Office_Area" id="" class="pwd txtBox" placeholder="Office Area" type="text">
+                            <input name="doctor_office_area" id="" class="pwd txtBox" placeholder="Office Area" type="text" value="@if(isset($metas['doctor_office_area'])){{$metas['doctor_office_area']}}@endif">
                         </div>
 
                         <div class="singRow">
                             <label>Office City</label>
-                            <input name="Doctor_Office_City" id="" class="pwd txtBox" placeholder="Office City" type="text">
+                            <input name="doctor_office_city" id="doctor_office_city" class="pwd txtBox" placeholder="Office City" type="text" value="@if(isset($metas['doctor_office_city'])){{$metas['doctor_office_city']}}@endif">
                         </div>
 
                         <div class="singRow">
                             <label>Office State</label>
-                            <input name="Doctor_Office_State" id="" class="pwd txtBox" placeholder="Office State" type="text">
+                            <input name="doctor_office_state" id="doctor_office_state" class="pwd txtBox" placeholder="Office State" type="text" value="@if(isset($metas['doctor_office_state'])){{$metas['doctor_office_state']}}@endif">
                         </div>
 
                         <div class="singRow">
                             <label>Office ZIP code</label>
-                            <input name="Doctor_Office_ZIP_code" id="" class="pwd txtBox" placeholder="Office ZIP code" type="text">
+                            <input name="doctor_office_zip_code" id="doctor_office_zip_code" class="pwd txtBox" placeholder="Office ZIP code" type="text" value="@if(isset($metas['doctor_office_zip_code'])){{$metas['doctor_office_zip_code']}}@endif">
                         </div>
 
                         <div class="singRow">
                             <label>Public telephone</label>
-                            <input name="Doctor_Public_telephone" id="" class="pwd txtBox" placeholder="Public telephone" type="text">
+                            <input name="doctor_public_telephone" id="doctor_public_telephone" class="pwd txtBox" placeholder="Public telephone" type="text" value="@if(isset($metas['doctor_public_telephone'])){{$metas['doctor_public_telephone']}}@endif">
                         </div>
 
                         <div class="singRow">
                             <label>Mobile telephone</label>
-                            <input name="Doctor_Mobile_telephone" id="" class="pwd txtBox" placeholder="Mobile telephone" type="text">
+                            <input name="doctor_mobile_telephone" id="doctor_mobile_telephone" class="pwd txtBox" placeholder="Mobile telephone" type="text" value="@if(isset($metas['doctor_mobile_telephone'])){{$metas['doctor_mobile_telephone']}}@endif">
                         </div>
 
                         <div class="line1"></div>
@@ -163,7 +196,7 @@
                 </form>
             </div>
             <div class="tab-pane" id="d">
-                <form id="pass_change" action="{{url('/password-change')}}" method="post">
+                <form id="pass_change" action="{{url('/doctor-password-change')}}" method="post">
                     {{ csrf_field() }}
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                         <div class="singBody">

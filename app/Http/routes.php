@@ -24,7 +24,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/list-your-practice', ['uses' => 'WdController@list_your_practice', 'as' => 'list_your_practice']);
     Route::get('/medical-group', ['uses' => 'WdController@medical_group', 'as' => 'medical_group']);
     Route::get('/authorization', ['uses' => 'WdController@authorization', 'as' => 'authorization']);
-    Route::get('/medical-search', ['uses' => 'WdController@medical_search', 'as' => 'medical_search']);
+    Route::post('/medical-search', ['uses' => 'WdController@medical_search', 'as' => 'medical_search']);
     Route::get('/book-appointment', ['uses' => 'WdController@book_appointment', 'as' => 'book_appointment']);
 
 
@@ -44,7 +44,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/patient/medicalteam', ['uses' => 'PatientController@patient_medicalteam', 'as' => 'patient_medicalteam']);
     Route::get('/patient/appointments', ['uses' => 'PatientController@patient_appointments', 'as' => 'patient_appointments']);
     Route::post('/patient-profile', ['uses' => 'PatientController@patientProfile', 'as' => 'patient_profile']);
-    Route::post('/password-change', ['uses' => 'PatientController@passwordChange', 'as' => 'password_change']);
+    Route::post('/patient-password-change', ['uses' => 'PatientController@passwordChange', 'as' => 'patient_password_change']);
     Route::post('/notification-settings', ['uses' => 'PatientController@notificationSettings', 'as' => 'notification_settings']);
     Route::post('/demographic-settings', ['uses' => 'PatientController@demographicSettings', 'as' => 'demographic_settings']);
     Route::post('/insurance-settings', ['uses' => 'PatientController@insuranceSettings', 'as' => 'insurance_settings']);
@@ -58,9 +58,13 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/get-time-slot', ['uses' => 'DoctorController@get_time_slot', 'as' => 'get_time_slot']);
     Route::post('/save-doctor-schedule', ['uses' => 'DoctorController@save_doctor_schedule', 'as' => 'save_doctor_schedule']);
     Route::post('/doctor/profile', ['uses' => 'DoctorController@doctorProfile', 'as' => 'doctor_profile']);
-    Route::post('/password-change', ['uses' => 'DoctorController@passwordChange', 'as' => 'password_change']);
+    Route::post('/doctor-password-change', ['uses' => 'DoctorController@passwordChange', 'as' => 'doctor_password_change']);
     Route::get('/doctor/deactive-account', ['uses' => 'DoctorController@deactiveAccount', 'as' => 'deactive_account']);
     Route::post('/doctor/office/info', ['uses' => 'DoctorController@doctorOfficeInfo', 'as' => 'doctor_office_info']);
+    Route::get('/insert-doctor-off-day', ['uses' => 'DoctorController@insert_off_day', 'as' => 'insert_off_day']);
+    Route::get('/save-off-days', ['uses' => 'DoctorController@save_off_days', 'as' => 'save_off_days']);
+    Route::get('/delete-off-days', ['uses' => 'DoctorController@delete_off_days', 'as' => 'delete_off_days']);
+    Route::post('/save-doctor-settings', ['uses' => 'DoctorController@save_doctor_settings', 'as' => 'save_doctor_settings']);
 
     //Email Confirmation
     Route::get('/confirmation/{user_id}/{code}', ['uses' => 'EmailController@email_verify', 'as' => 'email_verify']);

@@ -15,6 +15,7 @@ use Auth;
 use Session;
 use App\PatientMeta;
 use App\Insurances;
+use App\Speciality;
 
 use Validator;
 use App\Http\Controllers\Controller;
@@ -35,14 +36,16 @@ class PatientController extends Controller
 
     public function patient_settings()
     {
-        $insurances = Insurances::Select('id', 'name')->get();
-        return view('pages.patient_settings', ['insurances' => $insurances]);
+        $data['insurances'] = Insurances::Select('id', 'name')->get();
+        $data['metas'] = get_patient_meta(Auth::user()->id);
+        return view('pages.patient_settings', $data);
     }
 
     public function patient_medicalteam()
     {
-        $insurances = Insurances::Select('id', 'name')->get();
-        return view('pages.patient_medicalteam', ['insurances' => $insurances]);
+        $data['insurances'] = Insurances::Select('id', 'name')->get();
+        $data['specialties'] = Speciality::Select('id', 'name')->get();
+        return view('pages.patient_medicalteam', $data);
     }
 
     public function patient_appointments()
@@ -59,19 +62,17 @@ class PatientController extends Controller
             $user_id = $currentUser->id;
             $date_of_birth = $request->input('birth_month') . "/" . $request->input('birth_date') . "/" . $request->input('birth_year');
             $fontEndKey = [
-                "Email",
-                "Cell No",
-                "Home Phone No",
-                "Work Phone No",
-                "Preferred Number",
-                "Gender",
-                "Date of Birth"
+                "cell_no",
+                "home_phone_no",
+                "work_phone_no",
+                "preferred_number",
+                "gender",
+                "date_of_birth"
             ];
             $fontEndValue = [
-                $request->input('email'),
-                $request->input('cell'),
-                $request->input('home'),
-                $request->input('work'),
+                $request->input('cell_no'),
+                $request->input('home_phone_no'),
+                $request->input('work_phone_no'),
                 $request->input('preferred_number'),
                 $request->input('gender'),
                 $date_of_birth
@@ -96,8 +97,9 @@ class PatientController extends Controller
                 }
             }
         }
-        $insurances = Insurances::Select('id', 'name')->get();
-        return view('pages.settings', ['insurances' => $insurances]);
+
+        Session::put('successful', 'Your Settings Successfully Saved');
+        return redirect()->route('patient_settings');
     }
 
     public function passwordChange(Request $request)
@@ -106,31 +108,33 @@ class PatientController extends Controller
         if ($request->isMethod('post')) {
             $currentUser = Auth::user();
             $user_id = $currentUser->id;
+            $current_set_password = $currentUser->password;
 
             $current_password = $request->input('current_password');
-            // dd(\Hash::make($current_password));
-            // dd(\Hash::make($currentUser->password));
             $password = $request->input('password');
             $confirm_password = $request->input('confirm_password');
-            if ($password == $confirm_password) {
-                $existing_user_pass = User::where('id', $user_id)->first();
-                if (!is_null($existing_user_pass)) {
-                    if (\Hash::check($current_password, $currentUser->password)) {
-                        $existing_user_pass->password = \Hash::make($password);
-                        $existing_user_pass->updated_at = date('Y-m-d H:i:s');
-                        $existing_user_pass->save();
-                    } else {
-                        return "Password Doesn't Match";
-                    }
+
+            //Checking for the current Password Match
+            if(Hash::check($current_password, $current_set_password)){
+                // The passwords match...
+                if ($password == $confirm_password) {
+                    $existing_user_pass = User::where('id', $user_id)->first();
+                    $existing_user_pass->password = \Hash::make($password);
+                    $existing_user_pass->updated_at = date('Y-m-d H:i:s');
+                    $existing_user_pass->save();
+
+                    Session::put('successful', 'Your Password Successfully Changed');
+                    return redirect()->route('patient_settings');
                 } else {
-                    return "Invalid User !!";
+                    Session::put('unsuccessful', 'Your Password and Confirm Password Didn\'t Match');
+                    return redirect()->route('patient_settings');
                 }
-            } else {
-                return "Password Doesn't Match";
+            }else{
+                Session::put('unsuccessful', 'Your Current Password Didn\'t Match');
+                return redirect()->route('patient_settings');
             }
 
         }
-        return view('pages.settings');
     }
 
     public function notificationSettings(Request $request)
@@ -180,9 +184,9 @@ class PatientController extends Controller
             $currentUser = Auth::user();
             $user_id = $currentUser->id;
             $fontEndKey = [
-                "Medical Insurance",
-                "Dental Insurance",
-                "Vision Insurance"
+                "medical_insurance",
+                "dental_insurance",
+                "vision_insurance"
             ];
             $fontEndValue = [
                 $request->input('medical_insurance'),
@@ -205,8 +209,8 @@ class PatientController extends Controller
                 }
             }
         }
-        $insurances = Insurances::Select('id', 'name')->get();
-        return view('pages.settings', ['insurances' => $insurances]);
+        Session::put('successful', 'Your Insurance Settings Successfully Changed');
+        return redirect()->route('patient_settings');
     }
 
     public function demographicSettings(Request $request)

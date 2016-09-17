@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Specialtiy extends Model
+class Speciality extends Model
 {   
 	protected $table="specialties";
     public function user(){
