@@ -32,7 +32,6 @@ class DoctorController extends Controller
     {
         // check if user is logged in or not, if not then redirect to loging page
         if(Auth::check()){
-
         }else{
             return redirect('/user-login');
         }

@@ -79,10 +79,10 @@
                     <h2 class="helpTxt">Need help booking online?</h2>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 mobftr clearfix">
-                    <p class="call"><img src="{{url('public/images/call.png')}}" alt=""/>+123 456 8536</p>
+                    <p class="call"><img src="{{url('public/images/call.png')}}" alt=""/>+212-882-1096</p>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 mobftr clearfix">
-                    <p class="msg"><img src="{{url('public/images/msg.png')}}" alt=""/>services@medical.com</p>
+                    <p class="msg"><img src="{{url('public/images/msg.png')}}" alt=""/>info@weekenddocs.com</p>
                 </div>
             </section>
         </div>
@@ -118,13 +118,11 @@
                             <li><a href="#"><img src="{{url('public/images/blue_rss.png')}}" alt=""/></a></li>
                         </ul>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida quam quis nunc rutrum
-                        placerat. Proin eu mi vitae neque veh interdum id nec turpis nam auctor faucibus
-                        sollicitudin.</p>
+                    <p>WeekendsDocs is a weekend medical directory and appointment scheduling service for medical professionals who work on the weekends. WeekendDocs is a new medical directory for doctors who are available on Saturdays and Sundays. Search by specialty or area, brows medical professionals here on WeekendDocs today!</p>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 clearfix">
                     <aside class="col-lg-3 col-md-3 col-sm-3 col-xs-6 footerMiddleBox  clearfix">
-                        <h6>Aradqk</h6>
+                        <h6>Navagation</h6>
                         <ul class="">
                             <li><a href="#">About</a></li>
                             <li><a href="#">Press</a></li>
@@ -150,7 +148,7 @@
                         </ul>
                     </aside>
                     <aside class="col-lg-3 col-md-3 col-sm-3 col-xs-6 footerMiddleBox  clearfix">
-                        <h6>CITIES</h6>
+                        <h6>Cities</h6>
                         <ul class="">
                             <li><a href="#">Cincinnati</a></li>
                             <li><a href="#">Detroit</a></li>
@@ -163,7 +161,7 @@
                         </ul>
                     </aside>
                     <aside class="col-lg-3 col-md-3 col-sm-3 col-xs-6 footerMiddleBox  clearfix">
-                        <h6>Specialties</h6>
+                        <h6>Specialities</h6>
                         <ul class="">
                             <li><a href="#">hiropractors</a></li>
                             <li><a href="#">Dentists</a></li>
@@ -178,7 +176,7 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 footerMiddleBox  clearfix">
                     <h6>newsletter</h6>
 
-                    <p>Lorem ipsum dolor sit amet dolor consectetur adipiscing elit.</p>
+                    <p>Join our newsletter for health related news, updates,and offers.</p>
 
                     <div class="searchBlock clearfix">
                         <form>

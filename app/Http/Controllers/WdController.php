@@ -74,12 +74,77 @@ class WdController extends Controller
             ->distinct()
             ->get();
 
-        return view('pages.medical_search',$data);
+        return view('pages.medical_group',$data);
     }
 
-    public function book_appointment()
+    public function book_appointment(Request $request)
     {
-        return view('pages.book_appointment');
+        $data['insurances'] = Insurances::Select('id', 'name')->get();
+        $data['doctor'] = User::find($request->doctor_id);
+        $data['metas'] = get_doctor_meta($request->doctor_id);
+        $data['date'] = $request->date;
+        $data['time'] = $request->time;
+
+        return view('pages.book_appointment',$data);
+    }
+
+    public function confirm_booking(Request $request){
+        //Checking for the User logged in or Not
+        if (Auth::check()) {
+        } else {
+            return redirect('/user-login');
+        }
+
+        $doctor_id = $request->doctor_id;
+        $data['metas'] = get_doctor_meta($request->doctor_id);
+        $doctor = User::find($doctor_id);
+        $data['doctor_name'] = $doctor_name = $doctor->first_name.' '.$doctor->last_name;
+        $data['doctor_email'] = $doctor->email;
+        $patient_id = Auth::user()->id;
+        $data['patient_name'] = $patient_name = Auth::user()->first_name.' '.Auth::user()->last_name;
+        $data['patient_email'] = Auth::user()->email;
+        $data['date'] = $date = $request->date;
+        $data['time'] = $time = $request->time;
+        $data['reason'] = $reason = $request->reason;
+        $insurance = $request->insurance;
+        $patient_type = $request->patient_type;
+
+        //Checking for the Entry already exist or not
+        $checking = DB::table('appointments')
+                    ->where('doctor_id','=',$doctor_id)
+                    ->where('patient_id','=',$patient_id)
+                    ->where('appointment_date','=',$date)
+                    ->where('appointment_time','=',$time)
+                    ->first();
+        if($checking){
+            $data['status'] = 0;
+            $data['date'] = $date = getUSdateformat($request->date);
+            return view('pages.booking-result',$data);
+        }else{
+            //Inserting into Database
+            DB::table('appointments')->insert(
+                ['doctor_id' => $doctor_id, 'patient_id' => $patient_id, 'appointment_date' => $date, 'appointment_time' => $time, 'insurance' => $insurance, 'reason' => $reason, 'patient_type' => $patient_type, 'created_at' => date('Y-m-d H:i:s')]
+            );
+
+            //Sending Emails to both doctor and patient
+            $data['s_info'] = get_system_info();
+            $data['date'] = $date = getUSdateformat($request->date);
+            Mail::send(['html' => 'email.patient-booking'], $data, function ($m) use ($data) {
+                $m->from($data['s_info']['email'], $data['s_info']['name']);
+
+                $m->to($data['patient_email'], $data['patient_name'])->subject('Your Appointment Details in WeekendDocs');
+            });
+
+            Mail::send(['html' => 'email.doctor-booking'], $data, function ($m) use ($data) {
+                $m->from($data['s_info']['email'], $data['s_info']['name']);
+
+                $m->to($data['doctor_email'], $data['doctor_name'])->subject('Your Received a booking in WeekendDocs');
+            });
+
+            //Sending View
+            $data['status'] = 1;
+            return view('pages.booking-result',$data);
+        }
     }
 
     public function send_email(){
@@ -98,22 +163,22 @@ class WdController extends Controller
     }
 
     public function test(){
-//        $data['email'] = 'raficsedu@gmail.com';
-//        $data['name'] = 'Md Muntasir Rahman';
-//        $data['user_id'] = 11;
-//        $data['password'] = 'sefufiube';
-//        $data['user_level'] = 1;
-//        $data['confirmation_code'] = 'sefigsei';
-//        $data['s_info'] = get_system_info();
+        $appointments = get_my_appointments(2,date("Y-m-d", strtotime("saturday")));
+        print_r($appointments);
+        die();
+        $data['email'] = 'raficsedu@gmail.com';
+        $data['name'] = 'Md Muntasir Rahman';
+        $data['user_id'] = 11;
+        $data['password'] = 'sefufiube';
+        $data['user_level'] = 1;
+        $data['confirmation_code'] = 'sefigsei';
+        $data['s_info'] = get_system_info();
 //
 //        Mail::send(['html' => 'email.test'], $data, function ($m) use ($data) {
 //            $m->from($data['s_info']['email'], $data['s_info']['name']);
 //            $m->to($data['email'], $data['name'])->subject('Please verify your email');
 //        });
 
-        $metas = \Hash::make('45446666');
-        print_r($metas);
-
-//        return view('email.test',$data);
+        return view('email.test',$data);
     }
 }

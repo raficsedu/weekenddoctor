@@ -25,7 +25,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
                     <h1>Doctors thrive with Weekend Docs</h1>
 
-                    <p>"Zocdoc helps me achieve what I set out to do as a doctor."
+                    <p>"WeekendDocs helps me achieve what I set out to do as a doctor."
                         Steven Stoll, MD, Philadelphia</p>
                     <a href="#">See Dr. Stoll’s Story</a>
 
@@ -166,7 +166,7 @@
         <div class="container">
             <section class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
-                    <h1>Why do doctors join Zocdoc? </h1>
+                    <h1>Why do doctors join WeekendDocs? </h1>
 
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
                         the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley

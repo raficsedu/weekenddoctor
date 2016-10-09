@@ -25,8 +25,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/medical-group', ['uses' => 'WdController@medical_group', 'as' => 'medical_group']);
     Route::get('/authorization', ['uses' => 'WdController@authorization', 'as' => 'authorization']);
     Route::post('/medical-search', ['uses' => 'WdController@medical_search', 'as' => 'medical_search']);
-    Route::get('/book-appointment', ['uses' => 'WdController@book_appointment', 'as' => 'book_appointment']);
-
+    Route::post('/book-appointment/{doctor_id}', ['uses' => 'WdController@book_appointment', 'as' => 'book_appointment']);
+    Route::get('/book-appointment', function () {
+        return redirect('/');
+    });
+    Route::post('/confirm-booking', ['uses' => 'WdController@confirm_booking', 'as' => 'confirm_booking']);
 
     //Registration Route
     Route::get('/join-us', ['uses' => 'RegistrationController@join_us', 'as' => 'join_us']);

@@ -119,4 +119,51 @@ function update_meta($type='',$user_id='',$meta_key='',$meta_value=''){
     return 1;
 }
 
+function get_doctor_time_slot($user_id='',$day='',$date=''){
+    $schedules = array();
+    //First checking for the off days
+    $off_day = DB::table('doctor_off_days')
+        ->where('user_id', '=', $user_id)
+        ->where('date', '=', $date)
+        ->first();
+
+    if($off_day){
+        if(!$off_day->full_day){
+            if(isset($off_day->time_slots)){
+                $schedules = unserialize($off_day->time_slots);
+            }else{
+                $schedules = array();
+            }
+        }
+    }else{
+        $running_day = DB::table('doctor_schedules')
+            ->where('user_id', '=', $user_id)
+            ->where('day', '=', $day)
+            ->first();
+        if($running_day){
+            $schedules = unserialize($running_day->time_slots);
+        }else{
+            $schedules = array();
+        }
+    }
+
+    return $schedules;
+}
+
+function get_my_appointments($doctor_id='',$date=''){
+    $appointments = DB::table('appointments')
+        ->where('doctor_id', '=', $doctor_id)
+        ->where('appointment_date', '=', $date)
+        ->select('appointment_time')
+        ->get();
+
+    $data = array();
+    if(sizeof($appointments)>0){
+        foreach($appointments as $a){
+            $data[] = $a->appointment_time;
+        }
+    }
+    return $data;
+}
+
 ?>

@@ -612,8 +612,7 @@ ul.breadCrmList li a.breadCrmActive {
 
 .singRow label {
     font-size: 16px;
-    color: #;
-    2 b2b2b;
+    color: #2b2b2b;
     margin: 0 0 10px;
     display: block;
     padding: 0 0 0 3px;
@@ -2323,3 +2322,13 @@ a {
 .wel-box_1 h4{font-weight:bold; border-bottom:1px solid #dddddd; padding:0px 0 20px 0;}
 .wel-box_1 li{ line-height:30px;}
 .wel-box_1 li span{ color:#45C967; text-decoration:line-through;}
+
+.customization1{
+    width: 66.8% !important;
+}
+.customization2{
+    width: 16.9% !important;
+}
+.hide_me{
+    display: none;
+}

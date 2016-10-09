@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 srchDoctorPic clearfix">
-                <img src="images/medicalteam.png" alt=""/>
+                <img src="{{url('public/images/medicalteam.png')}}"/>
             </div>
         </section>
     </div>
