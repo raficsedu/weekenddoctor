@@ -1,0 +1,122 @@
+
+#thumbnail-slider {
+    margin:0 auto; /*center-aligned*/
+    width:100%;/*width:400px;*/
+    max-width:580px;
+    padding:20px;
+    box-sizing:border-box;
+    position:relative;
+    -webkit-user-select: none;
+    user-select:none;
+}
+
+#thumbnail-slider div.inner {
+    position:relative;
+    overflow:hidden;
+    padding:2px 0; line-height:10px;
+    margin:0;
+}
+
+ 
+#thumbnail-slider div.inner ul {
+
+    white-space:nowrap;
+    position:relative;
+    left:0; top:0;
+    list-style:none;
+    font-size:16px;
+    padding:0;
+    margin:0;
+    float:left!important;
+    width:auto!important;
+    height:auto!important;
+}
+
+#thumbnail-slider ul li {
+    *display:inline!important; /*IE7 hack*/
+    margin:0; background:#2A8CC4; color:#ffffff;
+    margin-right:10px; /* Spacing between thumbs*/
+
+    text-align:center;
+    vertical-align:middle;line-height:30px;
+    padding:0;
+    position:relative;
+    list-style:none;
+}
+
+
+
+#thumbnail-slider .thumb { color:#ffffff; text-align:center; z-index:111;
+}
+
+/* --------- navigation controls ------- */
+/* The nav id should be: slider id + ("-prev", "-next", and "-pause-play") */
+
+#thumbnail-slider-pause-play {display:none;} /*.pause*/
+
+#thumbnail-slider-prev, #thumbnail-slider-next
+{
+    opacity:1;
+    position: absolute;
+    /*background-color:#0346a3;*/
+    *background-color:#ccc;/*IE7 hack*/
+    backface-visibility:hidden;
+    width:32px;
+    height:60px;
+    line-height:60px;
+    top: 50%;
+    margin:0;
+    margin-top:-30px;
+    color:white;    
+    z-index:10;
+    cursor:pointer;
+}
+
+#thumbnail-slider-prev {
+    left:-30px; right:auto;
+}
+
+#thumbnail-slider-next {
+    left:auto; right:-30px;
+}
+#thumbnail-slider-next.disabled, #thumbnail-slider-prev.disabled {
+    opacity:0.3;
+    cursor:default;
+}
+
+
+/* arrows */
+#thumbnail-slider-prev::before, #thumbnail-slider-next::before {
+    position: absolute;
+    top: 19px;
+    content: "";
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-left: 6px solid black;
+    border-top: 6px solid black;
+}
+
+#thumbnail-slider-prev::before {
+    left:7px;
+    -ms-transform:rotate(-45deg);/*IE9*/
+    -webkit-transform:rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+#thumbnail-slider-next::before {
+    right:7px;
+    -ms-transform:rotate(135deg);/*IE9*/
+    -webkit-transform:rotate(135deg);
+    transform: rotate(135deg);
+}
+
+/*Responsive settings*/
+@media only screen and (max-width:736px){
+
+    #thumbnail-slider {padding:10px 26px;}
+
+    #thumbnail-slider-prev {left:0px;}
+
+    #thumbnail-slider-next {right:0px;}
+}

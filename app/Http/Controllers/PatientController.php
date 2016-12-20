@@ -49,8 +49,14 @@ class PatientController extends Controller
 
     public function patient_appointments()
     {
-        $insurances = Insurances::Select('id', 'name')->get();
-        return view('pages.patient_appointments', ['insurances' => $insurances]);
+        $last_monday = date("Y-m-d", strtotime('last monday', strtotime('tomorrow')));
+        $next_sunday = date("Y-m-d", strtotime("sunday"));
+
+        $data['current_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.doctor_id')->where('appointments.patient_id','=',Auth::user()->id)->whereBetween('appointments.appointment_date', [$last_monday, $next_sunday])->select('appointments.*','users.first_name','users.last_name','users.email')->get();
+        $data['previous_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.doctor_id')->where('appointments.patient_id','=',Auth::user()->id)->where('appointments.appointment_date','<',$last_monday)->get();
+        $data['insurances'] = Insurances::Select('id', 'name')->get();
+
+        return view('pages.patient_appointments', $data);
     }
 
     public function patientProfile(Request $request)

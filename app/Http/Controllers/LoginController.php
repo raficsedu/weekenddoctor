@@ -28,8 +28,10 @@ class LoginController extends Controller
             $user_level = Auth::user()->user_level;
             if($user_level==1){
                 return redirect()->route('patient_medicalteam');
-            }else{
+            }else if($user_level==2){
                 return redirect()->route('doctor_appointments');
+            }else if($user_level==3){
+                return redirect()->route('admin');
             }
         }
         return view('pages.user_login');
@@ -45,8 +47,10 @@ class LoginController extends Controller
             $user = Auth::user();
             if($user->user_level==1){
                 return redirect()->route('patient_medicalteam');
-            }else{
+            }else if($user->user_level==2){
                 return redirect()->route('doctor_appointments');
+            }else if($user->user_level==3){
+                return redirect()->route('admin');
             }
         }else{
             Session::put('unsuccessful', 'Your Email or Password is incorrect');

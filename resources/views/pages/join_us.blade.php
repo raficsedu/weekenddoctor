@@ -96,7 +96,7 @@
                         </div>
                         <div class="singRow">
                             <input type="checkbox" name="terms_hp" id="terms_hp" class="chk">
-                            I have read and accept weekends docs HIPAA Authorization.
+                            I have read and accept weekends docs <a href="{{url('/authorization')}}">HIPAA Authorization</a>
                             <label for="terms_hp" class="error" id="terms_hp-error"></label>
                         </div>
                         <div class="singRow">

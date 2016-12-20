@@ -38,8 +38,14 @@ class DoctorController extends Controller
     }
 
     public function appointments(){
-        $insurances = Insurances::Select('id', 'name')->get();
-        return view('pages.doctor_appointment', ['insurances' => $insurances]);
+        $last_monday = date("Y-m-d", strtotime('last monday', strtotime('tomorrow')));
+        $next_sunday = date("Y-m-d", strtotime("sunday"));
+
+        $data['current_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.patient_id')->where('appointments.doctor_id','=',Auth::user()->id)->whereBetween('appointments.appointment_date', [$last_monday, $next_sunday])->select('appointments.*','users.first_name','users.last_name','users.email')->get();
+        $data['previous_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.patient_id')->where('appointments.doctor_id','=',Auth::user()->id)->where('appointments.appointment_date','<',$last_monday)->get();
+        $data['insurances'] = Insurances::Select('id', 'name')->get();
+
+        return view('pages.doctor_appointment', $data);
     }
 
     public function schedule(){
@@ -323,5 +329,12 @@ class DoctorController extends Controller
 
         Session::put('successful', 'Your Settings Successfully Saved');
         return redirect()->route('doctor_settings');
+    }
+
+    public function doctor_profile(Request $request){
+        $doctor_id = $request->id;
+        $data['doctor_info'] = DB::table('users')->where('id',$doctor_id)->first();
+        $data['doctor_metas'] = get_doctor_meta($doctor_id);
+        return view('pages.doctor_profile',$data);
     }
 }

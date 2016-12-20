@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'username' => 'postmaster@sandbox86bbc098e2e343af8cc523d773531cdf.mailgun.org',
+    'username' => 'weekenddocs@stackbd.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return [
     |
     */
 
-    'password' => '5385d155e5fe932baf2c87aa1b360ecd',
+    'password' => '@CYLINRAf45',
 
     /*
     |--------------------------------------------------------------------------

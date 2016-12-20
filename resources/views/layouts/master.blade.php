@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{url('public/css/media.css')}}" media="all"/>
     <link href="{{url('public/css/polyglot-language-switcher.css')}}" type="text/css" rel="stylesheet">
     <link href="{{url('public/css/screen.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{url('public/css/thumbnail-slider.css')}}" type="text/css" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -62,9 +63,10 @@
     </div>
     <div class="headerMiddle clearfix">
         <div class="container">
-            <section class="row"><a href="{{url('')}}" class="logoBlock"><img src="{{url('public/images/logo.png')}}" alt=""/></a>
+            <section class="row">
+                <a href="{{url('')}}" class="logoBlock"><img src="{{url('public/images/logo.png')}}" alt=""/></a>
                 <a href="{{url('/list-your-practice')}}">
-                    <button class="providerBtn" style="background: rgb(33, 118, 166) none repeat scroll 0% 0%; border-radius: 3px;">List Your Practice</button>
+                    <button class="providerBtn" style="background: rgb(33, 118, 166) none repeat scroll 0% 0%;">List Your Practice</button>
                 </a>
             </section>
         </div>
@@ -196,6 +198,7 @@
     <script type="text/javascript" src="{{url('public/js/script.js')}}"></script>
     <script type="text/javascript" src="{{url('public/js/jquery.validate.js')}}"></script>
     <script src="{{url('public/js/notify.js')}}"></script>
+    <script src="{{url('public/js/thumbnail-slider.js')}}"></script>
 @yield('footer_custom_script')
 </body>
 </html>

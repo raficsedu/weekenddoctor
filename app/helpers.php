@@ -154,6 +154,8 @@ function get_my_appointments($doctor_id='',$date=''){
     $appointments = DB::table('appointments')
         ->where('doctor_id', '=', $doctor_id)
         ->where('appointment_date', '=', $date)
+        ->where('doctor_cancelled', '=', 0)
+        ->where('patient_cancelled', '=', 0)
         ->select('appointment_time')
         ->get();
 
@@ -164,6 +166,14 @@ function get_my_appointments($doctor_id='',$date=''){
         }
     }
     return $data;
+}
+
+function get_specialty($specialty_id=''){
+    $specialty = DB::table('specialties')
+        ->where('id', '=', $specialty_id)
+        ->value('name');
+
+    return $specialty;
 }
 
 ?>

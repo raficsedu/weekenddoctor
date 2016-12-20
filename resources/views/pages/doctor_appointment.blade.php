@@ -1,7 +1,7 @@
 @extends('layouts.doctor')
 
 @section('content')
-<section class="bodySec joinUsBody clearfix" style="background:none; padding:20px;">
+<section class="bodySec joinUsBody clearfix" style="background:none; padding:0px;">
     <div class="container">
         <div class="row">
             @if(Session::has('successful'))
@@ -25,69 +25,103 @@
         <section class="row">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 col-lg-12" style="padding:20px;">
+                    <div class="col-md-12 col-lg-12">
                         <!-- tabs left -->
                         <div class="tabbable">
-                            <div class="col-md-3">
-                                <ul class="nav nav-pills nav-stacked col-md-12">
+                            <div class="col-md-12">
+                                <ul class="nav nav-pills nav-stacked col-md-12 beautiful_li">
                                     <li class="active"><a href="#a" data-toggle="tab">Current Appointment</a></li>
                                     <li><a href="#b" data-toggle="tab">Previous Appointment</a></li>
                                 </ul>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="tab-content col-md-12">
                                     <div class="tab-pane active" id="a">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
-                                            <h3>Appointment for this week</h3>
+                                            <h3 class="beautify_title1">Appointment for this week</h3>
                                             <hr>
-                                            <table class="table">
+                                            <table id="doctor_appointments_current" class="display" cellspacing="0" width="100%">
                                                 <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Patient</th>
-                                                    <th>Email</th>
-                                                    <th>Date</th>
-                                                    <th>Details</th>
-                                                    <th>Status</th>
-                                                </tr>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Patient</th>
+                                                        <th>Email</th>
+                                                        <th>Date</th>
+                                                        <th>Time</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark Bob</td>
-                                                    <td>mark@gmail.com</td>
-                                                    <td>22 October 2:15 pm</td>
-                                                    <td>Details</td>
-                                                    <td>Check</td>
-                                                </tr>
+                                                    <?php $i = 0;?>
+                                                    @foreach($current_appointments as $ca)
+                                                        <tr>
+                                                            <?php $i++;?>
+                                                            <th scope="row">{{$i}}</th>
+                                                            <td>{{$ca->first_name.' '.$ca->last_name}}</td>
+                                                            <td>{{$ca->email}}</td>
+                                                            <td>{{date('l jS \of F Y',strtotime($ca->appointment_date))}}</td>
+                                                            <td>{{$ca->appointment_time}}</td>
+                                                            <td>
+                                                                @if($ca->patient_cancelled)
+                                                                    Cancelled By Patient
+                                                                @elseif($ca->doctor_cancelled)
+                                                                    Cancelled By You
+                                                                @else
+                                                                    Active
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                @if($ca->patient_cancelled)
+                                                                    <button appointment_id="{{$ca->id}}" type="button" class="btn btn-info cancel_appointment" data-toggle="modal" data-target="#myModal" disabled>Cancelled</button>
+                                                                @elseif($ca->doctor_cancelled)
+                                                                    <button appointment_id="{{$ca->id}}" type="button" class="btn btn-info cancel_appointment" data-toggle="modal" data-target="#myModal" disabled>Cancelled</button>
+                                                                @else
+                                                                    <button appointment_id="{{$ca->id}}" type="button" class="btn btn-danger cancel_appointment" data-toggle="modal" data-target="#myModal">Cancel</button>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="b">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
-                                            <h3>Previous Appointments</h3>
+                                            <h3 class="beautify_title1">Previous Appointments</h3>
                                             <hr>
-                                            <table class="table">
+                                            <table id="doctor_appointments_previous" class="display" cellspacing="0" width="100%">
                                                 <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Patient</th>
                                                     <th>Email</th>
                                                     <th>Date</th>
-                                                    <th>Details</th>
+                                                    <th>Time</th>
                                                     <th>Status</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark Bob</td>
-                                                    <td>mark@gmail.com</td>
-                                                    <td>22 October 2:15 pm</td>
-                                                    <td>Details</td>
-                                                    <td>Check</td>
-                                                </tr>
+                                                    <?php $i = 0;?>
+                                                    @foreach($previous_appointments as $pa)
+                                                        <tr>
+                                                            <?php $i++;?>
+                                                            <th scope="row">{{$i}}</th>
+                                                            <td>{{$pa->first_name.' '.$pa->last_name}}</td>
+                                                            <td>{{$pa->email}}</td>
+                                                            <td>{{date('l jS \of F Y',strtotime($pa->appointment_date))}}</td>
+                                                            <td>{{$pa->appointment_time}}</td>
+                                                            <td>
+                                                                @if($pa->patient_cancelled)
+                                                                    Cancelled By Patient
+                                                                @elseif($pa->doctor_cancelled)
+                                                                    Cancelled By You
+                                                                @else
+                                                                    Visited
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -106,55 +140,43 @@
 </section>
 @endsection
 
-@section('footer_custom_script')
-<script>
-    jQuery(function ($) {
-        // validate signup form on keyup and submit
-        $("#profile").validate({
-            rules: {
-                email: {
-                    required: true,
-                    email: true
-                },
-                preferred_number: {
-                    required: true
-                },
-                gender: {
-                    required: true,
-                },
-                birth_month: {
-                    required: true
-                },
-                birth_date: {
-                    required: true
-                },
-                birth_year: {
-                    required: true
-                }
-            },
-            messages: {
-                email: "Please enter a valid email address",
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Are you sure you want to cancel this appointment ?</h4>
+            </div>
+            <div class="modal-footer">
+                <form action="{{url('/cancel-appointment')}}" method="post">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="appointment_id" id="appointment_id" value="">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Cancel Appointment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-                preferred_number: {
-                    required: "Please provide preferred number",
-                },
-                gender: {
-                    required: "Please provide your gender"
-                },
-                birth_month2: {
-                    required: "Please provide your birth month",
-                    minlength: "Your birth month must be at least 2 characters long"
-                },
-                birth_date: {
-                    required: "Please provide your birth day",
-                    minlength: "Your birth day must be at least 2 characters long"
-                },
-                birth_year: {
-                    required: "Please provide your birth year",
-                    minlength: "Your birth year must be at least 4 characters long"
-                },
-            }
+@section('footer_custom_script')
+<script src="{{url('public/datatable/jquery.dataTables.min.js')}}"></script>
+<script>
+    $(document).ready(function() {
+        $('#doctor_appointments_current').DataTable({
+            responsive: true
         });
+        $('#doctor_appointments_previous').DataTable({
+            responsive: true
+        });
+    } );
+
+    $(document).on('click','.cancel_appointment',function(e){
+        var a_id = $(this).attr('appointment_id');
+        $('#appointment_id').val(a_id);
     });
 </script>
 @endsection

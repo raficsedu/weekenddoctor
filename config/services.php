@@ -15,8 +15,8 @@ return [
     */
 
     'mailgun' => [
-        'domain' => 'sandbox86bbc098e2e343af8cc523d773531cdf.mailgun.org',
-        'secret' => 'key-42cbc9c0e4b1bc4462b1f885fa0f883e',
+        'domain' => 'stackbd.com',
+        'secret' => 'key-a77c46cc154fd7d139e917bfeed8c15e',
     ],
 
     'ses' => [
@@ -27,21 +27,5 @@ return [
 
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
-    ],
-
-    'stripe' => [
-        'model' => App\User::class,
-        'key' => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
-    ],
-    'facebook' => [
-        'client_id' => '1701245933494823',
-        'client_secret' => '19f1cf074410de377868014e5ab9af2e',
-        'redirect' => 'http://localhost/evoneur/evoneur/public/handle_facebook',
-    ],
-    'linkedin' => [
-        'client_id' => '1701245933494823',
-        'client_secret' => '19f1cf074410de377868014e5ab9af2e',
-        'redirect' => 'http://localhost/evoneur/evoneur/public/handle_linkedin',
     ],
 ];

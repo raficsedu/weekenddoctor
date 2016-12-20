@@ -163,22 +163,29 @@ class WdController extends Controller
     }
 
     public function test(){
-        $appointments = get_my_appointments(2,date("Y-m-d", strtotime("saturday")));
-        print_r($appointments);
-        die();
-        $data['email'] = 'raficsedu@gmail.com';
-        $data['name'] = 'Md Muntasir Rahman';
-        $data['user_id'] = 11;
-        $data['password'] = 'sefufiube';
-        $data['user_level'] = 1;
-        $data['confirmation_code'] = 'sefigsei';
-        $data['s_info'] = get_system_info();
-//
-//        Mail::send(['html' => 'email.test'], $data, function ($m) use ($data) {
-//            $m->from($data['s_info']['email'], $data['s_info']['name']);
-//            $m->to($data['email'], $data['name'])->subject('Please verify your email');
-//        });
+        return view('pages.doctor_profile');
+    }
 
-        return view('email.test',$data);
+    public function cancel_appointment(Request $request){
+        $ap_id = $request->appointment_id;
+        $user_type = Auth::user()->user_level;
+        if($user_type == 1){
+            $col = 'patient_cancelled';
+        }else if($user_type == 2){
+            $col = 'doctor_cancelled';
+        }
+        //Updating Table
+        DB::table('appointments')
+            ->where('id', $ap_id)
+            ->update([$col => 1]);
+
+        $message = "Appointment Successfully Cancelled .";
+        Session::put('successful',$message );
+
+        if($user_type == 1){
+            return redirect()->route('patient_appointments');
+        }else if($user_type == 2){
+            return redirect()->route('doctor_appointments');
+        }
     }
 }

@@ -41,8 +41,14 @@ class RegistrationController extends Controller
 
             $existing_user = User::where('email', $request->email)->count();
             if ($existing_user > 0) {
-                Session::put('unsuccessful', 'Account already exists');
-                return Redirect('/join-us');
+                if(Auth::check()){
+                    Session::put('unsuccessful', 'Account already exists');
+                    return redirect()->route('add_patient');
+                }else{
+                    Session::put('unsuccessful', 'Account already exists');
+                    return Redirect('/join-us');
+                }
+
             }
 
             $confirmation_code = str_random(10);
@@ -80,9 +86,15 @@ class RegistrationController extends Controller
                 $m->to($data['email'], $data['name'])->subject('Please verify your email');
             });
 
-            $message = "Thank You for signing up! Please check your email and verify your account.";
-            Session::put('successful',$message );
-            return redirect()->route('join_us');
+            if(Auth::check()){
+                $message = "Patient Successfully Created";
+                Session::put('successful',$message );
+                return redirect()->route('add_patient');
+            }else{
+                $message = "Thank You for signing up! Please check your email and verify your account.";
+                Session::put('successful',$message );
+                return redirect()->route('join_us');
+            }
 
         }
         return view('pages.join_us');
@@ -94,8 +106,13 @@ class RegistrationController extends Controller
 
             $existing_user = User::where('email', $request->email)->count();
             if ($existing_user > 0) {
-                Session::put('unsuccessful', 'Account already exists');
-                return Redirect('/get-started');
+                if(Auth::check()){
+                    Session::put('unsuccessful', 'Account already exists');
+                    return Redirect('/add-doctor');
+                }else{
+                    Session::put('unsuccessful', 'Account already exists');
+                    return Redirect('/get-started');
+                }
             }
 
             $confirmation_code = str_random(10);
@@ -149,13 +166,54 @@ class RegistrationController extends Controller
                 $m->to($data['email'], $data['name'])->subject('Please verify your email');
             });
 
-            $message = "Thank you for your information,  ($name)! Please check your email to verify your account";
-            Session::put('successful',$message );
-            return redirect()->route('get_started');
+            if(Auth::check()){
+                $message = "Doctor has been successfully created";
+                Session::put('successful',$message );
+                return redirect()->route('add_doctor');
+            }else{
+                $message = "Thank you for your information,  ($name)! Please check your email to verify your account";
+                Session::put('successful',$message );
+                return redirect()->route('get_started');
+            }
 
         }
         return view('pages.get_started');
+    }
 
+    public function admin_register(Request $request){
+        $email = $request->email;
+        $password = $request->password;
+        $code = $request->code;
 
+        //Checking for the Security Code
+        if($code !='#weekenddocs#'){
+            Session::put('unsuccessful', 'Security code doesn\'t match');
+            return Redirect('/register');
+        }
+        //Checking for the Existing User
+        $existing_user = User::where('email', $request->email)->count();
+        if ($existing_user > 0) {
+            Session::put('unsuccessful', 'Account already exists');
+            return Redirect('/register');
+        }
+
+        $first_name = ucfirst($request->input('f_name'));
+        $last_name = ucfirst($request->input('l_name'));
+
+        $user_id = DB::table('users')->insertGetId(
+            ['first_name' => $first_name,
+                'last_name' => $last_name,
+                'email' => $email,
+                'password' => \Hash::make($password),
+                'remember_token' => $request->input('_token'),
+                'verification_code' => '',
+                'active' => 1,
+                'user_level' => 3,
+                'created_at' => date('Y-m-d H:i:s'),]
+        );
+
+        $message = "Your Admin Registration Successfully Completed";
+        Session::put('successful',$message );
+        return Redirect('/register');
     }
 }

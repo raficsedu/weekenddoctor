@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{url('public/css/media.css')}}" media="all"/>
     <link href="{{url('public/css/polyglot-language-switcher.css')}}" type="text/css" rel="stylesheet">
     <link href="{{url('public/css/screen.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{url('public/datatable/jquery.dataTables.min.css')}}" rel="stylesheet">
 </head>
 <body>
 <header>

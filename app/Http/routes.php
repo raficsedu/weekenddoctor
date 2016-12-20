@@ -40,6 +40,7 @@ Route::group(['middleware' => 'web'], function () {
 
     //Login Route
     Route::get('/user-login', ['uses' => 'LoginController@user_login', 'as' => 'user_login']);
+    Route::get('/login', ['uses' => 'LoginController@user_login', 'as' => 'user_login']);
     Route::post('/authenticate', ['uses' => 'LoginController@authenticate', 'as' => 'authenticate']);
 
     //Patient Route
@@ -68,6 +69,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/save-off-days', ['uses' => 'DoctorController@save_off_days', 'as' => 'save_off_days']);
     Route::get('/delete-off-days', ['uses' => 'DoctorController@delete_off_days', 'as' => 'delete_off_days']);
     Route::post('/save-doctor-settings', ['uses' => 'DoctorController@save_doctor_settings', 'as' => 'save_doctor_settings']);
+    Route::get('/doctor/{id}', ['uses' => 'DoctorController@doctor_profile', 'as' => 'doctor_profile']);
 
     //Email Confirmation
     Route::get('/confirmation/{user_id}/{code}', ['uses' => 'EmailController@email_verify', 'as' => 'email_verify']);
@@ -75,4 +77,20 @@ Route::group(['middleware' => 'web'], function () {
 
     //Static Pages Route
     Route::get('/test', ['uses' => 'WdController@test', 'as' => 'test']);
+
+    //Common Operation Route
+    Route::post('/cancel-appointment', ['uses' => 'WdController@cancel_appointment', 'as' => 'cancel_appointment']);
+
+    //Admin Route
+    Route::get('/admin', ['uses' => 'AdminController@admin', 'as' => 'admin']);
+    Route::get('/add-doctor', ['uses' => 'AdminController@add_doctor', 'as' => 'add_doctor']);
+    Route::get('/all-doctor', ['uses' => 'AdminController@all_doctor', 'as' => 'all_doctor']);
+    Route::get('/add-patient', ['uses' => 'AdminController@add_patient', 'as' => 'add_patient']);
+    Route::get('/all-patient', ['uses' => 'AdminController@all_patient', 'as' => 'all_patient']);
+    Route::get('/admin-settings', ['uses' => 'AdminController@admin_settings', 'as' => 'admin_settings']);
+    Route::get('/system-settings', ['uses' => 'AdminController@system_settings', 'as' => 'system_settings']);
+    Route::post('/system-settings', ['uses' => 'AdminController@save_system_settings', 'as' => 'save_system_settings']);
+    Route::post('/change-password', ['uses' => 'AdminController@passwordChange', 'as' => 'change_password']);
+    Route::get('/admin/{action}/{type}/{user_id}', ['uses' => 'AdminController@action', 'as' => 'action']);
+    Route::post('/admin-register', ['uses' => 'RegistrationController@admin_register', 'as' => 'admin_register']);
 });

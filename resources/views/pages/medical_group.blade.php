@@ -42,10 +42,10 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" style="padding:0 0 10px 0; border-bottom:1px solid #dddddd;">
                         <div class="cob1">
                             <div class="box-doc2">
-                                <img src="{{$img_url}}" alt="img"
-                                     style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
+                                <a href="{{url('/doctor/'.$doctor->id)}}"><img src="{{$img_url}}" alt="img"
+                                     style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;"></a>
 
-                                <h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2>
+                                <a href="{{url('/doctor/'.$doctor->id)}}"><h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2></a>
                                 <br>
                                 <ul class="staring">
                                     <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt=""
@@ -138,10 +138,10 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" style="padding:0 0 10px 0; border-bottom:1px solid #dddddd;">
                         <div class="cob1">
                             <div class="box-doc2">
-                                <img src="{{$img_url}}" alt="img"
-                                     style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
+                                <a href="{{url('/doctor/'.$doctor->id)}}"><img src="{{$img_url}}" alt="img"
+                                     style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;"></a>
 
-                                <h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2>
+                                <a href="{{url('/doctor/'.$doctor->id)}}"><h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2></a>
                                 <br>
                                 <ul class="staring">
                                     <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt=""
@@ -234,10 +234,10 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" style="padding:0 0 10px 0; border-bottom:1px solid #dddddd;">
                         <div class="cob1">
                             <div class="box-doc2">
-                                <img src="{{$img_url}}" alt="img"
-                                     style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
+                                <a href="{{url('/doctor/'.$doctor->id)}}"><img src="{{$img_url}}" alt="img"
+                                     style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;"></a>
 
-                                <h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2>
+                                <a href="{{url('/doctor/'.$doctor->id)}}"><h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2></a>
                                 <br>
                                 <ul class="staring">
                                     <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt=""
@@ -329,10 +329,10 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix" style="padding:0 0 10px 0; border-bottom:1px solid #dddddd;">
                     <div class="cob1">
                         <div class="box-doc2">
-                            <img src="{{$img_url}}" alt="img"
-                                 style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;">
+                            <a href="{{url('/doctor/'.$doctor->id)}}"><img src="{{$img_url}}" alt="img"
+                                 style=" float:left; margin:10px; border:3px solid #dddddd; border-radius:50%; width:100px; height:100px;"></a>
 
-                            <h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2>
+                            <a href="{{url('/doctor/'.$doctor->id)}}"><h2>Dr. {{$doctor->first_name." ".$doctor->last_name}}</h2></a>
                             <br>
                             <ul class="staring">
                                 <li style="float:left; display:block; margin:0 2px;"><a href="#"><img alt=""

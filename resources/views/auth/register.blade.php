@@ -4,21 +4,54 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <div class="row">
+                @if(Session::has('successful'))
+                <div class="col-md-12">
+                    <div class="alert alert-success">
+                        <p>
+                            <strong>{{Session::pull('successful','default')}}</strong>
+                        </p>
+                    </div>
+                </div>
+                @elseif(Session::has('unsuccessful'))
+                <div class="col-md-12">
+                    <div class="alert alert-danger">
+                        <p>
+                            <strong>{{Session::pull('unsuccessful','default')}}</strong>
+                        </p>
+                    </div>
+                </div>
+                @endif
+            </div>
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Registration for only Administrator</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin-register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+                            <label for="name" class="col-md-4 control-label">First Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                <input id="f_name" type="text" class="form-control" name="f_name" value="{{ old('f_name') }}">
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('f_name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('f_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Last Name</label>
+
+                            <div class="col-md-6">
+                                <input id="l_name" type="text" class="form-control" name="l_name" value="{{ old('l_name') }}">
+
+                                @if ($errors->has('l_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('l_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -52,15 +85,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Security Code</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                                <input id="code" type="text" class="form-control" name="code" value="{{ old('code') }}">
 
-                                @if ($errors->has('password_confirmation'))
+                                @if ($errors->has('code'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        <strong>{{ $errors->first('code') }}</strong>
                                     </span>
                                 @endif
                             </div>

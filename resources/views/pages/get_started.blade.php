@@ -44,9 +44,10 @@
                           <label for="last_name" class="error" class="clearfix"></label>
                       </div>
                       <div class="box-in">
-                        <label>Your Specialty</label>
+                        <label>Your Speciality</label>
                         <label for="specialty" class="error"  class="clearfix"></label>
                         <select id="specialty" name="specialty" class="countryCode txtBox2" type="text">
+                            <option value="0">Choose a Speciality</option>
                           @foreach($specialties as $specialty)
                           <option value="{{$specialty->id}}">{{$specialty->name}}</option>
                           @endforeach

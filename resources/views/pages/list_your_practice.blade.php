@@ -8,7 +8,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
                     <h1>Your practice made perfect.</h1>
 
-                    <p>From attracting new patients to reducing no-shows, Weekend Docs helps you be the best doctor you
+                    <p>From attracting new patients to reducing no-shows, WeekendDocs helps you be the best doctor you
                         can be.</p>
                     <a href="{{url('/get-started')}}">Get Started</a>
 
@@ -23,7 +23,7 @@
         <div class="container">
             <section class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
-                    <h1>Doctors thrive with Weekend Docs</h1>
+                    <h1>Doctors thrive with WeekendDocs</h1>
 
                     <p>"WeekendDocs helps me achieve what I set out to do as a doctor."
                         Steven Stoll, MD, Philadelphia</p>
@@ -50,7 +50,7 @@
                     <div class="specialistSec clearfix">
 
                         <article class="specialistRow clearfix">
-                            <h1>Across the country, doctors rely on Weekend Docs</h1>
+                            <h1>Across the country, doctors rely on WeekendDocs</h1>
 
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 clearfix">
                                 <aside class="specialistArea">
