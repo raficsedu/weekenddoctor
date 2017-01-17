@@ -29,7 +29,7 @@
             <p style="color:#333333; font-size:16px; font-family:Arial, Helvetica, sans-serif;">
                 Here is your Booking Details<br><br>
                 <span style="font-weight: bold;color: #298dc6">Doctor Name</span> : Dr {{$doctor_name}}<br>
-                <span style="font-weight: bold;color: #298dc6">Address</span> : {{$metas['doctor_office_address']}}<br>
+                <span style="font-weight: bold;color: #298dc6">Address</span> : {{$metas['address']}}<br>
                 <span style="font-weight: bold;color: #298dc6">Date</span> : {{$date}}<br>
                 <span style="font-weight: bold;color: #298dc6">Time</span> : {{$time}}<br>
             </p>

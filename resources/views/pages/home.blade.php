@@ -61,7 +61,7 @@
                         experience with people seeking doctors on the weekend<br/> and excel in your weekend medical
                         practice.</p>
 
-                    <a href="{{url('/list-your-practice')}}"><button class="providerBtn" style="background:#2176A6;">List Your Practice</button></a>
+                    <a href="{{url('/list-your-practice')}}"><button class="providerBtn2">Join Today!</button></a>
 
                 </div>
 
@@ -193,10 +193,13 @@
     </div>
 </article>
 <div class="mapHome">
-<!--    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.1680283080163!2d75.88382761430861!3d22.759144731834596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396302a51a935c4b%3A0x7afe545d74831f01!2sVijay+Nagar+Post+Office!5e0!3m2!1sen!2sin!4v1454604238104" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen>-->
-<!---->
-<!--    </iframe>-->
-    <div style="width: 100%"><iframe width="100%" height="300" src="http://www.maps.ie/create-google-map/map.php?width=100%&amp;height=300&amp;hl=en&amp;q=276%205th%20Ave%20%23704%2C%20New%20York%2C%20NY%2010001+(WeekendDocs)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=A&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div>
+    <iframe
+        width="100%"
+        height="300"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD_H_Q5act_fZ9Y-TdiXp3UkFR113pW08U
+    &q=276%205th%20Ave%20%23704%2C%20New%20York%2C%20NY%2010001+(WeekendDocs)&amp;" allowfullscreen>
+    </iframe>
 </div>
 <section class="bodySec clearfix">
     <div class="container">
@@ -204,103 +207,41 @@
             <div class="specialistSec clearfix">
                 <h1>Medical Professionals Around You</h1>
                 <article class="specialistRow clearfix">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 clearfix">
-                        <aside class="specialistArea">
-                            <div class="specialistPic"><img src="{{url('public/images/doctor01.png')}}" alt=""/></div>
-                            <ul class="rating clearfix">
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                            </ul>
-                            <h4>Dr.Lorem Ipsum</h4>
-                            <h5>Cardiac Clinic, Primary</h5>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-                            <ul class="socialIcon">
-                                <li><a href="#"><img src="{{url('public/images/fb.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/tw.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/in.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/skyp.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/rss.png')}}" alt=""/></a></li>
-                            </ul>
-                            <div class="appointment "><a href="#">book appointment</a></div>
-                        </aside>
-                    </div>
-                    <!-- Second -->
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 clearfix">
-                        <aside class="specialistArea">
-                            <div class="specialistPic"><img src="{{url('public/images/doctor02.png')}}" alt=""/></div>
-                            <ul class="rating clearfix">
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                            </ul>
-                            <h4>Dr.Lorem Ipsum</h4>
-                            <h5>Cardiac Clinic, Primary</h5>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-                            <ul class="socialIcon">
-                                <li><a href="#"><img src="{{url('public/images/fb.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/tw.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/in.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/skyp.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/rss.png')}}" alt=""/></a></li>
-                            </ul>
-                            <div class="appointment "><a href="#">book appointment</a></div>
-                        </aside>
-                    </div>
-                    <!-- Third -->
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 clearfix">
-                        <aside class="specialistArea">
-                            <div class="specialistPic"><img src="{{url('public/images/doctor03.png')}}" alt=""/></div>
-                            <ul class="rating clearfix">
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                            </ul>
-                            <h4>Dr.Lorem Ipsum</h4>
-                            <h5>Cardiac Clinic, Primary</h5>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-                            <ul class="socialIcon">
-                                <li><a href="#"><img src="{{url('public/images/fb.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/tw.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/in.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/skyp.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/rss.png')}}" alt=""/></a></li>
-                            </ul>
-                            <div class="appointment "><a href="#">book appointment</a></div>
-                        </aside>
-                    </div>
-                    <!-- Forth -->
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12  clearfix">
-                        <aside class="specialistArea">
-                            <div class="specialistPic"><img src="{{url('public/images/doctor04.png')}}" alt=""/></div>
-                            <ul class="rating clearfix">
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
-                            </ul>
-                            <h4>Dr.Lorem Ipsum</h4>
-                            <h5>Cardiac Clinic, Primary</h5>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-                            <ul class="socialIcon">
-                                <li><a href="#"><img src="{{url('public/images/fb.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/tw.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/in.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/skyp.png')}}" alt=""/></a></li>
-                                <li><a href="#"><img src="{{url('public/images/rss.png')}}" alt=""/></a></li>
-                            </ul>
-                            <div class="appointment "><a href="#">book appointment</a></div>
-                        </aside>
-                    </div>
+                    @foreach($doctors as $d)
+                        <?php
+                            $metas = get_doctor_meta($d->id);
+                            if(isset($metas['profile_image']) && $metas['profile_image']!=''){
+                                $pro_img_url = url('public/uploads/doctor/'.$metas['profile_image']);
+                            }else{
+                                $pro_img_url = url('public/images/doctor05.png');
+                            }
+                        ?>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 clearfix">
+                            <aside class="specialistArea">
+                                <div class="specialistPic"><img style="width: 256px;height: 192px;" src="{{$pro_img_url}}" alt=""/></div>
+                                <ul class="rating clearfix">
+                                    <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
+                                    <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
+                                    <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
+                                    <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
+                                    <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
+                                </ul>
+                                <h4>{{$d->first_name." ".$d->last_name}}</h4>
+                                <h5>@if(isset($metas['doctor_title'])){{$metas['doctor_title']}}@else{{"General"}}@endif</h5>
+                                <p>@if(isset($metas['professional_statement'])){{str_limit($metas['professional_statement'], 100)}}@else{{"..............."}}@endif</p>
+<!--                                <ul class="socialIcon">-->
+<!--                                    <li><a href="#"><img src="{{url('public/images/fb.png')}}" alt=""/></a></li>-->
+<!--                                    <li><a href="#"><img src="{{url('public/images/tw.png')}}" alt=""/></a></li>-->
+<!--                                    <li><a href="#"><img src="{{url('public/images/in.png')}}" alt=""/></a></li>-->
+<!--                                    <li><a href="#"><img src="{{url('public/images/skyp.png')}}" alt=""/></a></li>-->
+<!--                                    <li><a href="#"><img src="{{url('public/images/rss.png')}}" alt=""/></a></li>-->
+<!--                                </ul>-->
+                                <div class="appointment "><a href="{{url('/doctor/'.$d->id)}}">book appointment</a></div>
+                            </aside>
+                        </div>
+                    @endforeach
                 </article>
-                <div class="text-center"><a href="#" class="ViewAll clearfix">View all</a></div>
+                <div class="text-center"><a href="{{url('/nearby-doctors')}}" class="ViewAll clearfix">View all</a></div>
             </div>
         </section>
     </div>
@@ -312,7 +253,7 @@
                 <div class="teamInfo">
                     <h1 class="title">LOOKING FOR A JOB?</h1>
                     <h2 class="subHeading">WeekendDocs is seeking Health Care professionals in the New York City area.</h2>
-                    <a href="#" style="padding:10px; background:#2A8CC4; color:#ffffff;">Apply Today</a> </div>
+                    <a href="#" class="apply_today">Apply Today</a> </div>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 clearfix">
                 <div class=""><img src="{{url('public/images/job.png')}}" alt=""/></div>

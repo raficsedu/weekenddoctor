@@ -38,7 +38,7 @@
                                             </div>
 
                                             <div class="col-lg-6 col-md-6 col-sm-6 ">
-                                                <input name="FIND DOCTORS" value="FIND DOCTORS" style="background:#D6492E; font-weight:bold; padding:14px 40px; margin:10px 0; border:none; color:#ffffff; float:right;" type="button">
+                                                <a href="{{url('')}}" style="background:#D6492E; font-weight:bold; padding:14px 40px; margin:10px 0; border:none; color:#ffffff; float:right;">FIND DOCTORS</a>
                                             </div>
                                         </div>
                                     </div>

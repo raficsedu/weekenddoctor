@@ -26,6 +26,7 @@ class WdController extends Controller
     {
         $data['specialities'] = Speciality::Select('id', 'name')->get();
         $data['insurances'] = Insurances::Select('id', 'name')->get();
+        $data['doctors'] = DB::table('users')->where('active',1)->where('user_level',2)->take(4)->get();
         return view('pages.home',$data);
     }
 
@@ -46,7 +47,7 @@ class WdController extends Controller
 
     public function medical_group()
     {
-        return view('pages.medical_group');
+        return view('pages.medical_group',$data);
     }
 
     public function authorization()
@@ -61,18 +62,82 @@ class WdController extends Controller
 
     public function medical_search(Request $request)
     {
-        $data['speciality'] = $speciality = $request->speciality;
-        $data['city_zip'] = $city_zip = $request->city_zip;
-        $data['insurance'] = $insurance = $request->insurance;
+        $data['speciality'] = $speciality = trim($request->speciality);
+        $data['city_zip'] = $city_zip = trim($request->city_zip);
+        $data['insurance'] = $insurance = trim($request->insurance);
 
-        $data['doctors'] = DB::table('users')
+        //Making Query
+        $data['doctors'] = $doctors = DB::table('users')
             ->join('doctor_metas', 'users.id', '=', 'doctor_metas.user_id')
             ->where('users.active', '=', 1)
             ->where('users.user_level', '=', 2)
-            ->where('doctor_metas.meta_value', 'like', '%'.$city_zip.'%')
+            ->where(function ($query) use($city_zip){
+                $query->where(function ($query) use($city_zip){
+                    $query->where('doctor_metas.meta_key','zip')
+                        ->where('doctor_metas.meta_value', $city_zip);
+                })
+                    ->orwhere(function ($query) use($city_zip){
+                        $query->where('doctor_metas.meta_key','doctor_office_city')
+                            ->where('doctor_metas.meta_value','LIKE' ,'%' . $city_zip . '%');
+                    });
+            })
             ->select('users.*')
             ->distinct()
             ->get();
+
+        if((isset($speciality) && $speciality!='') && (isset($insurance) && $insurance!='')){
+            $insurance = ','.$insurance.',';
+            foreach($doctors as $i=> $d){
+                $meats = get_doctor_meta($d->id);
+                $speciality_db = $meats['speciality'];
+                $insurance_db = ','.$meats['insurance'].',';
+                if($speciality_db == $speciality && strpos($insurance_db,$insurance)){
+                    //This is fine we want
+                }else{
+                    unset($data['doctors'][$i]);
+                }
+            }
+            $data['doctors'] = array_values($data['doctors']);
+        }else if(isset($speciality) && $speciality!=''){
+            foreach($doctors as $i=> $d){
+                $meats = get_doctor_meta($d->id);
+                $speciality_db = $meats['speciality'];
+                if($speciality_db == $speciality){
+                    //This is fine we want
+                }else{
+                    unset($data['doctors'][$i]);
+                }
+            }
+            $data['doctors'] = array_values($data['doctors']);
+        }else if(isset($insurance) && $insurance!=''){
+            $insurance = ','.$insurance.',';
+            foreach($doctors as $i=> $d){
+                $meats = get_doctor_meta($d->id);
+                $insurance_db = ','.$meats['insurance'].',';
+                if(strpos($insurance_db,$insurance)){
+                    //This is fine we want
+                }else{
+                    unset($data['doctors'][$i]);
+                }
+            }
+            $data['doctors'] = array_values($data['doctors']);
+        }
+
+        if($city_zip == ''){
+            $data['doctors'] = array();
+            $data['locations'] = array();
+        }
+
+        //Making Data for the Map
+        foreach($data['doctors'] as $k=> $d){
+            $meats = get_doctor_meta($d->id);
+            $data['locations'][$k]['lat'] = $meats['lat'];
+            $data['locations'][$k]['long'] = $meats['lng'];
+            $data['locations'][$k]['info'] = $d->first_name." ".$d->last_name;
+            if(isset($meats['speciality'])){
+                $data['locations'][$k]['info'] .= "<br>".get_specialty($meats['speciality']);
+            }
+        }
 
         return view('pages.medical_group',$data);
     }
@@ -163,7 +228,15 @@ class WdController extends Controller
     }
 
     public function test(){
-        return view('pages.doctor_profile');
+        $parent = array();
+        $child = array();
+        $child['email'] = 'taylor1@example.com';
+        $child['votes'] = 1;
+        $parent[] = $child;
+        $child['email'] = 'taylor2@example.com';
+        $child['votes'] = 2;
+        $parent[] = $child;
+        DB::table('users')->insert($parent);
     }
 
     public function cancel_appointment(Request $request){
@@ -187,5 +260,21 @@ class WdController extends Controller
         }else if($user_type == 2){
             return redirect()->route('doctor_appointments');
         }
+    }
+
+    public function nearby_doctors(){
+        $data['doctors'] = DB::table('users')->where('active',1)->where('user_level',2)->take(4)->get();
+        //Making Data for the Map
+        foreach($data['doctors'] as $k=> $d){
+            $meats = get_doctor_meta($d->id);
+            $data['locations'][$k]['lat'] = $meats['lat'];
+            $data['locations'][$k]['long'] = $meats['lng'];
+            $data['locations'][$k]['info'] = $d->first_name." ".$d->last_name;
+            if(isset($meats['speciality'])){
+                $data['locations'][$k]['info'] .= "<br>".get_specialty($meats['speciality']);
+            }
+        }
+
+        return view('pages.medical_group',$data);
     }
 }

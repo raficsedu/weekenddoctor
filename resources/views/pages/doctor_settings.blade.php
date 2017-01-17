@@ -40,7 +40,7 @@
         <div class="tab-content col-md-12">
             <div class="tab-pane active" id="a">
                 <?php
-                if(isset($metas['profile_image'])){
+                if(isset($metas['profile_image']) && $metas['profile_image']!=''){
                     $pro_img_url = url('public/uploads/doctor/'.$metas['profile_image']);
                     $pro_img = $metas['profile_image'];
                 }else{
@@ -109,6 +109,11 @@
                             </div>
                             <div class="line1"></div>
                             <div class="singRow">
+                                <label>Professional Statement</label>
+                                <textarea name="professional_statement" id="professional_statement" class="txtArea">@if(isset($metas['professional_statement'])){{$metas['professional_statement']}}@endif</textarea>
+                            </div>
+                            <div class="line1"></div>
+                            <div class="singRow">
                                 <label>Accepted Insurances</label>
                                 <div class="row">
                                     @foreach($insurances as $insurance)
@@ -117,10 +122,6 @@
                                         </div>
                                      @endforeach
                                 </div>
-                            </div>
-                            <div class="singRow">
-                                <label>Professional Statement</label>
-                                <textarea name="professional_statement" id="professional_statement" class="txtArea">@if(isset($metas['professional_statement'])){{$metas['professional_statement']}}@endif</textarea>
                             </div>
                             <div class="line1"></div>
                             <div class="singRow">
@@ -148,40 +149,23 @@
             <div class="tab-pane" id="c">
                 <form id="" action="{{url('/doctor/office/info')}}" method="post">
                     {{ csrf_field() }}
+                    <input type="hidden" name="registration_type" value="2">
+                    <input type="hidden" name="lat" id="lat" value="@if(isset($metas['lat'])){{$metas['lat']}}@endif"/>
+                    <input type="hidden" name="lng" id="lng" value="@if(isset($metas['lng'])){{$metas['lng']}}@endif"/>
+                    <input id="zip" name="zip" type="hidden" value="@if(isset($metas['zip'])){{$metas['zip']}}@endif"/>
+                    <input id="city" name="city" type="hidden" value="@if(isset($metas['city'])){{$metas['city']}}@endif"/>
+                    <input id="area" name="area" type="hidden" value="@if(isset($metas['area'])){{$metas['area']}}@endif"/>
+                    <input id="region" name="region" type="hidden" value="@if(isset($metas['region'])){{$metas['region']}}@endif"/>
+                    <input id="country" name="country" type="hidden" value="@if(isset($metas['country'])){{$metas['country']}}@endif"/>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                         <div class="singRow">
                             <label>Office Address</label>
-                            <input name="doctor_office_address" id="" class="pwd txtBox" placeholder="Office Address" type="text" value="@if(isset($metas['doctor_office_address'])){{$metas['doctor_office_address']}}@endif">
+                            <input name="address" id="address" class="pwd txtBox" placeholder="Office Address" type="text" value="@if(isset($metas['address'])){{$metas['address']}}@endif">
                         </div>
 
                         <div class="singRow">
-                            <label>Office Area</label>
-                            <input name="doctor_office_area" id="" class="pwd txtBox" placeholder="Office Area" type="text" value="@if(isset($metas['doctor_office_area'])){{$metas['doctor_office_area']}}@endif">
-                        </div>
-
-                        <div class="singRow">
-                            <label>Office City</label>
-                            <input name="doctor_office_city" id="doctor_office_city" class="pwd txtBox" placeholder="Office City" type="text" value="@if(isset($metas['doctor_office_city'])){{$metas['doctor_office_city']}}@endif">
-                        </div>
-
-                        <div class="singRow">
-                            <label>Office State</label>
-                            <input name="doctor_office_state" id="doctor_office_state" class="pwd txtBox" placeholder="Office State" type="text" value="@if(isset($metas['doctor_office_state'])){{$metas['doctor_office_state']}}@endif">
-                        </div>
-
-                        <div class="singRow">
-                            <label>Office ZIP code</label>
-                            <input name="doctor_office_zip_code" id="doctor_office_zip_code" class="pwd txtBox" placeholder="Office ZIP code" type="text" value="@if(isset($metas['doctor_office_zip_code'])){{$metas['doctor_office_zip_code']}}@endif">
-                        </div>
-
-                        <div class="singRow">
-                            <label>Public telephone</label>
-                            <input name="doctor_public_telephone" id="doctor_public_telephone" class="pwd txtBox" placeholder="Public telephone" type="text" value="@if(isset($metas['doctor_public_telephone'])){{$metas['doctor_public_telephone']}}@endif">
-                        </div>
-
-                        <div class="singRow">
-                            <label>Mobile telephone</label>
-                            <input name="doctor_mobile_telephone" id="doctor_mobile_telephone" class="pwd txtBox" placeholder="Mobile telephone" type="text" value="@if(isset($metas['doctor_mobile_telephone'])){{$metas['doctor_mobile_telephone']}}@endif">
+                            <label>Direct Telephone</label>
+                            <input name="phone" id="phone" class="pwd txtBox" placeholder="Mobile telephone" type="text" value="@if(isset($metas['phone'])){{$metas['phone']}}@endif">
                         </div>
 
                         <div class="line1"></div>
@@ -242,7 +226,90 @@
 @endsection
 
 @section('footer_custom_script')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_H_Q5act_fZ9Y-TdiXp3UkFR113pW08U&libraries=places"></script>
 <script>
+    var placeSearch, autocomplete;
+    google.maps.event.addDomListener(window, 'load', function () {
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {HTMLInputElement} */(document.getElementById('address')),
+            {
+                types: ['geocode']
+                // componentRestrictions: {country: 'ng'}
+            });
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            sid_nsna_loadAddress_pl3();
+        });
+    });
+
+    function sid_nsna_loadAddress_pl3() {
+        // console.log(autocomplete.getPlace());
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        pipulateAddress(place.address_components);
+
+        // $('.lat').text(autocomplete.getPlace().geometry.location.lat())
+        // $('.lng').text(autocomplete.getPlace().geometry.location.lng())
+
+        $('#lat').val(autocomplete.getPlace().geometry.location.lat());
+        $('#lng').val(autocomplete.getPlace().geometry.location.lng());
+
+        var mapOptions = {
+            center: autocomplete.getPlace().geometry.location,
+            zoom: 14
+        };
+
+        $('#map_container').show();
+        map = new google.maps.Map(document.getElementById('map_container'), mapOptions);
+        marker = new google.maps.Marker({
+            map: map,
+            position: autocomplete.getPlace().geometry.location
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+            var latitude = event.latLng.lat();
+            var longitude = event.latLng.lng();
+            var latlongString  = latitude + ',' + longitude;
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'latLng': event.latLng}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    console.log(results);
+                    $('.formatted_address').text(results[0].formatted_address);
+                    pipulateAddress(results[0].address_components);
+                }
+            });
+
+            marker.setPosition( event.latLng ); map.panTo( event.latLng );
+            $('#lat').val(latitude);
+            $('#lng').val(longitude);
+        });
+    }
+
+    // [ START Textbox filling] -->]
+    function pipulateAddress (address_components) {
+
+        $('.fill-address').empty();
+
+        for (var i = 0; i < address_components.length; i++) {
+            var addressComponent = address_components[i];
+            if (addressComponent.types[0] == 'postal_code')
+                $('#zip').val(addressComponent['short_name']);
+
+            if (addressComponent.types[0] == 'street_number')
+                $('#area').val(  addressComponent['short_name'] );
+
+            if( addressComponent.types[0] == 'locality' )
+                $('#city').val(addressComponent['short_name']);
+
+            if( addressComponent.types[0] == 'administrative_area_level_1' )
+                $('#region').val(addressComponent['long_name']);
+
+            if( addressComponent.types[0] == 'country' )
+                $('#country').val(addressComponent['long_name']);
+
+        }
+    }
+
     jQuery(function ($) {
         // validate signup form on keyup and submit
         $("#profile").validate({

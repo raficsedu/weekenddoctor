@@ -28,8 +28,15 @@
                 </div>
                 <div class="singBody">
                     <form id="signupForm" action="{{url('/doctor-registration')}}" method="post">
-                     {{ csrf_field() }}
-                     <input type="hidden" name="registration_type" value="2">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="registration_type" value="2">
+                        <input type="hidden" name="lat" id="lat" />
+                        <input type="hidden" name="lng" id="lng" />
+                        <input id="zip" name="zip" type="hidden" />
+                        <input id="city" name="city" type="hidden" />
+                        <input id="area" name="area" type="hidden" />
+                        <input id="region" name="region" type="hidden" />
+                        <input id="country" name="country" type="hidden" />
                      <div class="singRow clearfix">
                         <div class="box-in">
                             <label>First Name</label>
@@ -61,10 +68,11 @@
                     <label for="phone" class="error" class="clearfix"></label>
                 </div>
                 <div class="box-in1">
-                    <label>Zip Code</label>
-                    <input id="zip" name="zip" type="text" placeholder="Zip Code" class="txtBox2 month">
+                    <label>Address</label>
+                    <input id="address" name="address" type="text" placeholder="Address" class="txtBox2 month">
                      </br></br>
-                    <label for="zip" class="error" class="clearfix"></label>
+                    <label for="address" class="error" class="clearfix"></label>
+                    <div id="map_container"></div>
                 </div>
                 <br>
                 <br>
@@ -89,7 +97,90 @@
 </section>
 @endsection
 @section('footer_custom_script')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_H_Q5act_fZ9Y-TdiXp3UkFR113pW08U&libraries=places"></script>
 <script>
+    var placeSearch, autocomplete;
+    google.maps.event.addDomListener(window, 'load', function () {
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {HTMLInputElement} */(document.getElementById('address')),
+            {
+                types: ['geocode']
+                // componentRestrictions: {country: 'ng'}
+            });
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            sid_nsna_loadAddress_pl3();
+        });
+    });
+
+    function sid_nsna_loadAddress_pl3() {
+        // console.log(autocomplete.getPlace());
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        pipulateAddress(place.address_components);
+
+        // $('.lat').text(autocomplete.getPlace().geometry.location.lat())
+        // $('.lng').text(autocomplete.getPlace().geometry.location.lng())
+
+        $('#lat').val(autocomplete.getPlace().geometry.location.lat());
+        $('#lng').val(autocomplete.getPlace().geometry.location.lng());
+
+        var mapOptions = {
+            center: autocomplete.getPlace().geometry.location,
+            zoom: 14
+        };
+
+        $('#map_container').show();
+        map = new google.maps.Map(document.getElementById('map_container'), mapOptions);
+        marker = new google.maps.Marker({
+            map: map,
+            position: autocomplete.getPlace().geometry.location
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+            var latitude = event.latLng.lat();
+            var longitude = event.latLng.lng();
+            var latlongString  = latitude + ',' + longitude;
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'latLng': event.latLng}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    console.log(results);
+                    $('.formatted_address').text(results[0].formatted_address);
+                    pipulateAddress(results[0].address_components);
+                }
+            });
+
+            marker.setPosition( event.latLng ); map.panTo( event.latLng );
+            $('#lat').val(latitude);
+            $('#lng').val(longitude);
+        });
+    }
+
+    // [ START Textbox filling] -->]
+    function pipulateAddress (address_components) {
+
+        $('.fill-address').empty();
+
+        for (var i = 0; i < address_components.length; i++) {
+            var addressComponent = address_components[i];
+            if (addressComponent.types[0] == 'postal_code')
+                $('#zip').val(addressComponent['short_name']);
+
+            if (addressComponent.types[0] == 'street_number')
+                $('#area').val(  addressComponent['short_name'] );
+
+            if( addressComponent.types[0] == 'locality' )
+                $('#city').val(addressComponent['short_name']);
+
+            if( addressComponent.types[0] == 'administrative_area_level_1' )
+                $('#region').val(addressComponent['long_name']);
+
+            if( addressComponent.types[0] == 'country' )
+                $('#country').val(addressComponent['long_name']);
+
+        }
+    }
+
     jQuery(function($) {
         // validate signup form on keyup and submit
         $("#signupForm").validate({
@@ -106,7 +197,7 @@
                 phone: {
                     required: true
                 },
-                zip: {
+                address: {
                     required: true
                 },
                 email: {
@@ -125,8 +216,8 @@
                 phone: {
                     required: "Please provide your Phone No."
                 },
-                zip: {
-                    required: "Please provide your Zip Code"
+                address: {
+                    required: "Please provide your address"
                 },
                 email: {
                     required: "Please enter a valid email address"

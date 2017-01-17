@@ -124,12 +124,26 @@ class RegistrationController extends Controller
             $fontEndKey = [
                 "speciality",
                 "phone",
-                "zip"
+                "lat",
+                "lng",
+                "zip",
+                "city",
+                "area",
+                "region",
+                "country",
+                "address"
             ];
             $fontEndValue = [
                 $request->input('specialty'),
                 $request->input('phone'),
-                $request->input('zip')
+                $request->input('lat'),
+                $request->input('lng'),
+                $request->input('zip'),
+                $request->input('city'),
+                $request->input('area'),
+                $request->input('region'),
+                $request->input('country'),
+                $request->input('address'),
             ];
 
             $user_id = DB::table('users')->insertGetId(
@@ -143,6 +157,12 @@ class RegistrationController extends Controller
                     'user_level' => $user_level,
                     'created_at' => date('Y-m-d H:i:s'),]
             );
+
+            //Default Schedule
+            DB::table('doctor_schedules')->insert([
+                ['user_id' => $user_id, 'day' => 6, 'start_time' => '9:00', 'end_time' => '17:00', 'interval_time' => 30, 'time_slots' => 'a:17:{i:0;s:8:"09:00 am";i:1;s:8:"09:30 am";i:2;s:8:"10:00 am";i:3;s:8:"10:30 am";i:4;s:8:"11:00 am";i:5;s:8:"11:30 am";i:6;s:8:"12:00 pm";i:7;s:8:"12:30 pm";i:8;s:8:"01:00 pm";i:9;s:8:"01:30 pm";i:10;s:8:"02:00 pm";i:11;s:8:"02:30 pm";i:12;s:8:"03:00 pm";i:13;s:8:"03:30 pm";i:14;s:8:"04:00 pm";i:15;s:8:"04:30 pm";i:16;s:8:"05:00 pm";}', 'created_at' => date('Y-m-d H:i:s')],
+                ['user_id' => $user_id, 'day' => 7, 'start_time' => '9:00', 'end_time' => '17:00', 'interval_time' => 30, 'time_slots' => 'a:17:{i:0;s:8:"09:00 am";i:1;s:8:"09:30 am";i:2;s:8:"10:00 am";i:3;s:8:"10:30 am";i:4;s:8:"11:00 am";i:5;s:8:"11:30 am";i:6;s:8:"12:00 pm";i:7;s:8:"12:30 pm";i:8;s:8:"01:00 pm";i:9;s:8:"01:30 pm";i:10;s:8:"02:00 pm";i:11;s:8:"02:30 pm";i:12;s:8:"03:00 pm";i:13;s:8:"03:30 pm";i:14;s:8:"04:00 pm";i:15;s:8:"04:30 pm";i:16;s:8:"05:00 pm";}', 'created_at' => date('Y-m-d H:i:s')]
+            ]);
 
             for ($i = 0; $i < sizeof($fontEndKey); $i++) {
                 DB::table('doctor_metas')->insertGetId(

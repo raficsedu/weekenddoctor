@@ -13,6 +13,7 @@
     <link href="{{url('public/css/polyglot-language-switcher.css')}}" type="text/css" rel="stylesheet">
     <link href="{{url('public/css/screen.css')}}" type="text/css" rel="stylesheet">
     <link href="{{url('public/css/thumbnail-slider.css')}}" type="text/css" rel="stylesheet">
+    @yield('header_script')
 </head>
 <body>
 <header>
@@ -42,9 +43,9 @@
                                     <li><a href="{{url('/doctor/schedule')}}">My Schedule</a></li>
                                     <li><a href="{{url('/doctor/settings')}}">Settings</a></li>
                                 @else
-                                    <li><a href="#">Medical Team</a></li>
-                                    <li><a href="#">Past Appointments</a></li>
-                                    <li><a href="#">Settings</a></li>
+                                    <li><a href="{{url('/patient/medicalteam')}}">Medical Team</a></li>
+                                    <li><a href="{{url('/patient/appointments')}}">Past Appointments</a></li>
+                                    <li><a href="{{url('/patient/settings')}}">Settings</a></li>
                                 @endif
                                 <li><a href="{{ url('/logout') }}" style="color:#e04848 !important;">Logout</a></li>
                             </ul>
@@ -66,7 +67,7 @@
             <section class="row">
                 <a href="{{url('')}}" class="logoBlock"><img src="{{url('public/images/logo.png')}}" alt=""/></a>
                 <a href="{{url('/list-your-practice')}}">
-                    <button class="providerBtn" style="background: rgb(33, 118, 166) none repeat scroll 0% 0%;">List Your Practice</button>
+                    <button class="providerBtn2">Join Today!</button>
                 </a>
             </section>
         </div>

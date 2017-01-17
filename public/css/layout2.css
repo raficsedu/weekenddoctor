@@ -128,6 +128,18 @@ img {
 	border: none;
 	text-align: center;
 }
+.providerBtn2 {
+    float: right;
+    background-color: #2176A6;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 40px;
+    border: none;
+    text-align: center;
+}
+.providerBtn2:hover{
+    background-color: #00234b;
+}
 .menuBlock {
 	background-color: #2a8cc4;
 }
@@ -330,7 +342,8 @@ ul.breadCrmList li a.breadCrmActive {
 	display: inline-block;
 }
 .ViewAll:hover {
-	color: #fff;
+    background-color: #00234b;
+    color: #fff;
 }
 /*	===== footer code Start Here  =====		*/
 .footerSec {
@@ -1161,6 +1174,7 @@ h3 {
 }
 .findBtn:hover {
 	color: #fff;
+    background-color: #00234b;
 }
 .findBtn:after {
 	background: url("../images/location.png") no-repeat scroll right center;
@@ -2160,4 +2174,36 @@ select.pagiantion{
 }
 .carousel-indicators .active {
 background: #333333;
+}
+.apply_today{
+    padding:10px; background:#2A8CC4; color:#ffffff;
+}
+.apply_today:hover{
+    background-color: #00234b;
+    color: #fff;
+}
+#patient_appointments_current_wrapper , #patient_appointments_previous_wrapper{
+    margin-bottom: 3%;
+}
+.rig-btn:hover{
+    background-color: #00234b;
+    color: #fff;
+}
+.schedule_time:hover{
+    background-color: #00234b;
+    color: #fff;
+}
+.schedule_time{
+    background:#D75353;
+    padding:5px 5px;
+    color:#ffffff;
+}
+#thumbnail-slider ul li{
+    height: auto !important;
+}
+#thumbnail-slider-prev {
+    top: 56px !important;
+}
+#thumbnail-slider-next{
+    top: 56px !important;
 }

@@ -171,7 +171,7 @@ class DoctorController extends Controller
                 $m->to($data['email'], $data['name'])->subject('Please verify your email');
             });
 
-            Session::put('successful', 'Thanks for deactive account! Please check your email and active again Or Create New Account');
+            Session::put('successful', 'Your account de-activated! Please check your email and active again Or Create New Account');
             return redirect()->route('join_us');
          }
 
@@ -186,25 +186,30 @@ class DoctorController extends Controller
 
             $currentUser = Auth::user();
             $user_id = $currentUser->id;
-            
+
             $fontEndKey = [
-                "doctor_office_address",
-                "doctor_office_area",
-                "doctor_office_city",
-                "doctor_office_state",
-                "doctor_office_zip_code",
-                "doctor_public_telephone",
-                "doctor_mobile_telephone"
+                "phone",
+                "lat",
+                "lng",
+                "zip",
+                "city",
+                "area",
+                "region",
+                "country",
+                "address"
             ];
             $fontEndValue = [
-                $request->input('doctor_office_address'),
-                $request->input('doctor_office_area'),
-                $request->input('doctor_office_city'),
-                $request->input('doctor_office_state'),
-                $request->input('doctor_office_zip_code'),
-                $request->input('doctor_public_telephone'),
-                $request->input('doctor_mobile_telephone')
+                $request->input('phone'),
+                $request->input('lat'),
+                $request->input('lng'),
+                $request->input('zip'),
+                $request->input('city'),
+                $request->input('area'),
+                $request->input('region'),
+                $request->input('country'),
+                $request->input('address'),
             ];
+
             for ($i = 0; $i < sizeof($fontEndKey); $i++) {
                 $existing_user_info = DoctorMeta::where('user_id', $user_id)->where('meta_key', $fontEndKey[$i])->first();
                 if (is_null($existing_user_info)) {
@@ -300,7 +305,7 @@ class DoctorController extends Controller
 
         //Handling Insurances
         $insurances = $request->insurance;
-        $insurance = '';
+        $insurance = ',';
         if(sizeof($insurances)>0){
             foreach($insurances as $i){
                 $insurance .= $i.',';

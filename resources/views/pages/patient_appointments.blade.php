@@ -46,6 +46,9 @@
                                                         <th>#</th>
                                                         <th>Patient</th>
                                                         <th>Email</th>
+                                                        <th>Insurance</th>
+                                                        <th>Type</th>
+                                                        <th>Reason</th>
                                                         <th>Date</th>
                                                         <th>Time</th>
                                                         <th>Status</th>
@@ -60,6 +63,9 @@
                                                             <th scope="row">{{$i}}</th>
                                                             <td>{{$ca->first_name.' '.$ca->last_name}}</td>
                                                             <td>{{$ca->email}}</td>
+                                                            <td>{{get_insurance($ca->insurance)}}</td>
+                                                            <td>@if($ca->patient_type){{"New"}}@else{{"Old"}}@endif</td>
+                                                            <td>{{$ca->reason}}</td>
                                                             <td>{{date('l jS \of F Y',strtotime($ca->appointment_date))}}</td>
                                                             <td>{{$ca->appointment_time}}</td>
                                                             <td>
@@ -96,6 +102,9 @@
                                                     <th>#</th>
                                                     <th>Patient</th>
                                                     <th>Email</th>
+                                                    <th>Insurance</th>
+                                                    <th>Type</th>
+                                                    <th>Reason</th>
                                                     <th>Date</th>
                                                     <th>Time</th>
                                                     <th>Status</th>
@@ -109,6 +118,9 @@
                                                         <th scope="row">{{$i}}</th>
                                                         <td>{{$pa->first_name.' '.$pa->last_name}}</td>
                                                         <td>{{$pa->email}}</td>
+                                                        <td>{{get_insurance($pa->insurance)}}</td>
+                                                        <td>@if($pa->patient_type){{"New"}}@else{{"Old"}}@endif</td>
+                                                        <td>{{$pa->reason}}</td>
                                                         <td>{{date('l jS \of F Y',strtotime($pa->appointment_date))}}</td>
                                                         <td>{{$pa->appointment_time}}</td>
                                                         <td>

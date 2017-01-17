@@ -176,4 +176,12 @@ function get_specialty($specialty_id=''){
     return $specialty;
 }
 
+function get_insurance($insurance_id=''){
+    $insurance = DB::table('insurances')
+        ->where('id', '=', $insurance_id)
+        ->value('name');
+
+    return $insurance;
+}
+
 ?>

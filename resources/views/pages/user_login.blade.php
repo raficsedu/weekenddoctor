@@ -4,7 +4,7 @@
 <section class="bodySec signBody joinUsBody clearfix">
     <div class="container">
         <section class="row">
-            <h1>Sing In</h1>
+            <h1>Sign In</h1>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 clearfix">
                 <div class="row">
                     @if(Session::has('successful'))
@@ -74,7 +74,6 @@
 @section('footer_custom_script')
 <script>
     jQuery(function($) {
-
         // validate signup form on keyup and submit
         $("#logInForm").validate({
             rules: {
