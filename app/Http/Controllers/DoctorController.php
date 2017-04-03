@@ -37,30 +37,32 @@ class DoctorController extends Controller
         }
     }
 
-    public function appointments(){
+    public function appointments(Request $request){
+        $doctor_id = $data['doctor_id'] = ($request->d) ? $request->d : Auth::user()->id;
         $last_monday = date("Y-m-d", strtotime('last monday', strtotime('tomorrow')));
         $next_sunday = date("Y-m-d", strtotime("sunday"));
 
-        $data['current_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.patient_id')->where('appointments.doctor_id','=',Auth::user()->id)->whereBetween('appointments.appointment_date', [$last_monday, $next_sunday])->select('appointments.*','users.first_name','users.last_name','users.email')->get();
-        $data['previous_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.patient_id')->where('appointments.doctor_id','=',Auth::user()->id)->where('appointments.appointment_date','<',$last_monday)->get();
+        $data['current_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.patient_id')->where('appointments.doctor_id','=',$doctor_id)->whereBetween('appointments.appointment_date', [$last_monday, $next_sunday])->select('appointments.*','users.first_name','users.last_name','users.email')->get();
+        $data['previous_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.patient_id')->where('appointments.doctor_id','=',$doctor_id)->where('appointments.appointment_date','<',$last_monday)->get();
         $data['insurances'] = Insurances::Select('id', 'name')->get();
 
         return view('pages.doctor_appointment', $data);
     }
 
-    public function schedule(){
-        $user_id = Auth::user()->id;
+    public function schedule(Request $request){
+        $doctor_id = $data['doctor_id'] = ($request->d) ? $request->d : Auth::user()->id;
         $data['insurances'] = Insurances::Select('id', 'name')->get();
-        $data['schedules'] = get_doctor_schedules($user_id);
-        $data['off_days'] = get_doctor_off_days($user_id);
+        $data['schedules'] = get_doctor_schedules($doctor_id);
+        $data['off_days'] = get_doctor_off_days($doctor_id);
 
         return view('pages.doctor_schedule', $data);
     }
 
-    public function settings(){
+    public function settings(Request $request){
+        $doctor_id = $data['doctor_id'] = ($request->d) ? $request->d : Auth::user()->id;
         $data['specialties'] = Speciality::Select('id', 'name')->get();
         $data['insurances'] = Insurances::Select('id', 'name')->get();
-        $data['metas'] = get_doctor_meta(Auth::user()->id);
+        $data['metas'] = get_doctor_meta($doctor_id);
         return view('pages.doctor_settings', $data);
     }
 
@@ -87,9 +89,9 @@ class DoctorController extends Controller
     }
 
     public function save_doctor_schedule(Request $request){
-        $user_id = Auth::user()->id;
+        $doctor_id = ($request->d) ? $request->d : Auth::user()->id;
         //Clear Previous data
-        DB::table('doctor_schedules')->where('user_id', '=', $user_id)->delete();
+        DB::table('doctor_schedules')->where('user_id', '=', $doctor_id)->delete();
         for($i=1;$i<=7;$i++){
             if($request->{"ischecked$i"}){
                 $day = $i;
@@ -101,20 +103,20 @@ class DoctorController extends Controller
 
                 //Insert Into DB
                 DB::table('doctor_schedules')->insert(
-                    ['user_id' => $user_id, 'day' => $day, 'start_time' => $start_time, 'end_time' => $end_time, 'interval_time' => $interval_time, 'time_slots' => $time_slots, 'created_at' => $created_at]
+                    ['user_id' => $doctor_id, 'day' => $day, 'start_time' => $start_time, 'end_time' => $end_time, 'interval_time' => $interval_time, 'time_slots' => $time_slots, 'created_at' => $created_at]
                 );
             }
         }
         Session::put('successful', 'Working Schedule Has Been Updated');
-        return redirect()->intended('/doctor/schedule');
+        return redirect('/doctor/schedule?d='.$doctor_id);
     }
 
     public function passwordChange(Request $request)
     {
-
+        $doctor_id = ($request->d) ? $request->d : Auth::user()->id;
         if ($request->isMethod('post')) {
-            $currentUser = Auth::user();
-            $user_id = $currentUser->id;
+            $currentUser = ($request->d) ? DB::table('users')->where('id',$doctor_id)->first() : Auth::user();
+            $user_id = $doctor_id;
             $current_set_password = $currentUser->password;
 
             $current_password = $request->input('current_password');
@@ -131,61 +133,59 @@ class DoctorController extends Controller
                     $existing_user_pass->save();
 
                     Session::put('successful', 'Your Password Successfully Changed');
-                    return redirect()->route('doctor_settings');
+                    return redirect('/doctor/settings?d='.$doctor_id);
                 } else {
                     Session::put('unsuccessful', 'Your Password and Confirm Password Didn\'t Match');
-                    return redirect()->route('doctor_settings');
+                    return redirect('/doctor/settings?d='.$doctor_id);
                 }
             }else{
                 Session::put('unsuccessful', 'Your Current Password Didn\'t Match');
-                return redirect()->route('doctor_settings');
+                return redirect('/doctor/settings?d='.$doctor_id);
             }
-
         }
     }
 
     public function deactiveAccount(Request $request)
     {
-     if ($request->isMethod('get')) {
-         $currentUser = Auth::user();
-         $user_id = $currentUser->id;
-         $user = User::where('id',$user_id)->where('active',1)->count();
-         if ($user > 0) {
-            $confirmation_code = str_random(10);
-            $user_acc = User::where('id',$user_id)->where('active',1)->first();
-            $user_acc ->verification_code = $confirmation_code;
-            $user_acc ->active = 0;
-            $user_acc->save();
-            //Sending Confirmation Email
-            $data['email'] = $user_acc->email;
-            $data['user_level'] =  $user_acc->user_level;
-            $data['name'] =  $user_acc->first_name . ' ' .  $user_acc->last_name;
-            $data['user_id'] = $user_id;
-            $data['confirmation_code'] = $confirmation_code;
+        $doctor_id = ($request->d) ? $request->d : Auth::user()->id;
+         if ($request->isMethod('get')) {
+             $currentUser = Auth::user();
+             $user_id = $doctor_id;
+             $user = User::where('id',$user_id)->where('active',1)->count();
+             if ($user > 0) {
+                $confirmation_code = str_random(10);
+                $user_acc = User::where('id',$user_id)->where('active',1)->first();
+                $user_acc ->verification_code = $confirmation_code;
+                $user_acc ->active = 0;
+                $user_acc->save();
+                //Sending Confirmation Email
+                $data['email'] = $user_acc->email;
+                $data['user_level'] =  $user_acc->user_level;
+                $data['name'] =  $user_acc->first_name . ' ' .  $user_acc->last_name;
+                $data['user_id'] = $user_id;
+                $data['confirmation_code'] = $confirmation_code;
 
-            $data['s_info'] = get_system_info();
+                $data['s_info'] = get_system_info();
 
-            Mail::send(['html' => 'email.deactive'], $data, function ($m) use ($data) {
-                $m->from($data['s_info']['email'], $data['s_info']['name']);
+                Mail::send(['html' => 'email.deactive'], $data, function ($m) use ($data) {
+                    $m->from($data['s_info']['email'], $data['s_info']['name']);
 
-                $m->to($data['email'], $data['name'])->subject('Please verify your email');
-            });
+                    $m->to($data['email'], $data['name'])->subject('Please verify your email');
+                });
 
-            Session::put('successful', 'Your account de-activated! Please check your email and active again Or Create New Account');
-            return redirect()->route('join_us');
+                Session::put('successful', 'Your account de-activated! Please check your email and active again Or Create New Account');
+                return redirect()->route('join_us');
+             }
          }
-
-     }
-
     }
 
     public function doctorOfficeInfo(Request $request)
     {
-
+        $doctor_id = ($request->d) ? $request->d : Auth::user()->id;
         if ($request->isMethod('post')) {
 
             $currentUser = Auth::user();
-            $user_id = $currentUser->id;
+            $user_id = $doctor_id;
 
             $fontEndKey = [
                 "phone",
@@ -230,7 +230,7 @@ class DoctorController extends Controller
         }
 
         Session::put('successful', 'Your Office Information Successfully Saved');
-        return redirect()->route('doctor_settings');
+        return redirect('/doctor/settings?d='.$doctor_id);
     }
 
     public function insert_off_day(Request $request){
@@ -239,7 +239,7 @@ class DoctorController extends Controller
         $temp2 = $temp[2].'-'.$temp[0].'-'.$temp[1];
         $date = new DateTime($temp2);
         $data['date'] = $date->format('l jS \of F Y');
-        $user_id = Auth::user()->id;
+        $user_id = ($request->d) ? $request->d : Auth::user()->id;
         $total_off_days = DB::table('doctor_off_days')->where('user_id',$user_id )->count();
         $data['i'] = $total_off_days + 8;
 
@@ -247,7 +247,7 @@ class DoctorController extends Controller
     }
 
     public function save_off_days(Request $request){
-        $user_id = Auth::user()->id;
+        $user_id = ($request->d) ? $request->d : Auth::user()->id;
 
         $i = $request->form_item_no;
         $date = $this->getDBdateformat($request->us_date);
@@ -278,7 +278,7 @@ class DoctorController extends Controller
     }
 
     public function delete_off_days(Request $request){
-        $user_id = Auth::user()->id;
+        $user_id = ($request->d) ? $request->d : Auth::user()->id;
         $date = $this->getDBdateformat($request->us_date);
 
         //Clear deleted data
@@ -294,6 +294,8 @@ class DoctorController extends Controller
     }
 
     public function save_doctor_settings(Request $request){
+        $doctor_id = ($request->d) ? $request->d : Auth::user()->id;
+
         //Handling Profile Picture
         if($request->profile_image!=''){
             $file_extension = pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION);
@@ -329,11 +331,11 @@ class DoctorController extends Controller
 
         //Inserting into DB
         foreach($metas as $key => $meta){
-            update_meta('doctor_metas',Auth::user()->id,$key,$meta);
+            update_meta('doctor_metas',$doctor_id,$key,$meta);
         }
 
         Session::put('successful', 'Your Settings Successfully Saved');
-        return redirect()->route('doctor_settings');
+        return redirect('/doctor/settings?d='.$doctor_id);
     }
 
     public function doctor_profile(Request $request){

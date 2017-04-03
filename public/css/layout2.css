@@ -365,10 +365,6 @@ ul.breadCrmList li a.breadCrmActive {
 	vertical-align: middle;
 	display: inline-block;
 }
-.topFooter call {
-}
-.topFooter msg {
-}
 .redFooter {
 	padding: 50px 0;
 	background-color: #d75353;
@@ -417,7 +413,7 @@ ul.breadCrmList li a.breadCrmActive {
 	float: left;
 	margin: 0 3px 0 0;
 }
- .bottomFooter .weekEnd ul li:last-chaild {
+ .bottomFooter .weekEnd ul li:last-child {
  margin-right: 0;
 }
 .bottomFooter .weekEnd h2 {
@@ -679,7 +675,7 @@ ul.breadCrmList li a.breadCrmActive {
 	-o-transform: scale(1.5); /* Opera */
 }
 .subListing .info {
-	color: #8e88e;
+	color: #8e88ee;
 	font-size: 14px;
 	display: block;
 	margin: 5px 0 0 0;
@@ -2141,10 +2137,8 @@ select.pagiantion{
   width: auto;
   display: inline-block;
 }
-.box{
-  th{
+.box th{
     cursor: pointer;
-  }
 }
 
 .app_ui{ margin:20px auto; text-align:center; }
@@ -2206,4 +2200,42 @@ background: #333333;
 }
 #thumbnail-slider-next{
     top: 56px !important;
+}
+.nb_note_1{
+    width: 44%;
+    float: left;
+    margin-top: 4%;
+    font-weight: bold;
+    color: #000;
+    background: yellow;
+}
+.upcoming_appointments{
+    width: 100%;
+    float: left;
+    border: 1px solid #ccc;
+}
+.ua_img{
+    width: 20%;
+    float: left;
+}
+.ua_img img{
+    width: 80%;
+    float: left;
+    padding: 10%;
+}
+.ua_details{
+    width: 80%;
+    float: left;
+}
+.ua_doctor_title{
+    width: 100%;
+    float: left;
+    text-align: left;
+    padding-top: 3%;
+    margin-bottom: 5%;
+}
+.ua_info{
+    width: 33%;
+    float: left;
+    font-size: 12px;
 }

@@ -42,6 +42,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
                             <form name="frmSlot" action="{{url('/save-doctor-schedule')}}" method="post">
                             {{ csrf_field() }}
+                                <input type="hidden" name="d" value="{{$doctor_id}}">
                             <section class="content">
                             <div class="row">
 
@@ -139,6 +140,7 @@
                                                                 {{--*/ $i++ /*--}}
                                                                 <form id="off_day_form{{$i}}" name="off_day_form{{$i}}" method="get" enctype="multipart/form-data">
                                                                     {{ csrf_field() }}
+                                                                    <input type="hidden" name="d" value="{{$doctor_id}}">
                                                                     <input type="hidden" name="form_item_no" value="{{$i}}">
                                                                     <input id="us_date{{$i}}" class="rawusdate" type="hidden" name="us_date" value="{{getUSdateformat($row->date)}}">
                                                                     <div id="day{{$i}}" class="day">
@@ -258,7 +260,7 @@ $(function ($) {
             }else{
                 //Calling Ajax
                 $.ajax({
-                    url: "{{url('/insert-doctor-off-day')}}",
+                    url: "{{url('/insert-doctor-off-day?d='.$doctor_id)}}",
                     type: 'GET',
                     data: { date:date },
                     success: function(response)
@@ -408,7 +410,7 @@ $(function ($) {
         var data = $('#off_day_form'+sl).serialize();
 
         $.ajax({
-            url: "{{url('/save-off-days')}}",
+            url: "{{url('/save-off-days?d='.$doctor_id)}}",
             method: "GET",
             data: data,
             success: function(response)
@@ -424,7 +426,7 @@ $(function ($) {
         var data = $('#off_day_form'+sl).serialize();
 
         $.ajax({
-            url: "{{url('/delete-off-days')}}",
+            url: "{{url('/delete-off-days?d='.$doctor_id)}}",
             method: "GET",
             data: data,
             success: function(response)

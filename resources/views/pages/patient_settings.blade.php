@@ -52,6 +52,7 @@ if(isset($metas['date_of_birth'])){
                                 <div class="tab-pane active" id="a">
                                     <form id="profile" action="{{url('/patient-profile')}}" method="post">
                                      {{ csrf_field() }}
+                                        <input type="hidden" name="p" value="{{$patient_id}}">
                                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                         <div class="singBody">
 
@@ -112,7 +113,7 @@ if(isset($metas['date_of_birth'])){
                                                 <button class="signBtn" type="submit" style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</button>
                                                 <a class="signBtn" href="#"
                                                 style="background:#d75353; font-size:18px; padding:15px !important;">Cancel</a>
-                                                <a class="signBtn" href="deactive-account"
+                                                <a class="signBtn" href="{{url('/deactive-account?p='.$patient_id)}}"
                                                 style="background:none; color:#D75353; float:right; font-size:16px;">Dactivate Account</a>
                                             </div>
                                         </div>
@@ -122,6 +123,7 @@ if(isset($metas['date_of_birth'])){
                             <div class="tab-pane" id="b">
                                 <form id="pass_change" action="{{url('/patient-password-change')}}" method="post">
                                  {{ csrf_field() }}
+                                    <input type="hidden" name="p" value="{{$patient_id}}">
                                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                     <div class="singBody">
                                         <div class="singRow">
@@ -148,6 +150,7 @@ if(isset($metas['date_of_birth'])){
                         <div class="tab-pane" id="c">
                             <form id="nottification_settings" action="{{url('/nottification-settings')}}" method="post">
                              {{ csrf_field() }}
+                                <input type="hidden" name="p" value="{{$patient_id}}">
                              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                 <div class="singRow">
                                     <label><strong>Emails</strong></label>
@@ -184,6 +187,7 @@ if(isset($metas['date_of_birth'])){
                     <div class="tab-pane" id="d">
                         <form id="insurance_settings" action="{{url('/insurance-settings')}}" method="post">
                             {{ csrf_field() }}
+                            <input type="hidden" name="p" value="{{$patient_id}}">
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                 <div class="singBody">
                                     <div class="singRow">
@@ -224,6 +228,7 @@ if(isset($metas['date_of_birth'])){
                     <div class="tab-pane" id="e">
                         <form id="insurance_settings" action="{{url('/demographic-settings')}}" method="post">
                             {{ csrf_field() }}
+                            <input type="hidden" name="p" value="{{$patient_id}}">
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                                 <div class="singRow ">
                                     <label><strong>Race Select one or more</strong></label>

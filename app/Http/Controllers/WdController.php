@@ -27,6 +27,20 @@ class WdController extends Controller
         $data['specialities'] = Speciality::Select('id', 'name')->get();
         $data['insurances'] = Insurances::Select('id', 'name')->get();
         $data['doctors'] = DB::table('users')->where('active',1)->where('user_level',2)->take(4)->get();
+        if(sizeof($data['doctors'])){
+            //Making Data for the Map
+            foreach($data['doctors'] as $k=> $d){
+                $meats = get_doctor_meta($d->id);
+                $data['locations'][$k]['lat'] = $meats['lat'];
+                $data['locations'][$k]['long'] = $meats['lng'];
+                $data['locations'][$k]['info'] = '<a href="'.url('doctor/'.$d->id).'">'.$d->first_name." ".$d->last_name.'</a>';
+                if(isset($meats['speciality'])){
+                    $data['locations'][$k]['info'] .= "<br>".get_specialty($meats['speciality']);
+                }
+            }
+        }else{
+            $data['locations'] = array();
+        }
         return view('pages.home',$data);
     }
 
@@ -47,7 +61,7 @@ class WdController extends Controller
 
     public function medical_group()
     {
-        return view('pages.medical_group',$data);
+        return view('pages.medical_group');
     }
 
     public function authorization()
@@ -128,15 +142,19 @@ class WdController extends Controller
             $data['locations'] = array();
         }
 
-        //Making Data for the Map
-        foreach($data['doctors'] as $k=> $d){
-            $meats = get_doctor_meta($d->id);
-            $data['locations'][$k]['lat'] = $meats['lat'];
-            $data['locations'][$k]['long'] = $meats['lng'];
-            $data['locations'][$k]['info'] = $d->first_name." ".$d->last_name;
-            if(isset($meats['speciality'])){
-                $data['locations'][$k]['info'] .= "<br>".get_specialty($meats['speciality']);
+        if(sizeof($data['doctors'])){
+            //Making Data for the Map
+            foreach($data['doctors'] as $k=> $d){
+                $meats = get_doctor_meta($d->id);
+                $data['locations'][$k]['lat'] = $meats['lat'];
+                $data['locations'][$k]['long'] = $meats['lng'];
+                $data['locations'][$k]['info'] = '<a href="'.url('doctor/'.$d->id).'">'.$d->first_name." ".$d->last_name.'</a>';
+                if(isset($meats['speciality'])){
+                    $data['locations'][$k]['info'] .= "<br>".get_specialty($meats['speciality']);
+                }
             }
+        }else{
+            $data['locations'] = array();
         }
 
         return view('pages.medical_group',$data);
@@ -264,15 +282,19 @@ class WdController extends Controller
 
     public function nearby_doctors(){
         $data['doctors'] = DB::table('users')->where('active',1)->where('user_level',2)->take(4)->get();
-        //Making Data for the Map
-        foreach($data['doctors'] as $k=> $d){
-            $meats = get_doctor_meta($d->id);
-            $data['locations'][$k]['lat'] = $meats['lat'];
-            $data['locations'][$k]['long'] = $meats['lng'];
-            $data['locations'][$k]['info'] = $d->first_name." ".$d->last_name;
-            if(isset($meats['speciality'])){
-                $data['locations'][$k]['info'] .= "<br>".get_specialty($meats['speciality']);
+        if(sizeof($data['doctors'])){
+            //Making Data for the Map
+            foreach($data['doctors'] as $k=> $d){
+                $meats = get_doctor_meta($d->id);
+                $data['locations'][$k]['lat'] = $meats['lat'];
+                $data['locations'][$k]['long'] = $meats['lng'];
+                $data['locations'][$k]['info'] = '<a href="'.url('doctor/'.$d->id).'">'.$d->first_name." ".$d->last_name.'</a>';
+                if(isset($meats['speciality'])){
+                    $data['locations'][$k]['info'] .= "<br>".get_specialty($meats['speciality']);
+                }
             }
+        }else{
+            $data['locations'] = array();
         }
 
         return view('pages.medical_group',$data);

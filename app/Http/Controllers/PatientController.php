@@ -33,27 +33,40 @@ class PatientController extends Controller
         }
     }
 
-    public function patient_settings()
+    public function patient_settings(Request $request)
     {
+        $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
         $data['insurances'] = Insurances::Select('id', 'name')->get();
         $data['metas'] = get_patient_meta(Auth::user()->id);
         return view('pages.patient_settings', $data);
     }
 
-    public function patient_medicalteam()
+    public function patient_medicalteam(Request $request)
     {
+        $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
+
         $data['insurances'] = Insurances::Select('id', 'name')->get();
         $data['specialties'] = Speciality::Select('id', 'name')->get();
+        //Getting My Appointments
+        $data['appointments'] = DB::table('appointments')
+            ->where('patient_id',$patient_id)
+            ->where('appointment_date', '>=' , date('Y-m-d'))
+            ->where('doctor_cancelled',0)
+            ->where('patient_cancelled',0)
+            ->get();
+
         return view('pages.patient_medicalteam', $data);
     }
 
-    public function patient_appointments()
+    public function patient_appointments(Request $request)
     {
+        $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
+
         $last_monday = date("Y-m-d", strtotime('last monday', strtotime('tomorrow')));
         $next_sunday = date("Y-m-d", strtotime("sunday"));
 
-        $data['current_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.doctor_id')->where('appointments.patient_id','=',Auth::user()->id)->whereBetween('appointments.appointment_date', [$last_monday, $next_sunday])->select('appointments.*','users.first_name','users.last_name','users.email')->get();
-        $data['previous_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.doctor_id')->where('appointments.patient_id','=',Auth::user()->id)->where('appointments.appointment_date','<',$last_monday)->get();
+        $data['current_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.doctor_id')->where('appointments.patient_id','=',$patient_id)->whereBetween('appointments.appointment_date', [$last_monday, $next_sunday])->select('appointments.*','users.first_name','users.last_name','users.email')->get();
+        $data['previous_appointments'] = DB::table('appointments')->join('users', 'users.id', '=', 'appointments.doctor_id')->where('appointments.patient_id','=',$patient_id)->where('appointments.appointment_date','<',$last_monday)->get();
         $data['insurances'] = Insurances::Select('id', 'name')->get();
 
         return view('pages.patient_appointments', $data);
@@ -61,10 +74,12 @@ class PatientController extends Controller
 
     public function patientProfile(Request $request)
     {
+        $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
+
         if ($request->isMethod('post')) {
 
             $currentUser = Auth::user();
-            $user_id = $currentUser->id;
+            $user_id = $patient_id;
             $date_of_birth = $request->input('birth_month') . "/" . $request->input('birth_date') . "/" . $request->input('birth_year');
             $fontEndKey = [
                 "cell_no",
@@ -104,14 +119,14 @@ class PatientController extends Controller
         }
 
         Session::put('successful', 'Your Settings Successfully Saved');
-        return redirect()->route('patient_settings');
+        return redirect('/patient/settings?p='.$patient_id);
     }
 
     public function passwordChange(Request $request)
     {
-
+        $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
         if ($request->isMethod('post')) {
-            $currentUser = Auth::user();
+            $currentUser = ($request->p) ? DB::table('users')->where('id',$patient_id)->first() : Auth::user();
             $user_id = $currentUser->id;
             $current_set_password = $currentUser->password;
 
@@ -129,14 +144,14 @@ class PatientController extends Controller
                     $existing_user_pass->save();
 
                     Session::put('successful', 'Your Password Successfully Changed');
-                    return redirect()->route('patient_settings');
+                    return redirect('/patient/settings?p='.$patient_id);
                 } else {
                     Session::put('unsuccessful', 'Your Password and Confirm Password Didn\'t Match');
-                    return redirect()->route('patient_settings');
+                    return redirect('/patient/settings?p='.$patient_id);
                 }
             }else{
                 Session::put('unsuccessful', 'Your Current Password Didn\'t Match');
-                return redirect()->route('patient_settings');
+                return redirect('/patient/settings?p='.$patient_id);
             }
 
         }
@@ -144,10 +159,10 @@ class PatientController extends Controller
 
     public function notificationSettings(Request $request)
     {
-        //dd("aaaaaaaaaaaa");
+        $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
         if ($request->isMethod('post')) {
 
-            $currentUser = Auth::user();
+            $currentUser = ($request->p) ? DB::table('users')->where('id',$patient_id)->first() : Auth::user();
             $user_id = $currentUser->id;
             $fontEndKey = [
                 "Wellness reminders",
@@ -183,10 +198,10 @@ class PatientController extends Controller
 
     public function insuranceSettings(Request $request)
     {
-
+        $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
         if ($request->isMethod('post')) {
 
-            $currentUser = Auth::user();
+            $currentUser = ($request->p) ? DB::table('users')->where('id',$patient_id)->first() : Auth::user();
             $user_id = $currentUser->id;
             $fontEndKey = [
                 "medical_insurance",
@@ -215,16 +230,16 @@ class PatientController extends Controller
             }
         }
         Session::put('successful', 'Your Insurance Settings Successfully Changed');
-        return redirect()->route('patient_settings');
+        return redirect('/patient/settings?p='.$patient_id);
     }
 
     public function demographicSettings(Request $request)
     {
-        //  dd($request->all());
 
+        $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
         if ($request->isMethod('post')) {
 
-            $currentUser = Auth::user();
+            $currentUser = ($request->p) ? DB::table('users')->where('id',$patient_id)->first() : Auth::user();
             $user_id = $currentUser->id;
             $fontEndKey = [
                 "American Indian or Alaska Native",
@@ -276,38 +291,67 @@ class PatientController extends Controller
         return view('pages.settings', ['insurances' => $insurances]);
     }
      public function deactiveAccount(Request $request)
-    {
-     if ($request->isMethod('get')) {
-         $currentUser = Auth::user();
-         $user_id = $currentUser->id;
-         $user = User::where('id',$user_id)->where('active',1)->count();
-         if ($user > 0) {
-            $confirmation_code = str_random(10);
-            $user_acc = User::where('id',$user_id)->where('active',1)->first();
-            $user_acc ->verification_code = $confirmation_code;
-            $user_acc ->active = 0;
-            $user_acc->save();
-            //Sending Confirmation Email
-            $data['email'] = $user_acc->email;
-            $data['user_level'] =  $user_acc->user_level;
-            $data['name'] =  $user_acc->first_name . ' ' .  $user_acc->last_name;
-            $data['user_id'] = $user_id;
-            $data['confirmation_code'] = $confirmation_code;
+     {
+         $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
+         if ($request->isMethod('get')) {
+             $currentUser = ($request->p) ? DB::table('users')->where('id',$patient_id)->first() : Auth::user();
+             $user_id = $currentUser->id;
+             $user = User::where('id',$user_id)->where('active',1)->count();
+             if ($user > 0) {
+                $confirmation_code = str_random(10);
+                $user_acc = User::where('id',$user_id)->where('active',1)->first();
+                $user_acc ->verification_code = $confirmation_code;
+                $user_acc ->active = 0;
+                $user_acc->save();
+                //Sending Confirmation Email
+                $data['email'] = $user_acc->email;
+                $data['user_level'] =  $user_acc->user_level;
+                $data['name'] =  $user_acc->first_name . ' ' .  $user_acc->last_name;
+                $data['user_id'] = $user_id;
+                $data['confirmation_code'] = $confirmation_code;
 
-            $data['s_info'] = get_system_info();
+                $data['s_info'] = get_system_info();
 
-            Mail::send(['html' => 'email.deactive'], $data, function ($m) use ($data) {
-                $m->from($data['s_info']['email'], $data['s_info']['name']);
+                Mail::send(['html' => 'email.deactive'], $data, function ($m) use ($data) {
+                    $m->from($data['s_info']['email'], $data['s_info']['name']);
 
-                $m->to($data['email'], $data['name'])->subject('Please verify your email');
-            });
+                    $m->to($data['email'], $data['name'])->subject('Please verify your email');
+                });
 
-            Session::put('successful', 'Thanks for deactive account! Please check your email and active again');
-            return redirect()->route('join_us');
+                Session::put('successful', 'Thanks for deactive account! Please check your email and active again');
+                return redirect()->route('join_us');
+             }
+
          }
-
-     }
-
     }
 
+    public function patient_medical_search(Request $request){
+        $cat_id = $request->cat_id;
+        $data['doctors'] = DB::table('users')
+            ->select('users.*')
+            ->join('doctor_metas', 'users.id', '=', 'doctor_metas.user_id')
+            ->where('users.active',1)
+            ->where('users.user_level',2)
+            ->where('doctor_metas.meta_key','speciality')
+            ->where('doctor_metas.meta_value',$cat_id)
+            ->distinct()
+            ->get();
+
+        if(sizeof($data['doctors'])){
+            //Making Data for the Map
+            foreach($data['doctors'] as $k=> $d){
+                $meats = get_doctor_meta($d->id);
+                $data['locations'][$k]['lat'] = $meats['lat'];
+                $data['locations'][$k]['long'] = $meats['lng'];
+                $data['locations'][$k]['info'] = '<a href="'.url('doctor/'.$d->id).'">'.$d->first_name." ".$d->last_name.'</a>';
+                if(isset($meats['speciality'])){
+                    $data['locations'][$k]['info'] .= "<br>".get_specialty($meats['speciality']);
+                }
+            }
+        }else{
+            $data['locations'] = array();
+        }
+
+        return view('pages.medical_group',$data);
+    }
 }

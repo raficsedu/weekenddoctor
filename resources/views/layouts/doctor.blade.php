@@ -39,14 +39,10 @@
                             Welcome {{Auth::user()->first_name}} &nbsp; <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            @if(Auth::user()->user_level==2)
-                            <li><a href="{{url('/doctor/appointments')}}">Appointments</a></li>
-                            <li><a href="{{url('/doctor/schedule')}}">My Schedule</a></li>
-                            <li><a href="{{url('/doctor/settings')}}">Settings</a></li>
-                            @else
-                            <li><a href="{{url('/patient/medicalteam')}}">Medical Team</a></li>
-                            <li><a href="{{url('/patient/appointments')}}">Past Appointments</a></li>
-                            <li><a href="{{url('/patient/settings')}}">Settings</a></li>
+                            @if(Auth::user()->user_level==2 || Auth::user()->user_level==3)
+                            <li><a href="{{url('/doctor/appointments?d='.$doctor_id)}}">Appointments</a></li>
+                            <li><a href="{{url('/doctor/schedule?d='.$doctor_id)}}">My Schedule</a></li>
+                            <li><a href="{{url('/doctor/settings?d='.$doctor_id)}}">Settings</a></li>
                             @endif
                             <li><a href="{{ url('/logout') }}" style="color:#e04848 !important;">Logout</a></li>
                         </ul>
@@ -76,13 +72,13 @@
         <div class="container">
             <div class="row row-centered">
                 <div class="col-md-3 tab_first">
-                    <li><a href="{{url('doctor/appointments')}}" class="tab_title{{$tab1}}"><i class="fa fa-book padding"></i>Appointments</a></li>
+                    <li><a href="{{url('doctor/appointments?d='.$doctor_id)}}" class="tab_title{{$tab1}}"><i class="fa fa-book padding"></i>Appointments</a></li>
                 </div>
                 <div class="col-md-3">
-                    <li><a href="{{url('doctor/schedule')}}" class="tab_title{{$tab2}}"><i class="fa fa-calendar padding"></i>Schedule</a></li>
+                    <li><a href="{{url('doctor/schedule?d='.$doctor_id)}}" class="tab_title{{$tab2}}"><i class="fa fa-calendar padding"></i>Schedule</a></li>
                 </div>
                 <div class="col-md-2 tab_last">
-                    <li><a href="{{url('doctor/settings')}}" class="tab_title{{$tab3}}"><i class="fa fa-asterisk padding"></i>Settings</a></li>
+                    <li><a href="{{url('doctor/settings?d='.$doctor_id)}}" class="tab_title{{$tab3}}"><i class="fa fa-asterisk padding"></i>Settings</a></li>
                 </div>
             </div>
             <hr>

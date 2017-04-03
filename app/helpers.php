@@ -184,4 +184,20 @@ function get_insurance($insurance_id=''){
     return $insurance;
 }
 
+function get_doctor_info($doctor_id=''){
+    $data['doctor'] = DB::table('users')
+        ->where('id',$doctor_id)
+        ->first();
+    $data['metas'] = get_doctor_meta($doctor_id);
+
+    return $data;
+}
+
+function us_date_format($date=''){
+    $t = explode('-',$date);
+    $date = $t[1].'-'.$t[2].'-'.$t[0];
+
+    return $date;
+}
+
 ?>

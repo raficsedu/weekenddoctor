@@ -40,6 +40,7 @@
                             <th data-field="name" data-sortable="true">Name</th>
                             <th data-field="email"  data-sortable="false">Email</th>
                             <th data-field="action" data-sortable="false">Action</th>
+                            <th data-field="view" data-sortable="false">View</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -50,6 +51,7 @@
                             <td>{{$d->first_name." ".$d->last_name}}</td>
                             <td>{{$d->email}}</td>
                             <td>@if($d->active)<a style="color: red;" href="{{url('/admin/0/1/'.$d->id)}}">De-activate this user</a>@else<a style="color: green;" href="{{url('/admin/1/1/'.$d->id)}}">Activate this user</a>@endif</td>
+                            <td><a href="{{url('/patient/medicalteam?p='.$d->id)}}" target="_blank" class="btn btn-info">View/Edit</a></td>
                         </tr>
                         @endforeach
                         </tbody>

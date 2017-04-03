@@ -11,6 +11,9 @@
             </div>
             <br><br><br><br>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 clearfix customization1">
+                <div class="nb_note_1">
+                    <span> For More Dates , Click on the Specific Doctor</span>
+                </div>
                 <div class="cob">
                     <div class="rig-btn"><?php echo date("l", strtotime("sunday"));echo "<br>";echo date("j M", strtotime("sunday"));?></div>
                 </div>

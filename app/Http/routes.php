@@ -55,6 +55,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/demographic-settings', ['uses' => 'PatientController@demographicSettings', 'as' => 'demographic_settings']);
     Route::post('/insurance-settings', ['uses' => 'PatientController@insuranceSettings', 'as' => 'insurance_settings']);
     Route::get('/deactive-account', ['uses' => 'PatientController@deactiveAccount', 'as' => 'deactive_account']);
+    Route::get('/patient/medical-search/{cat_id}', ['uses' => 'PatientController@patient_medical_search', 'as' => 'patient_medicalSearch']);
+    Route::post('/patient/medical-search', ['uses' => 'PatientController@patient_medical_search', 'as' => 'patient_medicalSearch']);
 
     //Doctor Route
     Route::get('/doctor-profile', ['uses' => 'WdController@doctor_profile', 'as' => 'doctor_profile']);

@@ -55,6 +55,7 @@
                 ?>
                 <form id="profile" action="{{url('save-doctor-settings')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
+                    <input type="hidden" name="d" value="{{$doctor_id}}">
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                         <div class="singBody">
 
@@ -142,6 +143,7 @@
             <div class="tab-pane" id="b">
                 <form id="pass_change" action="{{url('/password-change')}}" method="post">
                     {{ csrf_field() }}
+                    <input type="hidden" name="d" value="{{$doctor_id}}">
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                     </div>
                 </form>
@@ -149,6 +151,7 @@
             <div class="tab-pane" id="c">
                 <form id="" action="{{url('/doctor/office/info')}}" method="post">
                     {{ csrf_field() }}
+                    <input type="hidden" name="d" value="{{$doctor_id}}">
                     <input type="hidden" name="registration_type" value="2">
                     <input type="hidden" name="lat" id="lat" value="@if(isset($metas['lat'])){{$metas['lat']}}@endif"/>
                     <input type="hidden" name="lng" id="lng" value="@if(isset($metas['lng'])){{$metas['lng']}}@endif"/>
@@ -182,6 +185,7 @@
             <div class="tab-pane" id="d">
                 <form id="pass_change" action="{{url('/doctor-password-change')}}" method="post">
                     {{ csrf_field() }}
+                    <input type="hidden" name="d" value="{{$doctor_id}}">
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 clearfix" style="padding:0px 20px;">
                         <div class="singBody">
                             <div class="singRow">

@@ -41,6 +41,7 @@
                             <th data-field="email"  data-sortable="false">Email</th>
                             <th data-field="specialty" data-sortable="false">Specialty</th>
                             <th data-field="action" data-sortable="false">Action</th>
+                            <th data-field="view" data-sortable="false">View</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -52,6 +53,7 @@
                                 <td>{{$d->email}}</td>
                                 <td>@if(isset(get_doctor_meta($d->id)['speciality'])){{get_specialty(get_doctor_meta($d->id)['speciality'])}}@else{{"-"}}@endif</td>
                                 <td>@if($d->active)<a style="color: red;" href="{{url('/admin/0/2/'.$d->id)}}">De-activate this user</a>@else<a style="color: green;" href="{{url('/admin/1/2/'.$d->id)}}">Activate this user</a>@endif</td>
+                                <td><a href="{{url('/doctor/appointments?d='.$d->id)}}" target="_blank" class="btn btn-info">View/Edit</a></td>
                             </tr>
                         @endforeach
                         </tbody>

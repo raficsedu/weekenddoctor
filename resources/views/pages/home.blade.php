@@ -193,13 +193,7 @@
     </div>
 </article>
 <div class="mapHome">
-    <iframe
-        width="100%"
-        height="300"
-        frameborder="0" style="border:0"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD_H_Q5act_fZ9Y-TdiXp3UkFR113pW08U
-    &q=276%205th%20Ave%20%23704%2C%20New%20York%2C%20NY%2010001+(WeekendDocs)&amp;" allowfullscreen>
-    </iframe>
+    <div id="map"></div>
 </div>
 <section class="bodySec clearfix">
     <div class="container">
@@ -262,4 +256,79 @@
     </div>
 </article>
 </section>
+@endsection
+@section('footer_custom_script')
+<style type="text/css">
+    #map { width: 100%; height: 300px; border: 0px; padding: 0px; }
+</style>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_H_Q5act_fZ9Y-TdiXp3UkFR113pW08U&libraries=places"></script>
+<script>
+    $(function(){
+        initMap();
+    });
+    var icon = new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/micons/red.png",
+        new google.maps.Size(32, 32), new google.maps.Point(0, 0),
+        new google.maps.Point(16, 32));
+    var center = null;
+    var map = null;
+    var currentPopup;
+    var bounds = new google.maps.LatLngBounds();
+
+    function addMarker(lat, lng, info)
+    {
+        var pt = new google.maps.LatLng(lat, lng);
+        bounds.extend(pt);
+        var marker = new google.maps.Marker(
+            {
+                position: pt,
+//                icon: icon,
+                map: map
+            });
+        var popup = new google.maps.InfoWindow(
+            {
+                content: info,
+                maxWidth: 300
+            });
+
+        google.maps.event.addListener(marker, "click", function()
+        {
+            if (currentPopup != null)
+            {
+                currentPopup.close();
+                currentPopup = null;
+            }
+            popup.open(map, marker);
+            currentPopup = popup;
+        });
+        google.maps.event.addListener(popup, "closeclick", function()
+        {
+            map.panTo(center);
+            currentPopup = null;
+        });
+    }
+
+    function initMap()
+    {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: new google.maps.LatLng(0, 0),
+            zoom: 0,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false,
+            mapTypeControlOptions:
+            {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+            },
+            navigationControl: true,
+            navigationControlOptions:
+            {
+                style: google.maps.NavigationControlStyle.SMALL
+            }
+        });
+        <?php foreach($locations as $loc) { //you could replace this with your while loop query ?>
+        addMarker(<?php echo $loc["lat"]; ?>, <?php echo $loc["long"]; ?>, '<?php echo $loc["info"]; ?>');
+        <?php } ?>
+        center = bounds.getCenter();
+        map.fitBounds(bounds);
+    }
+</script>
 @endsection
