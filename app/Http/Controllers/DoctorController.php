@@ -39,6 +39,8 @@ class DoctorController extends Controller
 
     public function appointments(Request $request){
         $doctor_id = $data['doctor_id'] = ($request->d) ? $request->d : Auth::user()->id;
+        $data['current_user'] = ($request->d) ? DB::table('users')->where('id',$doctor_id)->first() : Auth::user();
+
         $last_monday = date("Y-m-d", strtotime('last monday', strtotime('tomorrow')));
         $next_sunday = date("Y-m-d", strtotime("sunday"));
 
@@ -51,6 +53,8 @@ class DoctorController extends Controller
 
     public function schedule(Request $request){
         $doctor_id = $data['doctor_id'] = ($request->d) ? $request->d : Auth::user()->id;
+        $data['current_user'] = ($request->d) ? DB::table('users')->where('id',$doctor_id)->first() : Auth::user();
+
         $data['insurances'] = Insurances::Select('id', 'name')->get();
         $data['schedules'] = get_doctor_schedules($doctor_id);
         $data['off_days'] = get_doctor_off_days($doctor_id);
@@ -60,6 +64,8 @@ class DoctorController extends Controller
 
     public function settings(Request $request){
         $doctor_id = $data['doctor_id'] = ($request->d) ? $request->d : Auth::user()->id;
+        $data['current_user'] = ($request->d) ? DB::table('users')->where('id',$doctor_id)->first() : Auth::user();
+
         $data['specialties'] = Speciality::Select('id', 'name')->get();
         $data['insurances'] = Insurances::Select('id', 'name')->get();
         $data['metas'] = get_doctor_meta($doctor_id);

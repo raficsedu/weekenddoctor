@@ -212,7 +212,7 @@
                         ?>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 clearfix">
                             <aside class="specialistArea">
-                                <div class="specialistPic"><img style="width: 256px;height: 192px;" src="{{$pro_img_url}}" alt=""/></div>
+                                <div class="specialistPic"><img class="doctor_frame" src="{{$pro_img_url}}" alt=""/></div>
                                 <ul class="rating clearfix">
                                     <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>
                                     <li><a href="#"><img src="{{url('public/images/star.png')}}" alt=""/></a></li>

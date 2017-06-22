@@ -82,8 +82,8 @@
 
 
                         <div class="singRow"><label>Have you visited this doctor befour?</label>
-                            <input name="patient_type" type="radio" value="1" checked>&nbsp; &nbsp; I,m a new  patient.<br><br>
-                            <input name="patient_type" type="radio" value="0">&nbsp; &nbsp; I've seen this doctor before.<br><br>
+                            <input name="patient_type" type="radio" value="1" checked>&nbsp; &nbsp; I am a new patient<br><br>
+                            <input name="patient_type" type="radio" value="0">&nbsp; &nbsp; I have seen this doctor before<br><br>
 
                         </div>
                         <div class="line1"></div>
@@ -105,7 +105,7 @@
                 <div class="box-doc1">
                     <h3>Book a {{$metas['doctor_title']}}</h3>
                     <?php
-                    if(isset($metas['profile_image'])){
+                    if(isset($metas['profile_image']) && $metas['profile_image'] != ""){
                         $img_url = url('public/uploads/doctor/'.$metas['profile_image']);
                     }else{
                         $img_url = url('public/images/doctor05.png');

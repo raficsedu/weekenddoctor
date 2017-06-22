@@ -60,7 +60,7 @@ if(isset($metas['date_of_birth'])){
 
                                                 <label>Name</label>
                                                 <br>
-                                                <p style="color:#575757; margin-top:10px;">{{Auth::user()->first_name.' '.Auth::user()->last_name}} - Please call us at (855) 962-3621 to
+                                                <p style="color:#575757; margin-top:10px;">{{$current_user->first_name.' '.$current_user->last_name}} - Please call us at (855) 962-3621 to
                                                     change your name.</p>
                                                 </div>
                                                 <div class="line1"></div>
@@ -308,7 +308,7 @@ if(isset($metas['date_of_birth'])){
                             <div class="singRow">
                                 <label><strong>HIPAA Authorization Settings</strong></label>
 
-                                <p>{{Auth::user()->first_name.' '.Auth::user()->last_name}} – Authorized <a href="#" style="color:#C00; float:right;">Revoke</a></p>
+                                <p>{{$current_user->first_name.' '.$current_user->last_name}} – Authorized <a href="#" style="color:#C00; float:right;">Revoke</a></p>
                             </div>
                             <div class="singRow"><a class="signBtn" href="#"
                                 style="background:#298DC6; font-size:18px; padding:15px !important; margin:0 10px;">Save</a>

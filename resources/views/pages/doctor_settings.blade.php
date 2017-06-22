@@ -60,7 +60,7 @@
                         <div class="singBody">
 
                             <div class="singRow1">
-                                <p style="color:#575757; margin-top:10px;">{{Auth::user()->first_name.' '.Auth::user()->last_name}} - Please call us at (855) 962-3621
+                                <p style="color:#575757; margin-top:10px;">{{$current_user->first_name.' '.$current_user->last_name}} - Please call us at (855) 962-3621
                                     to change your name.</p>
                             </div>
                             <div class="line1"></div>

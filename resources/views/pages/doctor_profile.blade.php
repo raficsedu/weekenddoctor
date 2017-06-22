@@ -51,10 +51,10 @@
                 </div>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 clearfix " style="padding:0;">
-                <div class="calender">
+                <div class="">
 
-                    BOOK APPOINTMENT {{date('Y')}}
-                    <div style="padding:10px; background:#fff; color:#333333; text-align:center; font-size:18px;">
+                    <div class="calender">BOOK APPOINTMENT {{date('Y')}}</div>
+                    <div id="schedule_container" astyle="padding:10px; background:#fff; color:#333333; text-align:center; font-size:18px;">
                         <div id="thumbnail-slider">
                             <div class="inner">
                                 <ul>
@@ -120,4 +120,11 @@
     </div>
 
 </section>
+@endsection
+@section('footer_custom_script')
+<script>
+    $(window).load(function(){
+        $('#schedule_container').next().html("");
+    });
+</script>
 @endsection

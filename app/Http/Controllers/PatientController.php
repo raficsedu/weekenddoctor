@@ -36,6 +36,7 @@ class PatientController extends Controller
     public function patient_settings(Request $request)
     {
         $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
+        $data['current_user'] = ($request->p) ? DB::table('users')->where('id',$patient_id)->first() : Auth::user();
         $data['insurances'] = Insurances::Select('id', 'name')->get();
         $data['metas'] = get_patient_meta(Auth::user()->id);
         return view('pages.patient_settings', $data);
@@ -44,7 +45,7 @@ class PatientController extends Controller
     public function patient_medicalteam(Request $request)
     {
         $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
-
+        $data['current_user'] = ($request->p) ? DB::table('users')->where('id',$patient_id)->first() : Auth::user();
         $data['insurances'] = Insurances::Select('id', 'name')->get();
         $data['specialties'] = Speciality::Select('id', 'name')->get();
         //Getting My Appointments
@@ -61,7 +62,7 @@ class PatientController extends Controller
     public function patient_appointments(Request $request)
     {
         $patient_id = $data['patient_id'] = ($request->p) ? $request->p : Auth::user()->id;
-
+        $data['current_user'] = ($request->p) ? DB::table('users')->where('id',$patient_id)->first() : Auth::user();
         $last_monday = date("Y-m-d", strtotime('last monday', strtotime('tomorrow')));
         $next_sunday = date("Y-m-d", strtotime("sunday"));
 

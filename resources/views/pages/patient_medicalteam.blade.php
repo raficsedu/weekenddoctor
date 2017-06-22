@@ -32,7 +32,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix " style="padding:0;">
                                         <div class="wel-box">
                                             <div class="col-lg-6 col-md-6 col-sm-6 ">
-                                                <h2>Welcome, {{Auth::user()->first_name.' '.Auth::user()->last_name}}!</h2>
+                                                <h2>Welcome, {{$current_user->first_name.' '.$current_user->last_name}}!</h2>
                                                 <p>Click below to find a doctor and <br>
                                                     make an appointment instantly. It’s completely free!</p>
                                             </div>

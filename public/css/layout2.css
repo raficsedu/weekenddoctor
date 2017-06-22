@@ -132,10 +132,11 @@ img {
     float: right;
     background-color: #2176A6;
     color: #fff;
-    padding: 15px 20px;
-    border-radius: 40px;
+    padding: 12px 18px;
+    border-radius: 3px;
     border: none;
     text-align: center;
+    margin-top: 1.5%;
 }
 .providerBtn2:hover{
     background-color: #00234b;
@@ -1513,6 +1514,7 @@ h3 {
 	width: 100%;
 	background: #FFF;
 	margin: 0 5px 10px;
+    min-height: 200px;
 }
 .box-doc1 h3 {
 	font-size: 18px;
@@ -2114,7 +2116,14 @@ a {
 
 .timeline li{ padding:10px; line-height:50px; font-size:18px; margin-bottom:10px;;}
 
-.calender { background:#D75353; line-height:50px; margin:20px; text-align:center; font-size:24px; color:#FFF;}
+.calender {
+    background:#D75353;
+    line-height:50px;
+    margin:20px;
+    text-align:center;
+    font-size:24px;
+    color:#FFF;
+}
 
 
 .time{}
@@ -2180,11 +2189,11 @@ background: #333333;
     margin-bottom: 3%;
 }
 .rig-btn:hover{
-    background-color: #00234b;
+    background-color: orange;
     color: #fff;
 }
 .schedule_time:hover{
-    background-color: #00234b;
+    background-color: orange;
     color: #fff;
 }
 .schedule_time{
@@ -2202,12 +2211,11 @@ background: #333333;
     top: 56px !important;
 }
 .nb_note_1{
-    width: 44%;
+    width: 48%;
     float: left;
-    margin-top: 4%;
+    margin-top: 1%;
     font-weight: bold;
     color: #000;
-    background: yellow;
 }
 .upcoming_appointments{
     width: 100%;
@@ -2238,4 +2246,7 @@ background: #333333;
     width: 33%;
     float: left;
     font-size: 12px;
+}
+.doctor_frame{
+    padding-top: 4%;
 }
